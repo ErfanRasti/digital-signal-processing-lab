@@ -1,4 +1,4 @@
-%% *Basics of Signal Processing in Time and frequency domains*
+%% *Basics of Signal Processing - Visualize Signals*
 %% Pre-requirements
 % * Matlab R2018b or later
 % * Signal Processing Toolbox
