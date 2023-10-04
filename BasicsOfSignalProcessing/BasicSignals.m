@@ -179,7 +179,6 @@ grid on;
 %%%
 % We can define discrete-time rectangular pulse as follows:
 n = -10:10;
-N = length(n);
 rect_pulse = rectpuls(n, 1); % Rectangular pulse with width 1(1 sample)
 figure('Name', 'Discrete-Time Rectangular Pulse');
 stem(n, rect_pulse, 'LineWidth', 1.5);
@@ -226,6 +225,45 @@ stem(n, square_wave, 'LineWidth', 1.5);
 xlabel('Time (s)');
 ylabel('Amplitude');
 title('Discrete-Time Rectangular Wave');
+grid on;
+
+%% Sinusoidal Wave
+% The continuous-time sine wave is defined as follows:
+%
+% $$x(t) = A \sin(2 \pi f t + \phi)$$
+%
+% The discrete-time sine wave is defined as follows:
+%
+% $$x[n] = A \sin(2 \pi f n + \phi)$$
+%
+% We can define continuous-time sinusoidal wave as follows:
+fs = 1e3;
+t = -1:1 / fs:1;
+A = 1;
+f = 10;
+phi = pi / 2;
+sin_wave = A * sin(2 * pi * f * t + phi);
+figure('Name', 'Continuous-Time Sinusoidal Wave');
+plot(t, sin_wave, 'LineWidth', 1.5);
+xlabel('Time (s)');
+ylabel('Amplitude');
+title('Continuous-Time Sinusoidal Wave');
+grid on;
+
+%%%
+% We can define discrete-time sinusoidal wave as follows:
+n = -10:10;
+N = length(n);
+A = 1;
+n0 = 1;
+f0 = 0.1;
+phi = n0 * f0 * 2 * pi;
+sin_wave = A * sin(2 * pi * f0 * n + phi);
+figure('Name', 'Discrete-Time Sinusoidal Wave');
+stem(n, sin_wave, 'LineWidth', 1.5);
+xlabel('Time (s)');
+ylabel('Amplitude');
+title('Discrete-Time Sinusoidal Wave');
 grid on;
 
 %singen
