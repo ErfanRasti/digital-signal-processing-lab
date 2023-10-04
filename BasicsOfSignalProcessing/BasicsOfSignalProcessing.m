@@ -84,3 +84,23 @@ xlabel('Time (s)');
 ylabel('Amplitude');
 title('Sinusoidal Signal 2');
 grid on;
+
+%% Visualize discrete-time signals
+% * Discrete-time signals are made by sampling continuous-time signals
+% (Although in MATLAB continuous-time signals are discrete-time signals
+% with very small sampling time).
+% * The sampling frequency is denoted by |fs| and the sampling time is
+% denoted by |Ts|.
+% * The sampling frequency should satisfy Nyquist theorem to prevent aliasing.
+% The sampling frequency should be at least twice the maximum frequency of
+% the signal.
+% * We use |stem| function to visualize discrete-time signals.
+% The stem function takes two arguments. The first argument is the time
+n = -10:10;
+xn = sin(2 * pi * n / 5);
+figure('Name', 'Discrete Time Signal');
+stem(n, xn, 'LineWidth', 1.5);
+xlabel('Time (s)');
+ylabel('Amplitude');
+title('Discrete Time Signal');
+grid on;
