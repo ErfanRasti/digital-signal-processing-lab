@@ -1,4 +1,9 @@
 %% *Basics of Signal Processing - Stochastic Signals*
+%% Clear the workspace
+close all;
+clear;
+clc;
+
 %% Uniform Stochastic Signals
 % Uniform random variables are used to model situations where any outcome
 % is equally likely. The probability density function of a uniform random
@@ -25,26 +30,24 @@ ylabel('Amplitude');
 grid on;
 
 %%%
-% The probability density function of the uniform noise can be shown by
-% increasing the number of samples.
+% It can be shown that the histogram of a uniform random process is also
+% uniform.
 % More accurate results can be obtained by increasing the number of samples.
-figure('Name', 'Uniform Stochastic Signal PDF');
 stochastic_signal = rand(1, 10000);
-histogram(stochastic_signal, 100);
-title('Uniform Stochastic Signal PDF');
+histogram(stochastic_signal, 50); % 100 bins
+title('Uniform Stochastic Signal Histogram');
 xlabel('Amplitude');
-ylabel('Probability');
+ylabel('Number of Samples');
 grid on;
 
 %%%
 % We can plot the probability density function using |makedist| class
 % and |pdf| function..
-figure('Name', 'Uniform Stochastic Signal PDF');
-pd = makedist('Uniform');
+pd = makedist('Uniform'); % Make a uniform distribution
 x = 0:0.01:1;
-y = pdf(pd, x);
+y = pdf(pd, x); % Calculate the pdf over the x values
 figure('Name', 'Uniform Stochastic Signal PDF');
-plot(x, y);
+plot(x, y, 'LineWidth', 1.5');
 title('Uniform Stochastic Signal PDF');
 xlabel('Amplitude');
 ylabel('Probability');
@@ -73,4 +76,29 @@ plot(stochastic_signal);
 title('Gaussian Stochastic Signal');
 xlabel('Sample');
 ylabel('Amplitude');
+grid on;
+
+%%%
+% It can be shown that the histogram of a Gaussian random process is also
+% Gaussian.
+% More accurate results can be obtained by increasing the number of samples.
+figure('Name', 'Histogram of Gaussian Stochastic Signal');
+stochastic_signal = randn(1, 10000);
+histogram(stochastic_signal, 100);
+title('Histogram of Gaussian Stochastic Signal');
+xlabel('Amplitude');
+ylabel('Number of Samples');
+grid on;
+
+%%%
+% We can plot the probability density function using |makedist| class
+% and |pdf| function..
+pd = makedist('Normal'); % Make a Gaussian distribution
+x = -5:0.01:5;
+y = pdf(pd, x); % Calculate the pdf over the x values
+figure('Name', 'Gaussian Stochastic Signal PDF');
+plot(x, y, 'LineWidth', 1.5');
+title('Gaussian Stochastic Signal PDF');
+xlabel('Amplitude');
+ylabel('Probability');
 grid on;
