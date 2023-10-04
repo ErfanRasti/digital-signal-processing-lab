@@ -1,4 +1,4 @@
-%% *Basics of Signal Processing - Convolution Operator*
+%% *Basics of Signal Processing - Convolution and Filter Operators*
 %% Clear the workspace
 close all;
 clear;
@@ -53,3 +53,15 @@ grid on;
 % as the first input signal.
 % The following example shows the convolution of two rectangular pulses with
 % different lengths.
+
+%% Filter Operator
+% * The filter operator is a special case of the convolution operator.
+% It is used to filter signals.
+% * It is defined in MATLAB as |filter(b, a, x)| where |b| and |a| are the
+% coefficients of the numerator and denominator of the transfer function of
+% the filter respectively.
+% * To create a moving average filter, the numerator coefficients are set to
+% $b = \frac{1}{N} \left[1, 1, \ldots, 1\right]$ and the denominator
+% coefficients are set to $a = 1$.
+% * The |filter| function excludes the transient response of the filter
+% from the output signal and the phase of the output signal is not affected.
