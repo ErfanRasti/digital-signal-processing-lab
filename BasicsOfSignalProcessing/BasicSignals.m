@@ -216,7 +216,6 @@ grid on;
 %%%
 % The discrete-time rectangular wave is defined as follows:
 n = -10:10;
-N = length(n);
 T0 = 5;
 duty_cycle = 0.4;
 square_wave = square(2 * pi * n / T0, duty_cycle * 100);
