@@ -46,28 +46,29 @@ f_axis = linspace(-fs / 2, fs / 2, N); % Frequency axis
 % We use |plot| function to visualize continuous-time signals.
 % The plot function takes two arguments. The first argument is the time
 % axis. The second argument is the signal.
-figure('Name', 'Siunusoidal Signal');
-plot(t, xt, 'LineWidth', 1.5, 'Color', 'r');
-xlim([0 1]);
-xlabel('Time (s)');
-ylabel('Amplitude');
-title('Sinusoidal Signal');
-grid on;
+figure('Name', 'Siunusoidal Signal'); % Create a new figure with specified name
+plot(t, xt, 'LineWidth', 1.5, 'Color', 'r'); % Plot the signal
+xlim([0 1]); % Set the x-axis limits
+xlabel('Time (s)'); % Set the x-axis label
+ylabel('Amplitude'); % Set the y-axis label
+title('Sinusoidal Signal'); % Set the title
+grid on; % Turn on the grid
 
 %%%
 % The |plot| function can be used to visualize multiple signals together.
 % The |hold on| command is used to plot multiple signals together.
+% We use |legend| function to add legend to the figure.
 figure('Name', '2 Siunusoidal Signals');
 plot(t, xt, 'LineWidth', 1.5, 'Color', 'r');
 xlabel('Time (s)');
 ylabel('Amplitude');
 title('Sinusoidal Signal');
 grid on;
-hold on;
+hold on; % Hold the figure
 plot(t, 2 * xt, 'LineWidth', 1.5, 'Color', 'b');
 xlim([0 0.5]);
 ylim([-3 3]);
-legend('x(t)', '2x(t)');
+legend('x(t)', '2x(t)'); % Add legend to the figure
 
 %%%
 % The |subplot| function can be used to visualize multiple signals in
@@ -100,7 +101,7 @@ grid on;
 n = -10:10;
 xn = sin(2 * pi * n / 5);
 figure('Name', 'Discrete Time Signal');
-stem(n, xn, 'LineWidth', 1.5);
+stem(n, xn, 'LineWidth', 1.5); 
 xlabel('Time (s)');
 ylabel('Amplitude');
 title('Discrete Time Signal');
