@@ -42,7 +42,7 @@ grid on;
 
 %%%
 % We can plot the probability density function using |makedist| class
-% and |pdf| function..
+% and |pdf| function.
 pd = makedist('Uniform'); % Make a uniform distribution
 x = 0:0.01:1;
 y = pdf(pd, x); % Calculate the pdf over the x values
@@ -92,13 +92,63 @@ grid on;
 
 %%%
 % We can plot the probability density function using |makedist| class
-% and |pdf| function..
+% and |pdf| function.
 pd = makedist('Normal'); % Make a Gaussian distribution
 x = -5:0.01:5;
 y = pdf(pd, x); % Calculate the pdf over the x values
 figure('Name', 'Gaussian Stochastic Signal PDF');
 plot(x, y, 'LineWidth', 1.5');
 title('Gaussian Stochastic Signal PDF');
+xlabel('Amplitude');
+ylabel('Probability');
+grid on;
+
+%% Poisson Stochastic Signals
+% Poisson random variables are used to model situations where the
+% probability density function is asymmetric and has a long tail. The
+% probability density function of a Poisson random variable is given by
+%
+% $$f(x) = \frac{e^{-\lambda} \lambda^x}{x!}$$
+%
+% The mean and variance of a Poisson random variable are given by
+%
+% $$\mu = \lambda$$
+%
+% $$\sigma^2 = \lambda$$
+
+%%%
+% The following code generates a Poisson random variable with size 1000
+% with mean 5.
+
+stochastic_signal = poissrnd(5, 1, 1000);
+figure('Name', 'Poisson Stochastic Signal');
+plot(stochastic_signal);
+title('Poisson Stochastic Signal');
+xlabel('Sample');
+ylabel('Amplitude');
+grid on;
+
+%%%
+% It can be shown that the histogram of a Poisson random process is also
+% Poisson.
+% More accurate results can be obtained by increasing the number of samples.
+figure('Name', 'Histogram of Poisson Stochastic Signal');
+stochastic_signal = poissrnd(5, 1, 10000);
+histogram(stochastic_signal, 100);
+title('Histogram of Poisson Stochastic Signal');
+xlabel('Amplitude');
+ylabel('Number of Samples');
+grid on;
+
+%%%
+% We can plot the probability density function using |makedist| class
+% and |pdf| function.
+pd = makedist('Poisson', 'lambda', 5); % Make a Poisson distribution
+x = 0:0.01:20;
+y = pdf(pd, x); % Calculate the pdf over the x values
+figure('Name', 'Poisson Stochastic Signal PDF');
+plot(x, y, 'LineWidth', 1.5');
+title('Poisson Stochastic Signal PDF');
 xlabel('Amplitude');
 ylabel('Probability');
 grid on;
