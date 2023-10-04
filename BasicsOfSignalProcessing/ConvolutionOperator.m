@@ -46,3 +46,10 @@ xlabel('Time (s)');
 ylabel('Amplitude');
 ylim([0 1.1]);
 grid on;
+
+%% Convolution of Signals with Different Lengths
+% |conv| function in MATLAB has another syntax which is |conv(x, y, 'same')|.
+% This syntax returns the central part of the convolution with the same length
+% as the first input signal.
+% The following example shows the convolution of two rectangular pulses with
+% different lengths.
