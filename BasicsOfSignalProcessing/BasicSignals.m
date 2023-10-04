@@ -264,5 +264,3 @@ xlabel('Time (s)');
 ylabel('Amplitude');
 title('Discrete-Time Sinusoidal Wave');
 grid on;
-
-%singen
