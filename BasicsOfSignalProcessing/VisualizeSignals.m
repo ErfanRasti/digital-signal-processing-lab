@@ -34,7 +34,7 @@ fs = 1 / Ts; %#ok<NASGU> Sampling frequency
 
 %% Frequency axis definition
 % Frequency axis can be defined based on time axis.
-% 
+%
 % * The sampling frequency should satisfy Nyquist theorem to prevent aliasing.
 fs = 1000; % Sampling frequency
 Ts = 1 / fs; % Sampling time
@@ -74,13 +74,13 @@ legend('x(t)', '2x(t)');
 % different subplots.
 figure('Name', '2 Siunusoidal Signals');
 subplot(2, 1, 1);
-plot(t, x, 'LineWidth', 1.5, 'Color', 'r');
+plot(t, xt, 'LineWidth', 1.5, 'Color', 'r');
 xlabel('Time (s)');
 ylabel('Amplitude');
 title('Sinusoidal Signal 1');
 grid on;
 subplot(2, 1, 2);
-plot(t, 2 * x, 'LineWidth', 1.5, 'Color', 'b');
+plot(t, 2 * xt, 'LineWidth', 1.5, 'Color', 'b');
 xlabel('Time (s)');
 ylabel('Amplitude');
 title('Sinusoidal Signal 2');
@@ -101,6 +101,18 @@ n = -10:10;
 xn = sin(2 * pi * n / 5);
 figure('Name', 'Discrete Time Signal');
 stem(n, xn, 'LineWidth', 1.5);
+xlabel('Time (s)');
+ylabel('Amplitude');
+title('Discrete Time Signal');
+grid on;
+
+%%%
+% We can also use |stairs| function to visualize discrete-time signals.
+% The |stairs| function is similar to |stem| function. The only difference
+% is that the |stairs| function draws a continuous line between the
+% samples.
+figure('Name', 'Discrete Time Signal');
+stairs(n, xn, 'LineWidth', 1.5);
 xlabel('Time (s)');
 ylabel('Amplitude');
 title('Discrete Time Signal');
