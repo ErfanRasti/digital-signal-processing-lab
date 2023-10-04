@@ -34,9 +34,21 @@ fs = 1 / Ts; %#ok<NASGU> Sampling frequency
 
 %% Frequency axis definition
 % Frequency axis can be defined based on time axis.
-% # The sampling frequency should satisfy Nyquist theorem to prevent aliasing.
+% * The sampling frequency should satisfy Nyquist theorem to prevent aliasing.
 fs = 100; % Sampling frequency
 Ts = 1 / fs; % Sampling time
 t = 0:Ts:5; % Time axis
 N = length(t); % Number of samples
 f_axis = linspace(-fs / 2, fs / 2, N); % Frequency axis
+
+%% Visualize continuous-time signals
+% We use |plot| function to visualize continuous-time signals.
+% The plot function takes two arguments. The first argument is the time
+% axis. The second argument is the signal.
+figure('Name', 'Siunusoidal Signal');
+plot(t, xt, 'LineWidth', 1.5, 'Color', 'r');
+xlabel('Time (s)');
+ylabel('Amplitude');
+title('Sinusoidal Signal');
+grid on;
+%%%
