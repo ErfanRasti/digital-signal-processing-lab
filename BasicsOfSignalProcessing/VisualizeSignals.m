@@ -24,7 +24,7 @@ clc;
 fs = 1000; % Sampling frequency
 Ts = 1 / fs; % Sampling time
 t = 0:Ts:2; % Time axis
-xt = cos(2 * pi * 10 * t); %#ok<NASGU> Signal
+xt = cos(2 * pi * 10 * t);
 %%%
 % *Time axis based on the number of samples*
 N = 1000; % Number of samples
@@ -34,6 +34,7 @@ fs = 1 / Ts; %#ok<NASGU> Sampling frequency
 
 %% Frequency axis definition
 % Frequency axis can be defined based on time axis.
+% 
 % * The sampling frequency should satisfy Nyquist theorem to prevent aliasing.
 fs = 1000; % Sampling frequency
 Ts = 1 / fs; % Sampling time
