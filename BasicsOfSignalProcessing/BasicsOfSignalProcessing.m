@@ -35,9 +35,9 @@ fs = 1 / Ts; %#ok<NASGU> Sampling frequency
 %% Frequency axis definition
 % Frequency axis can be defined based on time axis.
 % * The sampling frequency should satisfy Nyquist theorem to prevent aliasing.
-fs = 100; % Sampling frequency
+fs = 1000; % Sampling frequency
 Ts = 1 / fs; % Sampling time
-t = 0:Ts:5; % Time axis
+t = 0:Ts:2; % Time axis
 N = length(t); % Number of samples
 f_axis = linspace(-fs / 2, fs / 2, N); % Frequency axis
 
@@ -47,8 +47,40 @@ f_axis = linspace(-fs / 2, fs / 2, N); % Frequency axis
 % axis. The second argument is the signal.
 figure('Name', 'Siunusoidal Signal');
 plot(t, xt, 'LineWidth', 1.5, 'Color', 'r');
+xlim([0 1]);
 xlabel('Time (s)');
 ylabel('Amplitude');
 title('Sinusoidal Signal');
 grid on;
+
 %%%
+% The |plot| function can be used to visualize multiple signals together.
+% The |hold on| command is used to plot multiple signals together.
+figure('Name', '2 Siunusoidal Signals');
+plot(t, xt, 'LineWidth', 1.5, 'Color', 'r');
+xlabel('Time (s)');
+ylabel('Amplitude');
+title('Sinusoidal Signal');
+grid on;
+hold on;
+plot(t, 2 * xt, 'LineWidth', 1.5, 'Color', 'b');
+xlim([0 0.5]);
+ylim([-3 3]);
+legend('x(t)', '2x(t)');
+
+%%%
+% The |subplot| function can be used to visualize multiple signals in
+% different subplots.
+figure('Name', '2 Siunusoidal Signals');
+subplot(2, 1, 1);
+plot(t, x, 'LineWidth', 1.5, 'Color', 'r');
+xlabel('Time (s)');
+ylabel('Amplitude');
+title('Sinusoidal Signal 1');
+grid on;
+subplot(2, 1, 2);
+plot(t, 2 * x, 'LineWidth', 1.5, 'Color', 'b');
+xlabel('Time (s)');
+ylabel('Amplitude');
+title('Sinusoidal Signal 2');
+grid on;
