@@ -152,3 +152,11 @@ title('Poisson Stochastic Signal PDF');
 xlabel('Amplitude');
 ylabel('Probability');
 grid on;
+
+%% Exponential Stochastic Signalsq
+%% Lognormal Stochastic Signals
+%% Rayleigh Stochastic Signals
+%% Rician Stochastic Signals\
+%% Weibull Stochastic Signals
+%% Gamma Stochastic Signals
+%% |random| Function
