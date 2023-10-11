@@ -194,4 +194,33 @@ xlabel('Frequency (Hz)');
 ylabel('Amplitude');
 title('Fourier Transform of Continuous Time Signal');
 grid on;
-
+%%%
+% # |fft| function in matlab is not the same as the definition of FT formula;
+% The |fft| in matlab calculated the frequency spectrum from frequency $0$
+% to $fs$(according to the |fft| formula).
+% But we want to calculate the frequency spectrum from $-f_s / 2$ to
+% $fs / 2$. So, we should move the the frequency interval of $f_s/2 \rightarrow f_s$
+% to $-f_s/2 \rightarrow 0$. We can do this by using the command |fftshift|.
+% #  DFT of a signal is a periodic signal with the period of the sampling
+% frequency $f_s$.
+% # |fft| function in matlab calculates the DFT of a signal in the interval 0 to fs.
+% # |fftshift| function in matlab shifts the frequency spectrum of a signal
+% from the interval $0 \rightarrow fs$ to $-fs/2 \rightarrow fs/2$.
+%
+% For more accurate results in the frequency spectrum, we should increase
+% time axis interval. The following example shows the Fourier transform of
+% a continuous-time signal with a longer time axis interval.
+fs = 1e3;
+N = 1e3;
+t = -N:1 / fs:N;
+f0 = 10;
+x = cos(2 * pi * f0 * t);
+FT_x = (1 / fs) * fftshift(fft(x));
+f_axis = linspace(-fs / 2, fs / 2, length(FT_x));
+figure('Name', 'Fourier Transform of Continuous Time Signal');
+plot(f_axis, abs(FT_x), 'LineWidth', 1.5);
+xlabel('Frequency (Hz)');
+ylabel('Amplitude');
+title('Fourier Transform of Continuous Time Signal');
+xlim([-20, 20]);
+grid on;
