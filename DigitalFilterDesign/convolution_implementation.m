@@ -29,3 +29,7 @@ clc;
 % positions.
 % # We should only use one for loop to calculate the convolution.
 
+%% nth order derivative filter
+% To generate the nth order derivative filter, we can use a for loop and repeat
+% the convolution for n times. The result of the convolution is the nth order
+% derivative filter.
