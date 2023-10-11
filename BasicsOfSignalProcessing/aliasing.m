@@ -90,3 +90,38 @@ y = conv(x1, h, 'same');
 
 plot(t1((length(t1) + 1) / 2:end), y, 'LineWidth', 1.5);
 legend('Original signal', 'Sampled signal', 'Reconstructed signal')
+
+%% Aliasing in frequency domain
+% In frequency domain we should check the spectrum of the signal. and the
+% spectrum of the sampled signal. The spectrum of the sampled signal should be
+% the periodic repetition of the spectrum of the original signal. If the
+% sampling rate is lower than the Nyquist rate, the spectrum of the sampled
+% signal will overlap with the spectrum of the original signal. This is called
+% aliasing.
+fs = 500;
+Ts = 1/500;
+
+t = -1:Ts:1;
+f0 = 2;
+x = cos(2*pi*f0*t);
+N = length(x);
+sampling_frq = 100;
+
+f_axis = linspace(-fs / 2, fs / 2, N);
+FT_x = fftshift(fft(x))/fs;
+sampled_signal = zeros(1, N);
+sampled_signal(1:fs / sampling_frq:end) = x(1:fs / sampling_frq:end);
+FT_sampled_signal = 1 / sampling_frq * fftshift(fft(sampled_signal));
+figure('Name', 'Aliasing in frequency domain');
+subplot(2, 1, 1);
+plot(f_axis, abs(FT_x), 'LineWidth', 1.5);
+xlabel('Frequency(Hz)');
+ylabel('Amplitude(Volt./sec.)');
+title('Spectrum of original signal');
+grid on;
+subplot(2, 1, 2);
+plot(f_axis, abs(FT_sampled_signal), 'LineWidth', 1.5);
+xlabel('Frequency(Hz)');
+ylabel('Amplitude(Volt./sec.)');
+title('Spectrum of sampled signal');
+grid on;
