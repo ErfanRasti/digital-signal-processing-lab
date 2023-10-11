@@ -54,3 +54,45 @@ clc;
 % by the command |ifft|.
 % The following example shows the Fourier series of a discrete-time periodic
 % signal.
+% The input signal is defined as follows:
+N = 1e1;
+n = -N:N;
+N0 = 5;
+M0 = 3;
+w0 = 2 * pi / N0;
+w = M0 * w0;
+x = sin(w * n);
+figure('Name', 'Discrete Time Signal');
+stem(n, x, 'LineWidth', 1.5);
+xlabel('Time (s)');
+ylabel('Amplitude');
+title('Discrete Time Signal');
+grid on;
+%%%
+% The Fourier series of the of the signal is calculated as follows:
+a_k = fft(x(1:N0)) / N0;
+k = n(1:N0);
+figure('Name', 'Fourier Series of Discrete Time Signal');
+stem(k, imag(a_k), 'LineWidth', 1.5);
+xlabel('k');
+ylabel('Amplitude');
+title('Fourier Series of Discrete Time Signal');
+grid on;
+%%%
+% We can construct the signal from its Fourier series as follows:
+kernel = exp(1j * w0 * k' * n);
+x_reconstructed = a_k * kernel;
+figure('Name', 'Reconstructed Discrete Time Signal');
+subplot(2, 1, 1);
+stem(n, x, 'LineWidth', 1.5);
+xlabel('Time (s)');
+2
+ylabel('Amplitude');
+title('Original Discrete Time Signal');
+grid on;
+subplot(2, 1, 2);
+stem(n, real(x_reconstructed), 'LineWidth', 1.5);
+xlabel('Time (s)');
+ylabel('Amplitude');
+title('Reconstructed Discrete Time Signal');
+grid on;
