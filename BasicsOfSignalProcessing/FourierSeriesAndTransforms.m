@@ -96,3 +96,18 @@ xlabel('Time (s)');
 ylabel('Amplitude');
 title('Reconstructed Discrete Time Signal');
 grid on;
+
+%% Fourier Transform of a discrete-time signal(DTFT)
+% The Fourier transform of a discrete-time signal $x[n]$ is defined as
+% $$X(e^{j\omega}) = \sum_{n=-\infty}^{\infty} x[n] e^{-j\omega n}$$
+%
+% The inverse Fourier transform is defined as
+% $$x[n] = \frac{1}{2\pi} \int_{-\pi}^{\pi} X(e^{j\omega}) e^{j\omega n} d\omega$$
+%
+% We can compute the Fourier transform of a discrete-time signal by using
+% the DFT. The Fourier transform of a discrete-time signal is a periodic
+% signal with period $2\pi$. We define the Fourier transform of a
+% discrete-time signal  in the interval $[-\pi, \pi)$.
+%
+% The following example shows the Fourier transform of a discrete-time
+% signal.
