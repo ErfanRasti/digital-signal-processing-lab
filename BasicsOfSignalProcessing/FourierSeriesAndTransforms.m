@@ -165,7 +165,7 @@ grid on;
 % the DFT.
 %
 % There are some important points to be considered:
-% #  Both positive and negative part of time axis should be considered.
+% #  At least
 % #   Nyquist theorem should be considered
 % (The time axis should be sampled densely enough to avoid aliasing.).
 % # The main part of the signal should be included in the time axis
@@ -206,13 +206,15 @@ grid on;
 % # |fft| function in matlab calculates the DFT of a signal in the interval 0 to fs.
 % # |fftshift| function in matlab shifts the frequency spectrum of a signal
 % from the interval $0 \rightarrow fs$ to $-fs/2 \rightarrow fs/2$.
+% # The amplitude of the frequency spectrum is dependent on the time axis
+% interval.
 %
 % For more accurate results in the frequency spectrum, we should increase
 % time axis interval. The following example shows the Fourier transform of
 % a continuous-time signal with a longer time axis interval.
 fs = 1e3;
-N = 1e3;
-t = -N:1 / fs:N;
+t_max = 1e3;
+t = -t_max:1 / fs:t_max;
 f0 = 10;
 x = cos(2 * pi * f0 * t);
 FT_x = (1 / fs) * fftshift(fft(x));
@@ -224,3 +226,24 @@ ylabel('Amplitude');
 title('Fourier Transform of Continuous Time Signal');
 xlim([-20, 20]);
 grid on;
+%% Fourier Series of Continuous Time Signals
+% The Fourier series of a continuous-time periodic signal $x(t)$ is defined as
+%
+% $$x(t) = \sum_{k=-\infty}^{\infty} X(k\Omega_0) e^{jk\Omega_0 t}$$
+%
+% where $\Omega_0$ is the fundamental frequency of the signal.
+%
+% The Fourier coefficients of a continuous-time periodic signal are defined as
+%
+% $$X(k\Omega_0) = \frac{1}{T_0} \int_{T_0} x(t) e^{-jk\Omega_0 t} dt$$
+%
+% where $T_0$ is the period of the signal.
+%
+% There are some important points to be considered:
+% # 1(Sec.) time interval $\rightarrow$ $f_s$ samples \Rightarrow $T_0$ time interval $\rightarrow$ $f_s \times T_0$ samples
+% # For more terms of Fourier series, we should increase the sampling frequency
+% to extend the terms of fft output.
+% #  To maximize the number of FS terms, we should take N equal with half of the number of fft terms; But
+% at this number, the nyquist theorem is not agreed. So we should take N, in a way that the number of
+% samples is more than the twice of bandwidth or we should take N as the maximum and define a new axis
+% for the reconstructed signal with fs_new = 2 * fs_old. The second way is better.
