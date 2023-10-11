@@ -91,7 +91,6 @@ figure('Name', 'Reconstructed Discrete Time Signal');
 subplot(2, 1, 1);
 stem(n, x, 'LineWidth', 1.5);
 xlabel('Time (s)');
-2
 ylabel('Amplitude');
 title('Original Discrete Time Signal');
 grid on;
@@ -164,7 +163,8 @@ grid on;
 %
 % We can compute the Fourier transform of a continuous-time signal by using
 % the DFT.
-%% There are some important points to be considered:
+%
+% There are some important points to be considered:
 % #  Both positive and negative part of time axis should be considered.
 % #   Nyquist theorem should be considered
 % (The time axis should be sampled densely enough to avoid aliasing.).
@@ -182,4 +182,16 @@ grid on;
 %
 % The following example shows the Fourier transform of a continuous-time
 % signal.
+fs = 1e3;
+t = -1:1 / fs:1;
+f0 = 10;
+x = cos(2 * pi * f0 * t);
+FT_x = fft(x)/fs;
+f_axis = linspace(-fs / 2, fs / 2, length(FT_x));
+figure('Name', 'Fourier Transform of Continuous Time Signal');
+plot(f_axis, abs(FT_x), 'LineWidth', 1.5);
+xlabel('Frequency (Hz)');
+ylabel('Amplitude');
+title('Fourier Transform of Continuous Time Signal');
+grid on;
 
