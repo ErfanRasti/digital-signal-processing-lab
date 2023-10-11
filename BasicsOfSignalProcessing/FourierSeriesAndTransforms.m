@@ -125,3 +125,25 @@ title('Discrete Time Signal');
 grid on;
 xlim([-10, 10]);
 %%%
+% The DTFT of the of the signal is calculated as follows:
+w_axis = linspace(-pi, pi, 1e3);
+DTFT_x = x * exp(-1j * n' * w_axis);
+figure('Name', 'DTFT of Discrete Time Signal');
+subplot(2, 1, 1);
+plot(w_axis, abs(DTFT_x), 'LineWidth', 1.5);
+xlabel('Frequency (rad/s)');
+ylabel('Amplitude');
+title('Absolute Value of DTFT');
+xlim([-pi pi]);
+xticks([-pi, -pi / 2, 0, pi / 2, pi]);
+xticklabels({'-\pi', '-\pi/2', '0', '\pi/2', '\pi'});
+grid on;
+subplot(2, 1, 2);
+plot(w_axis, angle(DTFT_x), 'LineWidth', 1.5);
+xlabel('Frequency (rad/s)');
+ylabel('Phase');
+xlim([-pi pi]);
+xticks([-pi, -pi / 2, 0, pi / 2, pi]);
+xticklabels({'-\pi', '-\pi/2', '0', '\pi/2', '\pi'});
+title('Phase of DTFT');
+grid on;
