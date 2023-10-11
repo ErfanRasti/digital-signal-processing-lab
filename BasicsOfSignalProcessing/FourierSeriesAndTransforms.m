@@ -275,3 +275,17 @@ title('Imaginary Part of Fourier Series of Square Wave');
 xlim([-10 10]);
 grid on;
 %%%
+% *Reconstruction of the square wave from the Fourier series*
+t1 = -1:1/(2*fs):1; %why 2*fs
+kernel = exp(1j * 2 * pi * n' * t1 / T0);
+x = a_n * kernel;
+figure('Name', 'Reconstructed Square Wave');
+plot(t, square_wave, 'LineWidth', 1.5);
+xlabel('Time (s)');
+ylabel('Amplitude');
+title('Reconstructed Square Wave');
+grid on;
+hold on;
+plot(t1, real(x), 'LineWidth', 1);
+legend('Original Square Wave', 'Reconstructed Square Wave');
+xlim([-0.5, 0.5]);
