@@ -35,3 +35,58 @@ clc;
 % Instead, a practical filter is used. The practical filter is a windowed sinc
 % function. The windowed sinc function has finite duration. The windowed sinc
 % function is called a *reconstruction filter*.
+
+%% Aliasing in the time domain
+% In time domain we sample the signal at a rate $f_s$ and we get the sampled
+% signal $x_s(t)$. The sampled signal is a train of impulses spaced $1/f_s$
+% seconds apart. The sampled signal is a multiplication of the original signal
+% $x(t)$ and the train of impulses $s(t)$.
+%
+% We don't need to multiply the signal with the train of impulses. We just need
+% to sample the signal at a rate $f_s$ and we get the sampled signal $x_s(t)$.
+%
+% In this example, we sample a sinusoid at a rate $f_s = 1$ Hz. The sinusoid
+% frequency is $f = 0.5$ Hz. The sampled signal is a train of impulses spaced
+% $1/f_s = 1$ seconds apart.
+
+fs = 100;
+t = 0:1/fs:2;
+f0 = 0.5;
+x_original = cos(2*pi*f0*t);
+
+fs_low = 0.5;
+t_sampled = 0:1/fs_low:2;
+x_sampled = cos(2*pi*f0*t_sampled);
+
+figure('Name', 'Aliasing in the time domain');
+plot(t, x_original, 'LineWidth', 2);
+xlabel('Time (s)');
+ylabel('Amplitude');
+title('Original signal');
+grid on;
+hold on;
+plot(t_sampled, x_sampled, 'o','LineWidth', 2);
+legend('Original signal', 'Sampled signal');
+%%%
+% To reconstruct the signal with higher resolution, we need to add more samples.
+% we add some zero samples between the x_sampled. we define a variable called
+% $prc_rate$ which is the rate of precision. The higher the $prc_rate$ the
+% higher the precision of reconstruction.
+%
+% We define the time vector $t1$ with higher resolution. We define the signal
+% $x1$ with higher resolution. We add the samples of $x_sampled$ to $x1$ with
+% the rate of $prc_rate$. We add the zero samples to $x1$ with the rate of
+% $prc_rate$. We define the sinc function $h$ with higher resolution.
+%
+% We can see the aliasing in the reconstructed signal. The reconstructed signal
+% is not the same as the original signal.
+prc_rate = 100;
+t1 = -2:1 / (prc_rate * fs_low):2;
+x1 = zeros(1, (length(t1) + 1) / 2);
+x1(1:prc_rate:end) = x_sampled;
+
+h = sinc(fs_low * t1);
+y = conv(x1, h, 'same');
+
+plot(t1((length(t1) + 1) / 2:end), y, 'LineWidth', 1.5);
+legend('Original signal', 'Sampled signal', 'Reconstructed signal')
