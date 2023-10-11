@@ -12,10 +12,13 @@ clc;
 % The more general form of Fourier series for discrete-time periodic signals
 % is called Discrete Fourier Transform (DFT).
 % The DFT of a discrete-time signal $x[n]$ is defined as
+%
 % $$X[k] = \sum_{n=0}^{N-1} x[n] e^{-j\frac{2\pi}{N}kn}$$
+%
 % where $N$ is the period of the signal.
 %
 % The inverse DFT is defined as
+%
 % $$x[n] = \frac{1}{N} \sum_{k=0}^{N-1} X[k] e^{j\frac{2\pi}{N}kn}$$
 %
 % The DFT is a linear operation. So, the DFT of a linear combination of
@@ -38,9 +41,11 @@ clc;
 % and inverse DFT commands. The FFT algorithm is used to compute the DFT.
 % The FFT algorithm is a fast algorithm to compute the DFT.
 
-%% Fourier Series of a discrete-time periodic signal
+%% Fourier Series of a Discrete-time Periodic Signal
 % The Fourier series of a discrete-time periodic signal $x[n]$ is defined as
+%
 % $$x[n] = \sum_{k=0}^{N-1} X[k] e^{j\frac{2\pi}{N}kn}$$
+%
 % where $N$ is the period of the signal.
 %
 % The inverse Fourier series is defined as
@@ -97,11 +102,12 @@ ylabel('Amplitude');
 title('Reconstructed Discrete Time Signal');
 grid on;
 
-%% Fourier Transform of a discrete-time signal(DTFT)
+%% Fourier Transform of a Discrete-time Signal(DTFT)
 % The Fourier transform of a discrete-time signal $x[n]$ is defined as
 % $$X(e^{j\omega}) = \sum_{n=-\infty}^{\infty} x[n] e^{-j\omega n}$$
 %
 % The inverse Fourier transform is defined as
+%
 % $$x[n] = \frac{1}{2\pi} \int_{-\pi}^{\pi} X(e^{j\omega}) e^{j\omega n} d\omega$$
 %
 % We can compute the Fourier transform of a discrete-time signal by using
@@ -147,3 +153,33 @@ xticks([-pi, -pi / 2, 0, pi / 2, pi]);
 xticklabels({'-\pi', '-\pi/2', '0', '\pi/2', '\pi'});
 title('Phase of DTFT');
 grid on;
+%% Fourier Transform of Continuous-time Signal
+% The Fourier transform of a continuous-time signal $x(t)$ is defined as
+%
+% $$X(j\Omega) = \int_{-\infty}^{\infty} x(t) e^{-j\Omega t} dt$$
+%
+% The inverse Fourier transform is defined as
+%
+% $$x(t) = \frac{1}{2\pi} \int_{-\infty}^{\infty} X(j\Omega) e^{j\Omega t} d\Omega$$
+%
+% We can compute the Fourier transform of a continuous-time signal by using
+% the DFT.
+%% There are some important points to be considered:
+% #  Both positive and negative part of time axis should be considered.
+% #   Nyquist theorem should be considered
+% (The time axis should be sampled densely enough to avoid aliasing.).
+% # The main part of the signal should be included in the time axis
+% (For periodic signals, the main part is the period of the signal.).
+% # Increasing the sampling frequency $\rightarrow$  Detecting higher frequencies
+% # Increasing time axis interval $\rightarrow$ higher resolution in frequency axis
+% # The scale of amplitude of the frequency spectrum is not that important.
+% # Period of the lowest non-zero frequency $\rightarrow$ Interval of time axis
+% # Total number of frequency spectrum samples $\rightarrow$ Total number of time domain samples
+% In the formula of FT we have $dt$ in the integral. So, we should multiply
+% the result of the DFT by $dt$ to obtain the FT. In MATLAB, $dt$ is the smallest
+% difference between two consecutive time samples which is equal to the
+% sampling time(or $1 / fs$ where $fs$ is the sampling frequency).
+%
+% The following example shows the Fourier transform of a continuous-time
+% signal.
+
