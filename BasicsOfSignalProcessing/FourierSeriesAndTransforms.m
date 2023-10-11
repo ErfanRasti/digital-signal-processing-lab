@@ -289,3 +289,34 @@ hold on;
 plot(t1, real(x), 'LineWidth', 1);
 legend('Original Square Wave', 'Reconstructed Square Wave');
 xlim([-0.5, 0.5]);
+%%%
+% *Reconstruction of the square wave directly from the $a_n$ coefficients*
+% According to the following script, we can reconstruct the square wave
+% directly from the $a_n$ coefficients.
+% There are some important points to be considered:
+% # Increasing the N value will increase the accuracy of the reconstruction.
+% However, increasing the N value will also increase the computational
+% complexity of the reconstruction.
+% # Increasing N will increase the higher frequency components of the signal.
+% # We can use the Nyquist-Shannon sampling theorem to determine
+% the value of fs.($f_s >= 2 \times N$)
+% # If N is not high enough, the reconstruction will not be accurate and
+% the Gibbs phenomenon won't be observed.
+% # At frequency fs = 2 * N, the signal is sampled at the Nyquist frequency.
+% All of the oscillations of the signal are captured. but the signal is not
+% very smooth.
+T0 = 1;
+fs = 1e4;
+t = 0:1 / fs:1;
+tau = 0.5;
+N = 100;
+n = -N:N;
+a_n = (tau / T0) * sinc(n * tau / T0);
+kernel = exp(1j * 2 * pi * n' * t / T0);
+x = a_n * kernel;
+figure('Name', 'Reconstruction of a continuous time periodic signal using coefficients');
+plot(t, real(x), 'LineWidth', 1.5);
+xlabel('Time (s)');
+ylabel('Amplitude');
+title('Reconstruction of a continuous time periodic signal using coefficients');
+grid on;
