@@ -19,3 +19,13 @@ clc;
 % function. The |conv| function takes two vectors as inputs and returns the
 % convolution of the two vectors. The length of the output vector is equal
 % to the sum of the lengths of the input vectors minus one.
+%% Implementation
+% # According to the formula of the convlution, we should flip one of the vectors.
+% # To flip the vector in MATLAB, we use the |fliplr| function.
+% # According to the final lengtyh of the output vector, we should pad two vectors
+% with zeros to reach the same length of the output vector.
+% # To shift the reversed vector, we use the |circshift| function.
+% This function shifts the elements in the vector by a specified number of
+% positions.
+% # We should only use one for loop to calculate the convolution.
+
