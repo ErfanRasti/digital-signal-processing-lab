@@ -111,3 +111,17 @@ grid on;
 %
 % The following example shows the Fourier transform of a discrete-time
 % signal.
+%
+% The input signal is defined as follows:
+N = 1e3;
+n = 0:N;
+a = 0.5;
+x = a.^n;
+figure('Name', 'Discrete Time Signal');
+stem(n, x, 'LineWidth', 1.5);
+xlabel('Time (s)');
+ylabel('Amplitude');
+title('Discrete Time Signal');
+grid on;
+xlim([-10, 10]);
+%%%
