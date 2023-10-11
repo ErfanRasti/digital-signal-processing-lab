@@ -49,6 +49,7 @@ clc;
 % where $N$ is the period of the signal.
 %
 % The inverse Fourier series is defined as
+%
 % $$X[k] = \frac{1}{N} \sum_{n=0}^{N-1} x[n] e^{-j\frac{2\pi}{N}kn}$$
 %
 % The Fourier series of a discrete-time periodic signal is the DFT of the
@@ -103,6 +104,7 @@ grid on;
 
 %% Fourier Transform of a Discrete-time Signal(DTFT)
 % The Fourier transform of a discrete-time signal $x[n]$ is defined as
+%
 % $$X(e^{j\omega}) = \sum_{n=-\infty}^{\infty} x[n] e^{-j\omega n}$$
 %
 % The inverse Fourier transform is defined as
