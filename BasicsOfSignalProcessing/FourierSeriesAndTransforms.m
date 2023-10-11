@@ -243,7 +243,35 @@ grid on;
 % # 1(Sec.) time interval $\rightarrow$ $f_s$ samples \Rightarrow $T_0$ time interval $\rightarrow$ $f_s \times T_0$ samples
 % # For more terms of Fourier series, we should increase the sampling frequency
 % to extend the terms of fft output.
-% #  To maximize the number of FS terms, we should take N equal with half of the number of fft terms; But
-% at this number, the nyquist theorem is not agreed. So we should take N, in a way that the number of
-% samples is more than the twice of bandwidth or we should take N as the maximum and define a new axis
-% for the reconstructed signal with fs_new = 2 * fs_old. The second way is better.
+% #  To maximize the number of FS terms, we should take N equal with half of the number of fft terms.
+% # The ratio of Nyquist boundary is maximum at 1/2.
+fs = 1e4;
+T_eq = 1;
+t = -T_eq:1 / fs:T_eq;
+T0 = 0.5;
+duty_cycle = 0.25;
+square_wave = square(2 * pi * t / T0, duty_cycle * 100);
+
+FT_square_wave = fftshift(fft(square_wave(1:fs * T0))) / (fs * T0); % Consider one period
+
+m0 = 1 + floor((fs * T0) / 2); % Center of the frequency spectrum
+ratio_Nyq_boundary = 1/2; % maximum ratio: 0.5
+N = floor(T0*fs*ratio_Nyq_boundary) - 1; % Number of Fourier series terms
+a_n = FT_square_wave(m0 - N:m0 + N); % Fourier series coefficients
+n = -N:N;
+figure('Name', 'Fourier Series of Square Wave');
+subplot(211);
+stem(n, real(a_n), 'LineWidth', 1.5);
+xlabel('n');
+ylabel('Amplitude');
+title('Real Part of Fourier Series of Square Wave');
+xlim([-10 10]);
+grid on;
+subplot(212);
+stem(n, imag(a_n), 'LineWidth', 1.5);
+xlabel('n');
+ylabel('Amplitude');
+title('Imaginary Part of Fourier Series of Square Wave');
+xlim([-10 10]);
+grid on;
+%%%
