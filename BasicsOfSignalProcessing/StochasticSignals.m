@@ -17,7 +17,7 @@ clc;
 % $$\mu = \frac{a+b}{2}$$
 %
 % $$\sigma^2 = \frac{(b-a)^2}{12}$$
-
+%
 % The following code generates a uniform random variable with size 1000
 % between 0 and 1.
 

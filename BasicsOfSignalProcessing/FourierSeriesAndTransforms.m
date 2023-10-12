@@ -28,9 +28,13 @@ clc;
 % is implemented by the function |ifft|.
 % In MATLAB index of the first element of a vector is 1. So, the DFT formula
 % in MATLAB is
-% $$X[k] = \sum_{n=1}^{N} x[n] e^{-j\frac{2\pi}{N}kn}$$.
-% also, the inverse DFT formula in MATLAB is
-% $$x[n] = \frac{1}{N} \sum_{k=1}^{N} X[k] e^{j\frac{2\pi}{N}kn}$$.
+%
+% $$X[k] = \sum_{n=1}^{N} x[n] e^{-j\frac{2\pi}{N}kn}.$$
+%
+% Also, the inverse DFT formula in MATLAB is
+%
+% $$x[n] = \frac{1}{N} \sum_{k=1}^{N} X[k] e^{j\frac{2\pi}{N}kn}.$$
+%
 % So, the DFT of a vector of length $N$ is computed by the command |fft(x, N)|.
 % The inverse DFT is computed by the command |ifft(X, N)|.
 % The DFT and inverse DFT commands can be used without specifying the length
@@ -50,7 +54,7 @@ clc;
 %
 % The inverse Fourier series is defined as
 %
-% $$X[k] = \frac{1}{N} \sum_{n=0}^{N-1} x[n] e^{-j\frac{2\pi}{N}kn}$$
+% $$X[k] = \frac{1}{N} \sum_{n=0}^{N-1} x[n] e^{-j\frac{2\pi}{N}kn}.$$
 %
 % The Fourier series of a discrete-time periodic signal is the DFT of the
 % signal. So, the Fourier series of a discrete-time periodic signal can be
@@ -105,11 +109,11 @@ grid on;
 %% Fourier Transform of a Discrete-time Signal(DTFT)
 % The Fourier transform of a discrete-time signal $x[n]$ is defined as
 %
-% $$X(e^{j\omega}) = \sum_{n=-\infty}^{\infty} x[n] e^{-j\omega n}$$
+% $$X(e^{j\omega}) = \sum_{n=-\infty}^{\infty} x[n] e^{-j\omega n}.$$
 %
 % The inverse Fourier transform is defined as
 %
-% $$x[n] = \frac{1}{2\pi} \int_{-\pi}^{\pi} X(e^{j\omega}) e^{j\omega n} d\omega$$
+% $$x[n] = \frac{1}{2\pi} \int_{-\pi}^{\pi} X(e^{j\omega}) e^{j\omega n} d\omega.$$
 %
 % We can compute the Fourier transform of a discrete-time signal by using
 % the DFT. The Fourier transform of a discrete-time signal is a periodic
@@ -157,17 +161,18 @@ grid on;
 %% Fourier Transform of Continuous-time Signal
 % The Fourier transform of a continuous-time signal $x(t)$ is defined as
 %
-% $$X(j\Omega) = \int_{-\infty}^{\infty} x(t) e^{-j\Omega t} dt$$
+% $$X(j\Omega) = \int_{-\infty}^{\infty} x(t) e^{-j\Omega t} dt.$$
 %
 % The inverse Fourier transform is defined as
 %
-% $$x(t) = \frac{1}{2\pi} \int_{-\infty}^{\infty} X(j\Omega) e^{j\Omega t} d\Omega$$
+% $$x(t) = \frac{1}{2\pi} \int_{-\infty}^{\infty} X(j\Omega) e^{j\Omega t} d\Omega.$$.
 %
 % We can compute the Fourier transform of a continuous-time signal by using
 % the DFT.
 %
 % There are some important points to be considered:
-% #  At least
+%
+% #  In periodic signals, at least one period of the signal should be included in the time axis.
 % #   Nyquist theorem should be considered
 % (The time axis should be sampled densely enough to avoid aliasing.).
 % # The main part of the signal should be included in the time axis
@@ -183,7 +188,7 @@ grid on;
 % sampling time(or $1 / fs$ where $fs$ is the sampling frequency).
 %
 % The following example shows the Fourier transform of a continuous-time
-% signal.
+% signal but the frequency spectrum is not correct.
 fs = 1e3;
 t = -1:1 / fs:1;
 f0 = 10;
@@ -197,6 +202,7 @@ ylabel('Amplitude');
 title('Fourier Transform of Continuous Time Signal');
 grid on;
 %%%
+%
 % # |fft| function in matlab is not the same as the definition of FT formula;
 % The |fft| in matlab calculated the frequency spectrum from frequency $0$
 % to $fs$(according to the |fft| formula).
@@ -242,7 +248,8 @@ grid on;
 % where $T_0$ is the period of the signal.
 %
 % There are some important points to be considered:
-% # 1(Sec.) time interval $\rightarrow$ $f_s$ samples \Rightarrow $T_0$ time interval $\rightarrow$ $f_s \times T_0$ samples
+%
+% # 1(Sec.) time interval $\rightarrow$ $f_s$ samples $\Rightarrow$ $T_0(Sec.)$ time interval $\rightarrow$ $f_s \times T_0$ samples
 % # For more terms of Fourier series, we should increase the sampling frequency
 % to extend the terms of fft output.
 % #  To maximize the number of FS terms, we should take N equal with half of the number of fft terms.
@@ -292,10 +299,12 @@ plot(t1, real(x), 'LineWidth', 1);
 legend('Original Square Wave', 'Reconstructed Square Wave');
 xlim([-0.5, 0.5]);
 %%%
-% *Reconstruction of the square wave directly from the $a_n$ coefficients*
+% *Reconstruction of the square wave directly from the $*a_n*$ coefficients*
 % According to the following script, we can reconstruct the square wave
 % directly from the $a_n$ coefficients.
+%
 % There are some important points to be considered:
+%
 % # Increasing the N value will increase the accuracy of the reconstruction.
 % However, increasing the N value will also increase the computational
 % complexity of the reconstruction.

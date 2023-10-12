@@ -25,7 +25,6 @@ clc;
 % # The downsampling operation is necessary to prevent aliasing.
 % If there is no downsampling, then the output of the filter bank will be
 % aliased(because of the overlap between the subbands).
-%
 %% Load the excel file containing the filters
 % # The excel file contains the filter coefficients for the filter bank
 % The filter bank is a 32 channel filter bank.
