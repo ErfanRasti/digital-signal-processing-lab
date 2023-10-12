@@ -299,7 +299,7 @@ plot(t1, real(x), 'LineWidth', 1);
 legend('Original Square Wave', 'Reconstructed Square Wave');
 xlim([-0.5, 0.5]);
 %%%
-% *Reconstruction of the square wave directly from the $*a_n*$ coefficients*
+% *Reconstruction of the square wave directly from the $\textbf a_n$ coefficients*
 % According to the following script, we can reconstruct the square wave
 % directly from the $a_n$ coefficients.
 %
