@@ -38,8 +38,6 @@ ylabel('h1(n)');
 title('Impulse Response of The Ideal Band-pass FIR Filter');
 grid on;
 %%%
-ax = gca;
-ax.XAxis.FontSize = 8;
 w_axis = linspace(-pi, pi, 1e3);
 DTFT_h1 = h1 * exp(-1j * n1' * w_axis);
 figure('name', 'Frequency Response of The Ideal Band-pass FIR Filter');
@@ -47,8 +45,8 @@ subplot(211);
 plot(w_axis, abs(DTFT_h1), 'linewidth', 1.5);
 title('Magnitude Response');
 xlim([-pi pi]);
-xticks([-pi, -pi / 2, -0.25 * pi, 0, 0.25 * pi, pi / 2, pi]);
-xticklabels({'-\pi', '-\pi/2', '-\pi/4', '0', '\pi/4', '\pi/2', '\pi'});
+xticks([-pi, -pi / 2, -0.2 * pi, 0, 0.2 * pi, pi / 2, pi]);
+xticklabels({'-\pi', '-\pi/2', '-\pi/5', '0', '\pi/5', '\pi/2', '\pi'});
 xlabel('\omega');
 ylabel('|H_1(\omega)|');
 grid on;
@@ -58,9 +56,9 @@ plot(w_axis, angle(DTFT_h1), 'linewidth', 1.5);
 xlabel('\omega');
 ylabel('\angle H_1(\omega)');
 xlim([-pi pi]);
-xticks([-pi, -pi / 2, -0.25 * pi, 0, 0.25 * pi, pi / 2, pi]);
-xticklabels({'-\pi', '-\pi/2', '-\pi/4', '0', '\pi/4', '\pi/2', '\pi'});
-title('Phase of DTFT');
+xticks([-pi, -pi / 2, -0.2 * pi, 0, 0.2 * pi, pi / 2, pi]);
+xticklabels({'-\pi', '-\pi/2', '-\pi/5', '0', '\pi/5', '\pi/2', '\pi'});
+title('Phase Response');
 grid on;
 %%%
 % We can see that the ideal bandpass filter has a very sharp transition
@@ -72,4 +70,33 @@ grid on;
 % transition between the passband and the stopband.
 
 hamming_window = 0.54 - 0.46 * sin(2 * pi * n1 / M);
-h2 = h1 .* hamming_window;
+
+figure('name', 'Impulse Response of The Hamming Window');
+stem(n1, hamming_window, 'linewidth', 1.5);
+xlabel('n');
+ylabel('w(n)');
+title('Impulse Response of The Hamming Window');
+grid on;
+%%%
+DTFT_hamming_window = hamming_window * exp(-1j * n1' * w_axis);
+figure('name', 'Frequency Response of The Hamming Window');
+subplot(211);
+plot(w_axis, abs(DTFT_hamming_window), 'linewidth', 1.5);
+title('Magnitude Response');
+xlim([-pi pi]);
+xticks([-pi, -pi / 2, -0.2 * pi, 0, 0.2 * pi, pi / 2, pi]);
+xticklabels({'-\pi', '-\pi/2', '-\pi/5', '0', '\pi/5', '\pi/2', '\pi'});
+xlabel('\omega');
+ylabel('|W(\omega)|');
+grid on;
+
+subplot(212);
+plot(w_axis, angle(DTFT_hamming_window), 'linewidth', 1.5);
+xlabel('\omega');
+ylabel('\angle W(\omega)');
+xlim([-pi pi]);
+xticks([-pi, -pi / 2, -0.2 * pi, 0, 0.2 * pi, pi / 2, pi]);
+xticklabels({'-\pi', '-\pi/2', '-\pi/5', '0', '\pi/5', '\pi/2', '\pi'});
+title('Phase Response');
+grid on;
+%%%
