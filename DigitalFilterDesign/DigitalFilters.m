@@ -62,3 +62,14 @@ xticks([-pi, -pi / 2, -0.25 * pi, 0, 0.25 * pi, pi / 2, pi]);
 xticklabels({'-\pi', '-\pi/2', '-\pi/4', '0', '\pi/4', '\pi/2', '\pi'});
 title('Phase of DTFT');
 grid on;
+%%%
+% We can see that the ideal bandpass filter has a very sharp transition
+% between the passband and the stopband. This is not practical for
+% implementation. We need to smooth the transition between the passband and
+% the stopband. We can do this by using a window function.
+%
+% In the following example, we use the Hamming window to smooth the
+% transition between the passband and the stopband.
+
+hamming_window = 0.54 - 0.46 * sin(2 * pi * n1 / M);
+h2 = h1 .* hamming_window;
