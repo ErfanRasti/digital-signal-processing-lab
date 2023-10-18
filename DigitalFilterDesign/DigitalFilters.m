@@ -23,3 +23,18 @@ clc;
 %
 % In the following example, we design an ideal bandpass filter with the lower
 % cutoff frequency of 0.15 and the upper cutoff frequency of 0.25.
+M = 100;
+wa = 0.15 * pi;
+wb = 0.25 * pi;
+n1 = 0:M;
+
+h1 = ((wb / pi) * sinc(wb / pi * (n1 - M / 2)) - ...
+    (wa / pi) * sinc(wa / pi * (n1 - M / 2)));
+
+figure('name', 'Impulse Response of Ideal FIR bandpass filter');
+stem(n1, h1, 'linewidth', 1.5);
+xlabel('n');
+ylabel('h1(n)');
+title('Impulse response of the ideal FIR bandpass filter');
+grid on;
+%%%
