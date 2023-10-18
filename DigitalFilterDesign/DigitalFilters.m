@@ -23,6 +23,7 @@ clc;
 %
 % In the following example, we design an ideal bandpass filter with the lower
 % cutoff frequency of 0.15 and the upper cutoff frequency of 0.25.
+% *Ideal band-pass FIR filter in time domain*
 M = 100;
 wa = 0.15 * pi;
 wb = 0.25 * pi;
@@ -38,6 +39,7 @@ ylabel('h1(n)');
 title('Impulse Response of The Ideal Band-pass FIR Filter');
 grid on;
 %%%
+% *Ideal band-pass FIR filter in frequency domain*
 w_axis = linspace(-pi, pi, 1e3);
 DTFT_h1 = h1 * exp(-1j * n1' * w_axis);
 figure('name', 'Frequency Response of The Ideal Band-pass FIR Filter');
@@ -60,7 +62,7 @@ xticks([-pi, -pi / 2, -0.2 * pi, 0, 0.2 * pi, pi / 2, pi]);
 xticklabels({'-\pi', '-\pi/2', '-\pi/5', '0', '\pi/5', '\pi/2', '\pi'});
 title('Phase Response');
 grid on;
-%%%
+%%
 % We can see that the ideal bandpass filter has a very sharp transition
 % between the passband and the stopband. This is not practical for
 % implementation. We need to smooth the transition between the passband and
@@ -68,7 +70,7 @@ grid on;
 %
 % In the following example, we use the Hamming window to smooth the
 % transition between the passband and the stopband.
-
+% *Hamming window in time domain*
 hamming_window = 0.54 - 0.46 * sin(2 * pi * n1 / M);
 
 figure('name', 'Impulse Response of The Hamming Window');
@@ -78,6 +80,7 @@ ylabel('w(n)');
 title('Impulse Response of The Hamming Window');
 grid on;
 %%%
+% *Hamming window in frequency domain*
 DTFT_hamming_window = hamming_window * exp(-1j * n1' * w_axis);
 figure('name', 'Frequency Response of The Hamming Window');
 subplot(211);
@@ -100,3 +103,34 @@ xticklabels({'-\pi', '-\pi/2', '-\pi/5', '0', '\pi/5', '\pi/2', '\pi'});
 title('Phase Response');
 grid on;
 %%%
+% *Hamming windowed band-pass FIR filter in time domain*
+h2 = h1 .* hamming_window;
+figure('name', 'Impulse Response of The Hamming Windowed Band-pass FIR Filter');
+stem(n1, h2, 'linewidth', 1.5);
+xlabel('n');
+ylabel('h2(n)');
+title('Impulse Response of The Hamming Windowed Band-pass FIR Filter');
+grid on;
+%%%
+% *Hamming windowed band-pass FIR filter in frequency domain*
+DTFT_h2 = h2 * exp(-1j * n1' * w_axis);
+figure('name', 'Frequency Response of The Hamming Windowed Band-pass FIR Filter');
+subplot(211);
+plot(w_axis, abs(DTFT_h2), 'linewidth', 1.5);
+title('Magnitude Response');
+xlim([-pi pi]);
+xticks([-pi, -pi / 2, -0.2 * pi, 0, 0.2 * pi, pi / 2, pi]);
+xticklabels({'-\pi', '-\pi/2', '-\pi/5', '0', '\pi/5', '\pi/2', '\pi'});
+xlabel('\omega');
+ylabel('|H_2(\omega)|');
+grid on;
+
+subplot(212);
+plot(w_axis, angle(DTFT_h2), 'linewidth', 1.5);
+xlabel('\omega');
+ylabel('\angle H_2(\omega)');
+xlim([-pi pi]);
+xticks([-pi, -pi / 2, -0.2 * pi, 0, 0.2 * pi, pi / 2, pi]);
+xticklabels({'-\pi', '-\pi/2', '-\pi/5', '0', '\pi/5', '\pi/2', '\pi'});
+title('Phase Response');
+grid on;
