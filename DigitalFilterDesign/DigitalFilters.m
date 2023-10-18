@@ -16,3 +16,10 @@ clc;
 % # The Hamming window is defined as:
 %
 % $$ w(n) = \alpha - \beta \cos \left( \frac{2 \pi n}{N-1} \right) $$
+
+%% Bandpass FIR filter
+% The bandpass filter passes a band of frequencies between a lower cutoff
+% frequency, $f_l$, and an upper cutoff frequency, $f_h$.
+%
+% In the following example, we design an ideal bandpass filter with the lower
+% cutoff frequency of 0.15 and the upper cutoff frequency of 0.25.
