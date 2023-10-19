@@ -28,7 +28,7 @@ clc;
 %% Load the excel file containing the filters
 % # The excel file contains the filter coefficients for the filter bank
 % The filter bank is a 32 channel filter bank.
-% #There are 4 subbands in each channel. The subbands are obtained
+% # There are 4 subbands in each channel. The subbands are obtained
 % by downsampling the output of the filter bank.
 % # There are 4 filters in each sheet of the excel file.
 % # To read the excel file, we use the |readmatrix| function.
