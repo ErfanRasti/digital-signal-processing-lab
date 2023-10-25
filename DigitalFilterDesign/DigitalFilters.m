@@ -156,7 +156,6 @@ grid on;
 % We should specify it for stopband and passbands.
 % # Enter magnitude specifications. It has different units. We should specify
 % it for stopbands and passbands.
-
 % *Design a IIR filter using filterDesigner*
 % According to the filterDesigner, we can design a IIR filter with the
 % following specifications:
@@ -237,3 +236,51 @@ stem(n, y2, 'linewidth', 1.5);
 hold on;
 stem(n, sin(0.5 * pi * n), 'linewidth', 1.5);
 legend('Output of FIR Filter', 'Output of IIR Filter', 'Desired Signal');
+%%%
+% *Frequency response of the designed filters*
+% We can plot the frequency response of the designed filters.
+% We should pass the filter function to the freqz function.
+% The following code plots the frequency response of the designed filters.
+%
+f_axis = linspace(0, 1, 1e4);
+Impulse_Response_FIR_Filter = FIR_Filter.Numerator;
+n = 0:length(Impulse_Response_FIR_Filter) - 1;
+kernel = exp(-1j * n' * f_axis * pi);
+DTFT_FIR_Filter = Impulse_Response_FIR_Filter * kernel;
+figure('name', 'Frequency Response of The FIR Filter');
+subplot(211);
+plot(f_axis, 20 * log10(abs(DTFT_FIR_Filter)), 'linewidth', 1.5);
+title('Magnitude Response of The FIR Filter');
+xlabel('Normalized Frequency(\times\pi rad/sample)');
+ylabel('|10log_{10}H(\omega)|');
+xlim([0 1]);
+ylim([-70 10]);
+grid on;
+subplot(212);
+plot(f_axis, unwrap(phase(DTFT_FIR_Filter)), 'linewidth', 1.5);
+title('Phase Response of The FIR Filter');
+xlabel('Normalized Frequency(\times\pi rad/sample)');
+ylabel('\angle H(\omega)');
+grid on;
+%%%
+% To plot the frequency response of the IIR filter, we should pass the
+% filter function to the freqz function.
+% The following code plots the frequency response of the IIR filter.
+%
+[H, w] = freqz(IIR_Filter, 1e4);
+figure('name', 'Frequency Response of The IIR Filter');
+subplot(211);
+plot(w / pi, 20 * log10(abs(H)), 'linewidth', 1.5);
+title('Magnitude Response of The IIR Filter');
+xlabel('Normalized Frequency(\times\pi rad/sample)');
+ylabel('|10log_{10}H(\omega)|');
+xlim([0 1]);
+ylim([-70 10]);
+grid on;
+subplot(212);
+plot(w / pi, unwrap(angle(H)), 'linewidth', 1.5);
+title('Phase Response of The IIR Filter');
+xlabel('Normalized Frequency(\times\pi rad/sample)');
+ylabel('\angle H(\omega)');
+grid on;
+%%%
