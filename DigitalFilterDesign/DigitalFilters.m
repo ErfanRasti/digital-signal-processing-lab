@@ -192,3 +192,15 @@ imshow('./images/Bandpass_Elliptic_IIR_filter.png');
 % The following figure shows the setup of the filterDesigner and the magnitude
 % frequency response of the designed filter.
 imshow('./images/Bandpass_GeneralizedEquiripple_FIR_filter.png');
+
+% *Export the filter function*
+% We can export the filter function to a MATLAB file. To do this,
+% we should go to the File menu and select "Generate MATLAB Code".
+% Then, we should select "Filter Design Function" and save the file.
+%
+% *$File \rightarrow Generate MATLAB Code \rightarrow Filter Design Function$*
+%
+% To use the filter function we should write the following code:
+%
+FIR_Filter = Bandpass_GeneralizedEquiripple_FIR_filter;
+IIR_Filter = Bandpass_Elliptic_IIR_filter;
