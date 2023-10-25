@@ -3,6 +3,50 @@
 close all;
 clear;
 clc;
+
+%% Voice Scrambling
+% Voice scrambling is a technique used to encrypt voice signals. The
+% encrypted voice signal is called the cipher signal. The cipher signal is
+% transmitted over the communication channel. At the receiver, the cipher
+% signal is descrambled to recover the original voice signal. The
+% descrambling process is the inverse of the scrambling process. The
+% scrambling process is a nonlinear process. It is implemented using a
+% nonlinear function. The descrambling process is also a nonlinear process.
+% It is implemented using the inverse of the nonlinear function used in the
+% scrambling process. The scrambling process is a one-to-one mapping
+% process. This means that each sample in the original voice signal is
+% mapped to a unique sample in the cipher signal. The descrambling process
+% is also a one-to-one mapping process. This means that each sample in the
+% cipher signal is mapped to a unique sample in the original voice signal.
+%
+% Before scrambling a voice signal, we should use a low-pass filter to
+% remove the frequencies that are higher than the Nyquist frequency. This
+% is because the frequencies that are higher than the Nyquist frequency
+% will be aliased. The aliased frequencies will be mixed with the original
+% frequencies. This will make the descrambling process more difficult.
+%
+% To scramble a voice signal, we need to define a nonlinear function. We can
+% make a nonlinear function by modulating the voice signal with a sinusoid.
+% The sinusoid is called the scrambling sinusoid. The scrambling sinusoid
+% is a sinusoid with a frequency that is different from the frequency of
+% the voice signal. The scrambling sinusoid is generated using the
+% following equation:
+%
+% $$s(t) = A \cos(\frac{2 \pi f_0 t}{f_s})$$
+%
+% where |A| is the amplitude of the scrambling sinusoid and |f_s| is its
+% frequency. The scrambling sinusoid is modulated with the voice signal
+% using the following equation:
+%
+% $$y(t) = x_{low-passed}(t) \cos(\frac{2 \pi f_0 t}{f_s})$$
+%
+% where |x(t)| is the voice signal. The scrambling sinusoid is modulated
+% with the voice signal using the |.*| operator. The scrambled voice signal
+% is stored in the variable |y|. The scrambling sinusoid is stored in the
+% variable |s|. The following code scrambles a voice signal.
+% |y = x_lowpassed .* s;|
+%
+
 %% Load the audio file
 % # Too load the audio file, use the |audioread| function.
 % # The audio file is stored in the variable |y| and the sampling frequency
