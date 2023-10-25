@@ -15,7 +15,9 @@ clc;
 % # It is used to reduce the noise in the signal.
 % # The Hamming window is defined as:
 %
-% $$ w(n) = \alpha - \beta \cos \left( \frac{2 \pi n}{N-1} \right) $$
+% $$ w(n) = \alpha - \beta \sin \left( \frac{2 \pi n}{N-1} \right) $$
+%
+% where the sample index $n$ goes from $0$ to $N-1$.
 
 %% Bandpass FIR filter
 % The bandpass filter passes a band of frequencies between a lower cutoff
