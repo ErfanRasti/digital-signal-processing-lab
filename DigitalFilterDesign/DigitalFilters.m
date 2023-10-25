@@ -135,7 +135,7 @@ xticklabels({'-\pi', '-\pi/2', '-\pi/5', '0', '\pi/5', '\pi/2', '\pi'});
 title('Phase Response');
 grid on;
 
-%% Design IIR filters in the frequency domain
+%% Design filters in the frequency domain using filterDesigner
 % # We can design IIR filters in the frequency domain.
 % # We use filterDesigner to design IIR filters.
 % # We can export the filter coefficients to the workspace.
@@ -156,3 +156,39 @@ grid on;
 % We should specify it for stopband and passbands.
 % # Enter magnitude specifications. It has different units. We should specify
 % it for stopbands and passbands.
+
+% *Design a IIR filter using filterDesigner*
+% According to the filterDesigner, we can design a IIR filter with the
+% following specifications:
+% # Filter type: Bandpass
+% # Design method: Elliptic
+% # Normalized frequency of stopband 1: $0.45 \pi$
+% # Normalized frequency of passband 1: $0.48 \pi$
+% # Normalized frequency of passband 2: $0.52 \pi$
+% # Normalized frequency of stopband 2: $0.55 \pi$
+% # Magnitude of stopband 1: $-40$ dB
+% # Magnitude of passband: $-1$ dB
+% # Magnitude of stopband 2: $-40$ dB
+%
+% The following figure shows the setup of the filterDesigner and the magnitude
+% frequency response of the designed filter.
+imshow('./images/Bandpass_Elliptic_IIR_filter.png');
+
+% *Design a FIR filter using filterDesigner*
+% According to the filterDesigner, we can design a FIR filter with the
+% following specifications:
+% # Filter type: Bandpass
+% # Design method: Generalized Equiripple
+% # Density factor: 20
+% # PHase: Linear
+% # Normalized frequency of stopband 1: $0.45 \pi$
+% # Normalized frequency of passband 1: $0.48 \pi$
+% # Normalized frequency of passband 2: $0.52 \pi$
+% # Normalized frequency of stopband 2: $0.55 \pi$
+% # Magnitude of stopband 1: $-40$ dB
+% # Magnitude of passband: $-1$ dB
+% # Magnitude of stopband 2: $-40$ dB
+%
+% The following figure shows the setup of the filterDesigner and the magnitude
+% frequency response of the designed filter.
+imshow('./images/Bandpass_GeneralizedEquiripple_FIR_filter.png');
