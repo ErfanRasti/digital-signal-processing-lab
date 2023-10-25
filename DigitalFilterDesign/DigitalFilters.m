@@ -284,3 +284,25 @@ xlabel('Normalized Frequency(\times\pi rad/sample)');
 ylabel('\angle H(\omega)');
 grid on;
 %%%
+%% Analyze filters using Filter Visualization Tool
+% # We can analyze the filters using the Filter Visualization Tool.
+% # We can use the Filter Visualization Tool to analyze the magnitude and phase response of the filters.
+% # We can also use the Filter Visualization Tool to analyze the impulse and step response of the filters.
+% # We can also use the Filter Visualization Tool to analyze the pole-zero plot of the filters.
+% # We can also use the Filter Visualization Tool to analyze the group delay of the filters.
+%
+% The following figures shows the magnitude and phase response of the IIR filter.
+% We used the command |IIR_Filter.freqz| to plot the magnitude and phase response of the IIR filter.
+figure('name', 'Magnitude and Phase Response of The IIR Filter');
+imshow('./images/FilterVisualizationTool_IIR_freqz.png');
+%%%
+% The following figures shows the impulse response of the IIR filter.
+% We used the command |IIR_Filter.impz| to plot the impulse response of the IIR filter.
+figure('name', 'Impulse Response of The IIR Filter');
+imshow('./images/FilterVisualizationTool_IIR_impz.png');
+%%%
+% The following figures shows the pole-zero plot of the IIR filter.
+% We used the command |IIR_Filter.zplane| to plot the pole-zero plot of the IIR filter.
+figure('name', 'Pole-Zero Plot of The IIR Filter');
+imshow('./images/FilterVisualizationTool_IIR_zplane.png');
+%%%
