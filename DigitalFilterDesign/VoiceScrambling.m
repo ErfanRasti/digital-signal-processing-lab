@@ -46,7 +46,31 @@ clc;
 % variable |s|. The following code scrambles a voice signal.
 % |y = x_lowpassed .* s;|
 %
-
+% The descrambling process is the inverse of the scrambling process. The
+% descrambling process is implemented using the following equation:
+%
+% $$y_2(t) = y(t) \cos(\frac{2 \pi f_0 t}{f_s})$$
+%
+% The descrambling process is implemented using the |.*| operator. The
+% descrambled voice signal is stored in the variable |y_2|. The following
+% code descrambles the voice signal.
+% |y_2 = y .* s;|
+%
+% After multiplying the voice signal with the scrambling sinusoid, the
+% frequencies of the voice signal are shifted to the left and right sides
+% of the scrambling sinusoid. The frequencies of the voice signal are
+% shifted to the left side of the scrambling sinusoid because the voice
+% signal is multiplied with the cosine of the scrambling sinusoid.
+% We should perform a low-pass filtering process to remove the frequencies
+% that are shifted to the right side of the scrambling sinusoid. This is
+% because the frequencies that are shifted to the right side of the
+% scrambling sinusoid will be aliased.
+%
+% $$ x_{reconstructed} = h_{low-passed} * y_2(t)$$
+%
+% where $h_{low-passed}$ is the impulse response of the low-pass filter. The
+% reconstructed voice signal is stored in the variable |x_reconstructed|.
+% The following code reconstructs the voice signal.
 %% Load the audio file
 % # Too load the audio file, use the |audioread| function.
 % # The audio file is stored in the variable |y| and the sampling frequency
