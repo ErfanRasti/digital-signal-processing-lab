@@ -23,3 +23,15 @@ clc;
 % |x_t = x_t';|
 %
 % |t_axis = linspace(0, length(x_t) / fs, length(x_t));|
+
+%% Sound the audio file
+% # To sound the audio file, use the |sound| function. It takes the audio
+% signal and the sampling frequency as arguments.
+% # To prevent the sound from being cut, we should wait until the sound
+% finishes. We can do this using the |pause| function. It takes the time
+% to wait in seconds as an argument.
+%
+% The following code sounds the audio file.
+% |sound(x_t, fs);|
+%
+% |pause(length(x_t) / fs);|
