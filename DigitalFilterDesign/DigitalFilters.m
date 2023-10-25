@@ -205,9 +205,9 @@ imshow('./images/Bandpass_GeneralizedEquiripple_FIR_filter.png');
 %
 % To use the filter function we should write the following code:
 %
+addpath('./filters');
 FIR_Filter = Bandpass_GeneralizedEquiripple_FIR_filter;
 IIR_Filter = Bandpass_Elliptic_IIR_filter;
-
 %%%
 % *Filter the signal*
 % We can filter the signal using the filter function.
