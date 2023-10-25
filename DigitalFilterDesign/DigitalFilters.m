@@ -134,3 +134,25 @@ xticks([-pi, -pi / 2, -0.2 * pi, 0, 0.2 * pi, pi / 2, pi]);
 xticklabels({'-\pi', '-\pi/2', '-\pi/5', '0', '\pi/5', '\pi/2', '\pi'});
 title('Phase Response');
 grid on;
+
+%% Design IIR filters in the frequency domain
+% # We can design IIR filters in the frequency domain.
+% # We use filterDesigner to design IIR filters.
+% # We can export the filter coefficients to the workspace.
+% # We can also export the filter coefficients to a file.
+% # filterDesigner is a graphical user interface (GUI) tool.
+% # We can use filterDesigner to design lowpass, highpass, bandpass, and bandstop filters.
+% # We can also use filterDesigner to design FIR filters.
+%
+% *Design a passband filter using filterDesigner*
+% # Open filterDesigner.
+% # Select IIR filter.
+% # Select the filter type(passband, lowpass, highpass, bandpass, or bandstop).
+% # Select the filter design method(butterworth, chebyshev I, chebyshev II, elliptic, or bessel).
+% # Enter the filter order or minimum order.
+% # Enter the match exactly on passband or stopband.
+% # Enter the frequency specifications. For example, if we use normalized
+% frequency, we should specify the angular frequency in the range of $[0, \pi]$.
+% We should specify it for stopband and passbands.
+% # Enter magnitude specifications. It has different units. We should specify
+% it for stopbands and passbands.
