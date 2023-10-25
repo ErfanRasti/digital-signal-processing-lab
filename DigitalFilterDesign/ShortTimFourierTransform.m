@@ -48,3 +48,40 @@ clc;
 % * $f_1$ is the final frequency of the signal.
 % * $t_1$ is the time for reaching the final frequency.
 %
+%% Short-time Fourier Transform
+% The short-time Fourier transform (STFT) is a Fourier-related transform
+% used to determine the sinusoidal frequency and phase content of local
+% sections of a signal as it changes over time. In practice, the procedure
+% for computing STFTs is to divide a longer time signal into shorter
+% segments of equal length and then compute the Fourier transform
+% separately on each shorter segment. This reveals the Fourier spectrum on
+% each shorter segment. One then usually plots the changing spectra as a
+% function of time, as this will reveal frequency content that is varying
+% with time. The STFT is used in many areas of engineering, especially for
+% analyzing signals that change over time. It is a type of time-frequency
+% analysis.
+%
+% The STFT of a discrete-time signal $x[n]$ is defined as follows:
+%
+% $$X[m,k] = \sum_{n=0}^{N-1} x[n] w[n-m] e^{-j\frac{2\pi}{N}kn}$$
+%
+% where
+%
+% * $x[n]$ is the discrete-time signal.
+% * $w[n]$ is the window function.
+% * $N$ is the length of the window.
+% * $m$ is the index of the window.
+% * $k$ is the index of the frequency.
+%
+% The STFT of a continuous-time signal $x(t)$ is defined as follows:
+%
+% $$X(m,\omega) = \int_{-\infty}^{\infty} x(t) w(t-mT) e^{-j\omega t} dt$$
+%
+% where
+%
+% * $x(t)$ is the continuous-time signal.
+% * $w(t)$ is the window function.
+% * $T$ is the sampling period.
+% * $m$ is the index of the window.
+% * $\omega$ is the frequency.
+%
