@@ -172,8 +172,9 @@ grid on;
 %
 % The following figure shows the setup of the filterDesigner and the magnitude
 % frequency response of the designed filter.
+figure('name', 'Magnitude Frequency Response of The Designed IIR Filter');
 imshow('./images/Bandpass_Elliptic_IIR_filter.png');
-
+%%%
 % *Design a FIR filter using filterDesigner*
 % According to the filterDesigner, we can design a FIR filter with the
 % following specifications:
@@ -191,8 +192,9 @@ imshow('./images/Bandpass_Elliptic_IIR_filter.png');
 %
 % The following figure shows the setup of the filterDesigner and the magnitude
 % frequency response of the designed filter.
+figure('name', 'Magnitude Frequency Response of The Designed FIR Filter');
 imshow('./images/Bandpass_GeneralizedEquiripple_FIR_filter.png');
-
+%%%
 % *Export the filter function*
 % We can export the filter function to a MATLAB file. To do this,
 % we should go to the File menu and select "Generate MATLAB Code".
@@ -204,3 +206,34 @@ imshow('./images/Bandpass_GeneralizedEquiripple_FIR_filter.png');
 %
 FIR_Filter = Bandpass_GeneralizedEquiripple_FIR_filter;
 IIR_Filter = Bandpass_Elliptic_IIR_filter;
+
+%%%
+% *Filter the signal*
+% We can filter the signal using the filter function.
+% We should pass the filter function and the signal to the filter function.
+% The following code filters the signal using the filter function.
+%
+n = 0:500;
+x = sin(0.1 * pi * n) + sin(0.5 * pi * n) + sin(0.3 * pi * n);
+y1 = FIR_Filter.filter(x);
+y2 = IIR_Filter.filter(x);
+
+figure('name', 'Filtering the signal using the filter function');
+subplot(211);
+stem(n, x, 'linewidth', 1.5);
+xlabel('n');
+ylabel('x(n)');
+title('Input Signal');
+grid on;
+
+subplot(212);
+stem(n, y1, 'linewidth', 1.5);
+xlabel('n');
+ylabel('y(n)');
+title('Output Signals');
+grid on;
+hold on;
+stem(n, y2, 'linewidth', 1.5);
+hold on;
+stem(n, sin(0.5 * pi * n), 'linewidth', 1.5);
+legend('Output of FIR Filter', 'Output of IIR Filter', 'Desired Signal');
