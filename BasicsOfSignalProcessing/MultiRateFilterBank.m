@@ -59,10 +59,10 @@ figure('Name', "Amplitiude of frequency response of digital filters");
 
 for i = 1:4
     n = 0:32 - 1;
-    subplot(4, 2, 2 * i -1);
     w_axis = linspace(0, pi, 1e3);
     kernel = exp(-1j * n' * w_axis);
     H = analysis_filters(i, :) * kernel;
+    subplot(4, 2, 2 * i -1);
     plot(w_axis / pi, abs(H), 'LineWidth', 1.5);
     xlabel('Normalized Frequency');
     ylabel('Magnitude');
@@ -70,8 +70,8 @@ for i = 1:4
     title(strcat("Frequency response of analysis filter ", string(i)));
     grid on;
 
-    subplot(4, 2, 2 * i);
     H = synthesis_filters(i, :) * kernel;
+    subplot(4, 2, 2 * i);
     plot(w_axis / pi, abs(H), 'LineWidth', 1.5);
     xlabel('Normalized Frequency');
     ylabel('Magnitude');
@@ -84,8 +84,11 @@ end
 figure('Name', "Phase of frequency response of digital filters");
 
 for i = 1:4
+    n = 0:32 - 1;
+    w_axis = linspace(0, pi, 1e3);
+    kernel = exp(-1j * n' * w_axis);
+    H = analysis_filters(i, :) * kernel;
     subplot(4, 2, 2 * i -1);
-    [H, w] = freqz(analysis_filters(i, :), 1, 1024);
     plot(w / pi, angle(H), 'LineWidth', 1.5);
     xlabel('Normalized Frequency');
     ylabel('Phase');
@@ -93,8 +96,8 @@ for i = 1:4
     title(strcat("Frequency response of analysis filter ", string(i)));
     grid on;
 
+    H = synthesis_filters(i, :) * kernel;
     subplot(4, 2, 2 * i);
-    [H, w] = freqz(synthesis_filters(i, :), 1, 1024);
     plot(w / pi, angle(H), 'LineWidth', 1.5);
     xlabel('Normalized Frequency');
     ylabel('Phase');
@@ -103,4 +106,61 @@ for i = 1:4
     grid on;
 
 end
+
 %%%
+%% |freqz| function
+% We could also use the |freqz| function to plot the frequency response of
+% the filters. The |freqz| function takes three input arguments.
+% # The first input argument is the numerator coefficients of the filter.
+% # The second input argument is the denominator coefficients of the filter.
+% # The third input argument is the number of points in the frequency axis.
+%
+% The |freqz| function returns the frequency response and the frequency
+% axis as output arguments. The frequency response is a complex vector.
+% The frequency axis is a vector of frequencies between 0 and pi.
+figure('Name', "Amplitiude of frequency response of digital filters");
+
+for i = 1:4
+    n = 0:32 - 1;
+    [H, w_axis] = freqz(analysis_filters(i, :), 1, 100);
+    subplot(4, 2, 2 * i -1);
+    plot(w_axis / pi, abs(H), 'LineWidth', 1.5);
+    xlabel('Normalized Frequency');
+    ylabel('Magnitude');
+    xlim([0 1]);
+    title(strcat("Frequency response of analysis filter ", string(i)));
+    grid on;
+
+    [H, w_axis] = freqz(synthesis_filters(i, :), 1, 100);
+    subplot(4, 2, 2 * i);
+    plot(w_axis / pi, abs(H), 'LineWidth', 1.5);
+    xlabel('Normalized Frequency');
+    ylabel('Magnitude');
+    xlim([0 1]);
+    title(strcat("Frequency response of synthesis filter ", string(i)));
+    grid on;
+end
+
+%%%
+figure('Name', "Phase of frequency response of digital filters");
+
+for i = 1:4
+    [H, w_axis] = freqz(analysis_filters(i, :), 1, 1024);
+    subplot(4, 2, 2 * i -1);
+    plot(w_axis / pi, angle(H), 'LineWidth', 1.5);
+    xlabel('Normalized Frequency');
+    ylabel('Phase');
+    xlim([0 1]);
+    title(strcat("Frequency response of analysis filter ", string(i)));
+    grid on;
+
+    [H, w_axis] = freqz(synthesis_filters(i, :), 1, 1024);
+    subplot(4, 2, 2 * i);
+    plot(w_axis / pi, angle(H), 'LineWidth', 1.5);
+    xlabel('Normalized Frequency');
+    ylabel('Phase');
+    xlim([0 1]);
+    title(strcat("Frequency response of synthesis filter ", string(i)));
+    grid on;
+
+end
