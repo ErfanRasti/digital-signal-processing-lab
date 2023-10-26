@@ -89,7 +89,7 @@ for i = 1:4
     kernel = exp(-1j * n' * w_axis);
     H = analysis_filters(i, :) * kernel;
     subplot(4, 2, 2 * i -1);
-    plot(w / pi, angle(H), 'LineWidth', 1.5);
+    plot(w_axis / pi, angle(H), 'LineWidth', 1.5);
     xlabel('Normalized Frequency');
     ylabel('Phase');
     xlim([0 1]);
@@ -98,7 +98,7 @@ for i = 1:4
 
     H = synthesis_filters(i, :) * kernel;
     subplot(4, 2, 2 * i);
-    plot(w / pi, angle(H), 'LineWidth', 1.5);
+    plot(w_axis / pi, angle(H), 'LineWidth', 1.5);
     xlabel('Normalized Frequency');
     ylabel('Phase');
     xlim([0 1]);
