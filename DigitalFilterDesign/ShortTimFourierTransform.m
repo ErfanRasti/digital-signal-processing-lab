@@ -85,3 +85,51 @@ clc;
 % * $m$ is the index of the window.
 % * $\omega$ is the frequency.
 %
+% * Note:* The STFT is a Fourier-related transform, not a Fourier transform.
+%
+%% |stft| function
+% The |stft| function computes the STFT of a discrete-time signal. The
+% |stft| function is defined as follows:
+%
+% $$[s, t, f] = \text{stft}(x, fs, Window, OverlapLength, FFTLength)$$
+%
+% where
+%
+% * $x$ is the discrete-time signal.
+% * $fs$ is the sampling frequency.
+% * $Window$ is the window function.
+% * $OverlapLength$ is the overlap length.
+% * $FFTLength$ is the FFT length.
+% * $FrequencyRange$ is the frequency range.
+% * $s$ is the STFT of the signal.
+% * $t$ is the time vector.
+% * $f$ is the frequency vector.
+%
+% The following code computes the STFT of a chirp signal.
+%
+% *Note:* The |stft| function uses the |fft| function to compute the STFT.
+N = 2 ^ 11;
+t = linspace(0, 1, N);
+Ts = t(2) - t(1);
+fs = 1 / Ts;
+f0 = 100;
+f1 = 500;
+c = chirp(t, f0, t(end), f1);
+[s, t, f] = stft( ...
+    c, ...
+    fs, ...
+    Window = hamming(512), ...
+    OverlapLength = 511, ...
+    FFTLength = 512, ...
+    FrequencyRange = "centered" ...
+);
+figure('Name', 'Short-time Fourier Transform');
+surf(f, t, abs(s), 'EdgeColor', 'none');
+axis tight;
+colormap(jet);
+cb = colorbar;
+view([-1, -0.5, 1]);
+ylabel(cb, 'Magnitude(Volts/Hz)');
+xlabel('Time (Seconds)');
+ylabel('Frequency (Hz)');
+title('STFT of a Chirp Signal');
