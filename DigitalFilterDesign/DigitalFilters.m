@@ -25,6 +25,7 @@ clc;
 %
 % In the following example, we design an ideal bandpass filter with the lower
 % cutoff frequency of 0.15 and the upper cutoff frequency of 0.25.
+%
 % *Ideal band-pass FIR filter in time domain*
 M = 100;
 wa = 0.15 * pi;
@@ -41,6 +42,7 @@ ylabel('h1(n)');
 title('Impulse Response of The Ideal Band-pass FIR Filter');
 grid on;
 %%%
+%
 % *Ideal band-pass FIR filter in frequency domain*
 w_axis = linspace(-pi, pi, 1e3);
 DTFT_h1 = h1 * exp(-1j * n1' * w_axis);
@@ -72,6 +74,7 @@ grid on;
 %
 % In the following example, we use the Hamming window to smooth the
 % transition between the passband and the stopband.
+%
 % *Hamming window in time domain*
 hamming_window = 0.54 - 0.46 * sin(2 * pi * n1 / M);
 
@@ -105,7 +108,9 @@ xticklabels({'-\pi', '-\pi/2', '-\pi/5', '0', '\pi/5', '\pi/2', '\pi'});
 title('Phase Response');
 grid on;
 %%%
+%
 % *Hamming windowed band-pass FIR filter in time domain*
+%
 h2 = h1 .* hamming_window;
 figure('name', 'Impulse Response of The Hamming Windowed Band-pass FIR Filter');
 stem(n1, h2, 'linewidth', 1.5);
@@ -114,7 +119,9 @@ ylabel('h2(n)');
 title('Impulse Response of The Hamming Windowed Band-pass FIR Filter');
 grid on;
 %%%
+%
 % *Hamming windowed band-pass FIR filter in frequency domain*
+%
 DTFT_h2 = h2 * exp(-1j * n1' * w_axis);
 figure('name', 'Frequency Response of The Hamming Windowed Band-pass FIR Filter');
 subplot(211);
@@ -147,6 +154,7 @@ grid on;
 % # We can also use filterDesigner to design FIR filters.
 %
 % *Design a passband filter using filterDesigner*
+%
 % # Open filterDesigner.
 % # Select IIR filter.
 % # Select the filter type(passband, lowpass, highpass, bandpass, or bandstop).
@@ -158,9 +166,12 @@ grid on;
 % We should specify it for stopband and passbands.
 % # Enter magnitude specifications. It has different units. We should specify
 % it for stopbands and passbands.
+%
 % *Design a IIR filter using filterDesigner*
+%
 % According to the filterDesigner, we can design a IIR filter with the
 % following specifications:
+%
 % # Filter type: Bandpass
 % # Design method: Elliptic
 % # Normalized frequency of stopband 1: $0.45 \pi$
@@ -176,9 +187,12 @@ grid on;
 figure('name', 'Magnitude Frequency Response of The Designed IIR Filter');
 imshow('./images/Bandpass_Elliptic_IIR_filter.png');
 %%%
+%
 % *Design a FIR filter using filterDesigner*
+%
 % According to the filterDesigner, we can design a FIR filter with the
 % following specifications:
+%
 % # Filter type: Bandpass
 % # Design method: Generalized Equiripple
 % # Density factor: 20
@@ -200,22 +214,24 @@ imshow('./images/Bandpass_GeneralizedEquiripple_FIR_filter.png');
 % |ctrl + s| or go to the File menu and select "Save".
 %
 % *Export the filter*
+%
 % We can export the filter function to a MATLAB file. To do this,
 % we should go to the File menu and select "Generate MATLAB Code".
 % Then, we should select "Filter Design Function" and save the file.
 %
-% *$File \rightarrow Generate MATLAB Code \rightarrow Filter Design Function$*
+% |File $\rightarrow$ Generate MATLAB Code $\rightarrow$ Filter Design Function|
 %
 % We can also save the filter to a MAT file. To do this, we should go to the
 % File menu and select "Export...", then we should select "MAT-File" and
 % "Coefficients" and save the file.
 %
-% *$File \rightarrow Export... \rightarrow MAT-File \rightarrow Coefficients$*
+% |File $\rightarrow$ Export... $\rightarrow$ MAT-File $\rightarrow$ Coefficients|
 %
 % To load the filter, we should use the |load| function.
 % The following code loads the filter.
 %
-load('./filters/Bandpass_GeneralizedEquiripple_FIR_filter.mat', 'FIR_Filter_Coefficients');
+FIR_Filter_Coefficients = ...
+    load('./filters/Bandpass_GeneralizedEquiripple_FIR_filter.mat');
 %%%
 % The second argument of the |load| function is the name of the workspace variable
 % that we want to load from the MAT file.
@@ -226,7 +242,9 @@ addpath('./filters');
 FIR_Filter = Bandpass_GeneralizedEquiripple_FIR_filter;
 IIR_Filter = Bandpass_Elliptic_IIR_filter;
 %%%
+%
 % *Filter the signal*
+%
 % We can filter the signal using the filter function.
 % We should pass the filter function and the signal to the filter function.
 % The following code filters the signal using the filter function.
@@ -256,7 +274,8 @@ hold on;
 stem(n, sin(0.5 * pi * n), 'linewidth', 1.5);
 legend('Output of FIR Filter', 'Output of IIR Filter', 'Desired Signal');
 %%%
-% *Frequency response of the designed filters*
+%
+% *Frequency response of the designed filters*؛
 % We can plot the frequency response of the designed filters.
 % We should pass the filter function to the freqz function.
 % The following code plots the frequency response of the designed filters.
