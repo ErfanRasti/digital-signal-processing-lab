@@ -148,3 +148,57 @@ title('STFT of a Chirp Signal');
 % For more information check the
 % <https://www.mathworks.com/help/signal/ref/stft.html
 % stft function documentation>.
+
+%% Spectrogram
+%
+% To calculate the STFT of a signal, we can use the |spectrogram| function.
+% The |spectrogram| function is defined as follows:
+%
+% $$[s, f, t] = \text{spectrogram}(x, window, noverlap, nfft, fs, freqrange)$$
+%
+% where
+% * $x$ is the discrete-time signal.
+% * $window$ is the window function.
+% * $noverlap$ is the overlap length.
+% * $nfft$ is the FFT length.
+% * $fs$ is the sampling frequency.
+% * $freqrange$ is the frequency range.
+% * $s$ is the STFT of the signal.
+% * $f$ is the frequency vector.
+% * $t$ is the time vector.
+%
+% *Note:* The |spectrogram| function uses the |stft| function to compute
+% the STFT.
+N = 2 ^ 12;
+t = linspace(0, 1, N);
+Ts = t(2) - t(1);
+fs = 1 / Ts;
+x = exp(1j * pi * 100 * (cos(2 * pi * 2 * t)));
+figure('Name', 'Spectrogram of a Chirp Signal');
+spectrogram( ...
+    x, ...
+    hamming(128), ...
+    127, ...
+    128, ...
+    fs, ...
+    "centered", ...
+    "yaxis" ...
+);
+%%%
+% We can also use the |spectrogram| function in 3D mode.
+figure('Name', 'Spectrogram of a Chirp Signal in 3D');
+spectrogram( ...
+    x, ...
+    hamming(512), ...
+    511, ...
+    512, ...
+    fs, ...
+    "centered", ...
+    "yaxis" ...
+);
+view(-45, 50);
+colormap bone;
+%%%
+% For more information check the
+% <https://www.mathworks.com/help/signal/ref/spectrogram.html
+% spectrogram function documentation>.
