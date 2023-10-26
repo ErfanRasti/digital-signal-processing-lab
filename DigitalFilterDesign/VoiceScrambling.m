@@ -44,6 +44,7 @@ clc;
 % with the voice signal using the |.*| operator. The scrambled voice signal
 % is stored in the variable |y|. The scrambling sinusoid is stored in the
 % variable |s|. The following code scrambles a voice signal.
+%
 % |y = x_lowpassed .* s;|
 %
 % The descrambling process is the inverse of the scrambling process. The
@@ -54,6 +55,7 @@ clc;
 % The descrambling process is implemented using the |.*| operator. The
 % descrambled voice signal is stored in the variable |y_2|. The following
 % code descrambles the voice signal.
+%
 % |y_2 = y .* s;|
 %
 % After multiplying the voice signal with the scrambling sinusoid, the
@@ -86,6 +88,7 @@ clc;
 % of samples and |fs| is the sampling frequency. The number of points is |N|.
 %
 % The following code loads the audio file and defines the time axis.
+%
 % |[x_t, fs] = audioread('Audio01.wav');|
 %
 % |x_t = x_t';|
@@ -99,7 +102,9 @@ clc;
 % finishes. We can do this using the |pause| function. It takes the time
 % to wait in seconds as an argument.
 %
-% The following code sounds the audio file.
+% The following code sounds the audio file:
+%
 % |sound(x_t, fs);|
 %
 % |pause(length(x_t) / fs);|
+%%%
