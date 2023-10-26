@@ -45,3 +45,62 @@ clc;
 % # We use the |upsample| function to upsample the signal.
 % # The |upsample| function takes the signal and the upsampling factor
 % as input arguments.
+%% Spectrum of the filters
+% # The spectrum of the filters can be obtained by taking the DTFT of the
+% filter coefficients.
+%
+% In the following code, we plot the spectrum of the filters.
+% # First we read the filter coefficients from the excel file.
+% # Second we take the DTFT of the filter coefficients.
+% # Third we plot the magnitude and phase of the DTFTs.
+analysis_filters = readmatrix('./data/filters.xls', 'Sheet', 1);
+synthesis_filters = readmatrix('./data/filters.xls', 'Sheet', 2);
+figure('Name', "Amplitiude of frequency response of digital filters");
+
+for i = 1:4
+    n = 0:32 - 1;
+    subplot(4, 2, 2 * i -1);
+    w_axis = linspace(0, pi, 1e3);
+    kernel = exp(-1j * n' * w_axis);
+    H = analysis_filters(i, :) * kernel;
+    plot(w_axis / pi, abs(H), 'LineWidth', 1.5);
+    xlabel('Normalized Frequency');
+    ylabel('Magnitude');
+    xlim([0 1]);
+    title(strcat("Frequency response of analysis filter ", string(i)));
+    grid on;
+
+    subplot(4, 2, 2 * i);
+    H = synthesis_filters(i, :) * kernel;
+    plot(w_axis / pi, abs(H), 'LineWidth', 1.5);
+    xlabel('Normalized Frequency');
+    ylabel('Magnitude');
+    xlim([0 1]);
+    title(strcat("Frequency response of synthesis filter ", string(i)));
+    grid on;
+end
+
+%%%
+figure('Name', "Phase of frequency response of digital filters");
+
+for i = 1:4
+    subplot(4, 2, 2 * i -1);
+    [H, w] = freqz(analysis_filters(i, :), 1, 1024);
+    plot(w / pi, angle(H), 'LineWidth', 1.5);
+    xlabel('Normalized Frequency');
+    ylabel('Phase');
+    xlim([0 1]);
+    title(strcat("Frequency response of analysis filter ", string(i)));
+    grid on;
+
+    subplot(4, 2, 2 * i);
+    [H, w] = freqz(synthesis_filters(i, :), 1, 1024);
+    plot(w / pi, angle(H), 'LineWidth', 1.5);
+    xlabel('Normalized Frequency');
+    ylabel('Phase');
+    xlim([0 1]);
+    title(strcat("Frequency response of synthesis filter ", string(i)));
+    grid on;
+
+end
+%%%
