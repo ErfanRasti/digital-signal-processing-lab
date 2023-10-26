@@ -133,3 +133,18 @@ ylabel(cb, 'Magnitude(Volts/Hz)');
 xlabel('Time (Seconds)');
 ylabel('Frequency (Hz)');
 title('STFT of a Chirp Signal');
+%%%
+% For a better visualization, we can use the |imagesc| function.
+figure('Name', 'Short-time Fourier Transform');
+imagesc(f, t, abs(s));
+axis xy;
+colormap(jet);
+cb = colorbar;
+ylabel(cb, 'Magnitude(Volts/Hz)');
+xlabel('Time (Seconds)');
+ylabel('Frequency (Hz)');
+title('STFT of a Chirp Signal');
+%%%
+% For more information check the
+% <https://www.mathworks.com/help/signal/ref/stft.html
+% stft function documentation>.
