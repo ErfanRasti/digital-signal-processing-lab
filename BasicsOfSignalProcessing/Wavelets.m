@@ -73,6 +73,7 @@ clc;
 %
 % Every choice of the mother wavelet gives a particular CWT, and as a result, we
 % are dealing with infinite number of transformations under the same name CWT.
+%
 %% Mother wavelets
 % the mexican hat wavelet is a good choice for the mother wavelet. It is
 % defined as:
@@ -91,3 +92,28 @@ plot(t, Psi, 'LineWidth', 1.5);
 xlabel('Time');
 ylabel('Amplitude');
 grid on;
+%%%
+% There are many other mother wavelets. The most important ones are:
+% # Morlet wavelet
+% # Haar wavelet
+% # Daubechies wavelet
+% # Symlet wavelet
+% # Coiflet wavelet
+% # Meyer wavelet
+% # Gaussian wavelet
+% # Mexican hat wavelet
+% # Shannon wavelet
+%
+% Daubechies wavelets are the most popular wavelets. They are orthogonal
+% wavelets. Orthogonal wavelets are used in image compression.
+% They are indicated by dbX, where X is the number of vanishing moments.
+% The number of vanishing moments is the number of derivatives of the
+% wavelet function that are zero at the origin.
+% The more complex the signal, the more vanishing moments are needed to
+% capture its features.
+%
+% To choose the best wavelet for a specific application, we should consider
+% the following factors:
+% # complex mother wavelets are needed for complex signals
+% # the mother wavelet that resembles the general shape of the signal to be
+% analyzed would be a more suitable choice.
