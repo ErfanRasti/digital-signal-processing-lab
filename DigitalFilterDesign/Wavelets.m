@@ -279,7 +279,7 @@ imshow('./images/IDWT_QMF_Algorithm.png');
 % * |sqrtsnr|: The square root of the signal to noise ratio
 % * |seed|: The seed of the random number generator
 %
-N = 10;
+N = 8;
 loc = linspace(0, 1, 2 ^ N);
 sqrtsnr = 10;
 [x, noisy_x] = wnoise('heavy sine', N, sqrtsnr);
@@ -300,6 +300,7 @@ grid on;
 % For more information about the |wnoise| function, refer to the
 % <https://www.mathworks.com/help/wavelet/ref/wnoise.html |wnoise|>
 % documentation.
+%
 %% |wavedec| function
 % The |wavedec| function is used to decompose a signal using DWT.
 % It implements Multilevel 1-D wavelet transform.
@@ -314,9 +315,50 @@ grid on;
 % * |numberOfLevels|: The number of levels of decomposition
 % * |waveletName|: The name of the wavelet
 %
+[waveletCoefficients, waveletLevels] = wavedec(x, 2, 'db2');
+figure('Name', 'Wavelet Coefficients');
+stem(waveletCoefficients, 'LineWidth', 1.5);
+title('Wavelet Coefficients');
+xlabel('Time');
+ylabel('Amplitude');
+grid on;
+
+%%%
 % The |wavedec| function returns the wavelet coefficients of the signal
 % decomposed to the specified number of levels using the specified wavelet.
 %
 % For more information about the |wavedec| function, refer to the
 % <https://www.mathworks.com/help/wavelet/ref/wavedec.html |wavedec|>
+% documentation.
+%
+%% |detcoef| function
+% The |detcoef| function is used to extract the wavelet coefficients of a
+% specific level or levels of decomposition.
+%
+% The syntax of this function is:
+%
+% $$DetCoef = detcoef(waveletCoefficients, waveletLevels, levels_to_extract)$$
+%
+% * |DetCoef|: The wavelet coefficients of the specified level or levels
+% * |waveletCoefficients|: The wavelet coefficients(1-D vector concatenated from all levels)
+% * |waveletLevels|: The number of levels of decomposition
+% * |levels_to_extract|: The levels to extract
+%
+DetCoef = detcoef(waveletCoefficients, waveletLevels, [1 2]);
+figure('Name', 'Wavelet Coefficients of Level 1 and 2');
+subplot(211);
+stem(DetCoef{1}, 'LineWidth', 1.5);
+title('Wavelet Coefficients of Level 1 and 2');
+xlabel('Time');
+ylabel('Amplitude');
+grid on;
+subplot(212);
+stem(DetCoef{2}, 'LineWidth', 1.5);
+title('Wavelet Coefficients of Level 1 and 2');
+xlabel('Time');
+ylabel('Amplitude');
+grid on;
+%%%
+% For more information about the |detcoef| function, refer to the
+% <https://www.mathworks.com/help/wavelet/ref/detcoef.html |detcoef|>
 % documentation.
