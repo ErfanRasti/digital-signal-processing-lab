@@ -89,6 +89,7 @@ Psi = (2 / (sqrt(3 * a) * pi ^ (1/4))) * (1 - (t .^ 2 / a ^ 2)) ...
     .* exp(-t .^ 2 / (2 * a ^ 2));
 figure('Name', 'Mexican Hat Wavelet');
 plot(t, Psi, 'LineWidth', 1.5);
+title('Mexican Hat Wavelet');
 xlabel('Time');
 ylabel('Amplitude');
 grid on;
@@ -264,3 +265,38 @@ imshow('./images/IDWT_QMF_Algorithm.png');
 % Similarly, if the objective is to extract only the fast variations of signal,
 % in the reconstruction phase, we can easily set the coefficients of the low
 % frequency (high scales) to zero while calculating the IDWT.
+%
+%% |wnoise| function
+% The |wnoise| function is used to add white noise to a signal.
+% The syntax of this function is:
+%
+% $$[x, noisy_x]=wnoise(fun, n, sqrtsnr, seed)$$
+%
+% * |x|: The original signal
+% * |noisy_x|: The noisy signal
+% * |fun|: The function that generates the signal
+% * |n|: The nummber of iterations(power of 2 $log_2(numberOfSamples)$)
+% * |sqrtsnr|: The square root of the signal to noise ratio
+% * |seed|: The seed of the random number generator
+%
+N = 10;
+loc = linspace(0, 1, 2 ^ N);
+sqrtsnr = 10;
+[x, noisy_x] = wnoise('heavy sine', N, sqrtsnr);
+figure('Name', 'Heavy Sine Signal vs Heavy Sine Signal with White Noise');
+subplot(211);
+plot(loc, x, 'LineWidth', 1.5);
+title('Heavy Sine Signal');
+xlabel('Time');
+ylabel('Amplitude');
+grid on;
+subplot(212);
+plot(loc, noisy_x, 'LineWidth', 1.5);
+title('Heavy Sine Signal with White Noise');
+xlabel('Time');
+ylabel('Amplitude');
+grid on;
+%%%
+% For more information about the |wnoise| function, refer to the
+% <https://www.mathworks.com/help/wavelet/ref/wnoise.html |wnoise|>
+% documentation.
