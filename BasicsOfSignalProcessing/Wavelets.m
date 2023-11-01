@@ -225,3 +225,15 @@ imshow('./images/QMF_Algorithm.png');
 %
 % $$\Phi(n)=\sum_{k=0}^{2N-1}h(k)\Phi(2n-k)$$
 %
+% The function $\Phi(n)$ is called the scaling function.
+% The scaling function is a low-pass filter that is used to reconstruct the
+% signal from the wavelet coefficients.
+% The scaling function is also called the father wavelet.
+%
+% It can be shown that all popular wavelets are derived from the QMF algorithm.
+%
+% Now we should ask another question: "How many decomposition levels are needed
+% for a suitable transform?" An intuitive criterion to choose the level of the
+% decomposition would be continuing decomposition until the highest known
+% frequencies in the signal of interest are extracted and identified.
+
