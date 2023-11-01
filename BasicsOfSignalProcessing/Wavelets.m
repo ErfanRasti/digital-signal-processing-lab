@@ -117,3 +117,35 @@ grid on;
 % # complex mother wavelets are needed for complex signals
 % # the mother wavelet that resembles the general shape of the signal to be
 % analyzed would be a more suitable choice.
+%
+%% One-dimensional Discrete Wavelet Transform
+% A closer look at the CWT revealsthat thistransformation requiresthe
+% calculations based on all continuous shifts and all continuous scales.
+% This obviously makes the computational complexity of the CWT and the ICWT
+% unsuitable for many practically important applications.
+% This leads us to the discrete version of this transform.
+% We define sampled versions of the scale and translation parameters as:
+%
+% $$a_{jk}=a_0^j,k=0,1,...,M-1,j=0,1,...,N-1$$
+%
+% $$b_jk=ka_0^jT,k=0,1,...,M-1,j=0,1,...,N-1$$
+%
+% where $T$ is the sampling time and $a_0$ is a positive nonzero constant.
+%
+% Also we define mother wavelet as:
+%
+% $$\Psi_{jk}(t)=\frac{1}{\sqrt{a_{jk}}}\Psi\left(\frac{t-b_{jk}}{a_{jk}}\right)=a_0^{-j/2}\Psi(a_0^{-j}t-kT)$$
+%
+% Then the coefficients of the discrete wavelet transform (DWT) are defined as:
+%
+% $$W_{\Psi, X}(j,k)=\int_{-\infty}^{\infty}x(t)\Psi_{jk}^*\left(t\right)dt$$
+%
+% This makes the DWT somewhat different from the DFT that accepts only discrete
+% signals as its input. The synthesis equation is:
+%
+% $$x(t)=c\sum_{j=0}^{N-1}\sum_{k=0}^{M-1}W_{\Psi, X}(j,k)\Psi_{jk}(t)$$
+%
+% where $c$ is a constant that depends on the exact choice of the mother wavelet.
+%
+% The interesting thing about this equation is the fact that we can reconstruct
+% the continuous signal directly from a set of discrete coefficients.
