@@ -149,3 +149,31 @@ grid on;
 %
 % The interesting thing about this equation is the fact that we can reconstruct
 % the continuous signal directly from a set of discrete coefficients.
+%
+%% Minimal set of basis functions
+% A relevant question at this point is how to choose the number of basis
+% functions for a given signal.
+% A frame is a set of basis functions that can be used to decompose a signal.
+% This set can be minimal or nonminimal, i.e., if the number of basis functions
+% in the frame is minimal and any other frame would need the same
+% number or more basis functions, the frame is called a basis.
+%
+% Consider the energy of the signal $x(t)$:
+%
+% $$E_x=\int_{-\infty}^{\infty}|x(t)|^2dt$$
+%
+% It can be proved that there exist some bounded positive values A and B such that:
+%
+% $$A\int_{-\infty}^{\infty}|x(t)|^2dt\leq\sum_{j=0}^{N-1}\sum_{k=0}^{M-1}|W_{\Psi, X}(j,k)|^2\leq B\int_{-\infty}^{\infty}|x(t)|^2dt$$
+%
+% This relation intuitively means that the energy of the wavelet coefficients for a frame
+% is bounded on both upper and lower sides by the true energy of the signal.
+% In the case of a basis (i.e., a minimal frame), the values A and B in the
+% aforementioned inequality become the same, i.e., $A = B$.
+% This means that for a basis we have
+%
+% $$\sum_{j=0}^{N-1}\sum_{k=0}^{M-1}|W_{\Psi, X}(j,k)|^2=E_x$$
+% This indicates the energy of the coefficients is exactly the same as the energy of the
+% signal.
+% This is a very important property of the wavelet transform.
+%
