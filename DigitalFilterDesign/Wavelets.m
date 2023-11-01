@@ -3,9 +3,10 @@
 close all;
 clear;
 clc;
-%% Why do we need filters?
+%% Why STFT is not enough?
 % STFT is a powerful tool for analyzing non-stationary signals. However, it
 % is not always the best tool for the job. STFT has two main drawbacks:
+%
 % # The choice of the window length is not obvious. If the window is too
 % short, the resolution in the frequency domain is poor(It won't detect any
 % special pattern). If the window is too long, the resolution in the time
@@ -95,6 +96,7 @@ ylabel('Amplitude');
 grid on;
 %%%
 % There are many other mother wavelets. The most important ones are:
+%
 % # Morlet wavelet
 % # Haar wavelet
 % # Daubechies wavelet
@@ -115,9 +117,16 @@ grid on;
 %
 % To choose the best wavelet for a specific application, we should consider
 % the following factors:
-% # complex mother wavelets are needed for complex signals
+%
+% # complex mother wavelets are needed for complex signals.
 % # the mother wavelet that resembles the general shape of the signal to be
 % analyzed would be a more suitable choice.
+%
+% One of the most important properties of the wavelet transform is the
+% area below the wavelet function. The area below the wavelet function
+% should be equal to zero. This property is called the zero mean property.
+%
+% $$\int_{-\infty}^{\infty}\Psi(t)dt=0$$
 %
 %% One-dimensional Discrete Wavelet Transform
 % A closer look at the CWT revealsthat thistransformation requiresthe
@@ -129,7 +138,7 @@ grid on;
 %
 % $$a_{jk}=a_0^j,k=0,1,...,M-1,j=0,1,...,N-1$$
 %
-% $$b_jk=ka_0^jT,k=0,1,...,M-1,j=0,1,...,N-1$$
+% $$b_{jk}=ka_0^jT,k=0,1,...,M-1,j=0,1,...,N-1$$
 %
 % where $T$ is the sampling time and $a_0$ is a positive nonzero constant.
 %
@@ -174,6 +183,7 @@ grid on;
 % This means that for a basis we have
 %
 % $$\sum_{j=0}^{N-1}\sum_{k=0}^{M-1}|W_{\Psi, X}(j,k)|^2=E_x$$
+%
 % This indicates the energy of the coefficients is exactly the same as the energy of the
 % signal.
 % This is a very important property of the wavelet transform.
@@ -200,6 +210,7 @@ grid on;
 % Assuming a digital filter $h(n)$, we form another filter $g(n)$ as follows:
 %
 % $$g(n)=h(2N-1-n),n=0,1,...,2N-1$$
+%
 % It can be proved that once $h(n)$ is a low-pass filter, $g(n)$ is a high-pass filter.
 %
 % The schematic diagram of the Mallat pyramidal algorithm is shown below:
@@ -248,7 +259,7 @@ imshow('./images/IDWT_QMF_Algorithm.png');
 % The filters $h_1(n)$ and $g_1(n)$ are called the synthesis filters.
 % $h_1(n)$ and $g_1(n)$ can be derived from $h(n)$ and $g(n)$:
 %
-% $$h_1(n)=(-1)^(1-n)h(1-n)&&
+% $$h_1(n)=(-1)^(1-n)h(1-n)$$
 %
 % and
 %
