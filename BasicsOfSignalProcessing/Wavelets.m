@@ -195,3 +195,33 @@ grid on;
 % The interesting feature of this method is the fact that the method relies
 % only on the choice of a digital low-pass filter $h(n)$, and once this filter
 % is chosen, the entire algorithm is rather mechanical and straightforward.
+%
+% Assuming a digital filter $h(n)$, we form another filter $g(n)$ as follows:
+%
+% $$g(n)=h(2N-1-n),n=0,1,...,2N-1$$
+% It can be proved that once $h(n)$ is a low-pass filter, $g(n)$ is a high-pass filter.
+%
+% The schematic diagram of the Mallat pyramidal algorithm is shown below:
+figure('Name', 'Mallat Pyramidal Algorithm');
+imshow('./images/QMF_Algorithm.png');
+%%%
+% The first step in transformation is filtering the signal once with the
+% low-pass filter $h(n)$ and once with the high-pass filter $g(n)$.
+% Then the filtered versions of the signal are downsampled by a factor of 2.
+% This means that every other samples of the signal are preserved and the
+% remaining samples are discarded.
+%
+% We can also ask another relevant question about downsampling: "How would
+% downsampling fit into the general ideas of the DWT?"
+% Without getting into the mathematical details of the process, one can see
+% that downsampling somehow creates the description of the signal at a
+% different scale and resolution.
+% Now we should consider the mother wavelet of QMF algorithm.
+% The mother wavelet of the QMF algorithm is defined as:
+%
+% $$\Psi(n)=\sum_{k=0}^{2N-1}g(k)\Phi(2n-k)$$
+%
+% where
+%
+% $$\Phi(n)=\sum_{k=0}^{2N-1}h(k)\Phi(2n-k)$$
+%
