@@ -362,3 +362,28 @@ grid on;
 % For more information about the |detcoef| function, refer to the
 % <https://www.mathworks.com/help/wavelet/ref/detcoef.html |detcoef|>
 % documentation.
+%% |appcoef| function
+% The |appcoef| function is used to extract the approximation coefficients
+% from the wavelet coefficients.
+%
+% The syntax of this function is:
+%
+% $$approx = appcoef(waveletCoefficients, waveletLevels, waveletName)$$
+%
+% * |approx|: The approximation coefficients
+% * |waveletCoefficients|: The wavelet coefficients(1-D vector concatenated from all levels)
+% * |waveletLevels|: The number of levels of decomposition
+% * |waveletName|: The name of the wavelet
+%
+approx = appcoef(waveletCoefficients, waveletLevels, 'db2');
+figure('Name', 'Approximation Coefficients');
+plot(approx, 'LineWidth', 1.5);
+title('Approximation Coefficients');
+xlabel('Time');
+ylabel('Amplitude');
+grid on;
+%%%
+% For more information about the |appcoef| function, refer to the
+% <https://www.mathworks.com/help/wavelet/ref/appcoef.html |appcoef|>
+% documentation.
+%
