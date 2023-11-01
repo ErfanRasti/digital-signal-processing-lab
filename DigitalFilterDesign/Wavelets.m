@@ -300,3 +300,23 @@ grid on;
 % For more information about the |wnoise| function, refer to the
 % <https://www.mathworks.com/help/wavelet/ref/wnoise.html |wnoise|>
 % documentation.
+%% |wavedec| function
+% The |wavedec| function is used to decompose a signal using DWT.
+% It implements Multilevel 1-D wavelet transform.
+%
+% The syntax of this function is:
+%
+% $$[waveletCoefficients, waveletLevels] = wavedec(x, numberOfLevels, waveletName)$$
+%
+% * |waveletCoefficients|: The wavelet coefficients(1-D vector concatenated from all levels)
+% * |waveletLevels|: The number of levels of decomposition
+% * |x|: The original signal
+% * |numberOfLevels|: The number of levels of decomposition
+% * |waveletName|: The name of the wavelet
+%
+% The |wavedec| function returns the wavelet coefficients of the signal
+% decomposed to the specified number of levels using the specified wavelet.
+%
+% For more information about the |wavedec| function, refer to the
+% <https://www.mathworks.com/help/wavelet/ref/wavedec.html |wavedec|>
+% documentation.
