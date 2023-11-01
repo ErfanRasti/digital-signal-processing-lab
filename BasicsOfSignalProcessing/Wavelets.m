@@ -18,6 +18,35 @@ clc;
 %
 % This two drawbacks leads to the need of a new tool for analyzing
 % non-stationary signals. We should use different window lengths for
-% different parts of the signal. We should also use a time limited term
-% instead of the complex exponential. This is where the wavelet transform
-% comes in.
+% different parts of the signal. We should also use a time limited basis
+% function instead of the complex exponential. This is where the wavelet
+% transform comes in.
+%
+%% Replacement of frequency domain
+% According to the second drawback of STFT, we need to use a time limited
+% basis function instead of the complex exponential. This means that the new
+% basis function is not periodic which means that we can't use the
+% frequency domain to analyze the signal(Because the frequency domain is
+% based on the complex exponential and periodicity).
+% We should analyze what interesting features are captured by the complex
+% exponential. The complex exponential is a basis function for the
+% frequency domain. If thee signal is periodic with the frequency of
+% $f_0$, then the complex exponential will have a peak at $f_0$. the second
+% harmonic will have a peak at $2f_0$ and so on. The relations between
+% different harmonics is the concept that we should capture in the new
+% basis function.
+%
+% Warping the time axis is the key to capture the relations between
+% different harmonics. The new basis function should be a time limited
+% function that is warped in time. For example if we replace $t$ with
+% $2t$ in the original signal $x(t)$, then the second harmoinc will be
+% captured in the new signal.
+%
+% We claim that the main characteristic of harmonic frequencies can be drawn
+% from a more general concept that we call "scale". The interesting part is that
+% unlike frequency that is defined only for periodic signals, scale is equally
+% applicable to nonperiodic signals. This proves that we have found a new
+% concept, i.e., scale, to replace frequency.
+% Using scale as a variable, the new transform, which will be based on
+% time-limited basis function, can be meaningfully applied to both
+% time-unlimited and time-limited signals.
