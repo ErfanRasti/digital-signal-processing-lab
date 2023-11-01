@@ -73,3 +73,21 @@ clc;
 %
 % Every choice of the mother wavelet gives a particular CWT, and as a result, we
 % are dealing with infinite number of transformations under the same name CWT.
+%% Mother wavelets
+% the mexican hat wavelet is a good choice for the mother wavelet. It is
+% defined as:
+%
+% $$\Psi(t)=\frac{2}{\sqrt{3a}\pi^{1/4}}\left(1-\frac{t^2}{a^2}\right)e^{-t^2/2a^2}$$
+%
+% The mexican hat wavelet is also known as the Ricker wavelet.
+%
+% The waveform of the mexican hat wavelet is shown below:
+t = -2:0.01:2;
+a = 0.5;
+Psi = (2 / (sqrt(3 * a) * pi ^ (1/4))) * (1 - (t .^ 2 / a ^ 2)) ...
+    .* exp(-t .^ 2 / (2 * a ^ 2));
+figure('Name', 'Mexican Hat Wavelet');
+plot(t, Psi, 'LineWidth', 1.5);
+xlabel('Time');
+ylabel('Amplitude');
+grid on;
