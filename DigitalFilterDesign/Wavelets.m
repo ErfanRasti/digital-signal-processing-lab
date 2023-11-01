@@ -252,4 +252,15 @@ imshow('./images/IDWT_QMF_Algorithm.png');
 % and
 %
 % $$g_1(n)=h(2N-1-n)$$
-
+%
+% An interesting feature of the DWT and IDWT is the possibility of
+% reconstructing the signal only based on a few of the levels (scales)
+% of decomposition.
+% For example, if we want to extract only the main trend
+% of the signal and ignore the medium and fast variations, we can easily
+% decompose the signal to several levels using DWT, but use only the first
+% (or first few) low-pass components to reconstruct the signal using IDWT.
+% This allows bypassing the medium- and high-frequency components.
+% Similarly, if the objective is to extract only the fast variations of signal,
+% in the reconstruction phase, we can easily set the coefficients of the low
+% frequency (high scales) to zero while calculating the IDWT.
