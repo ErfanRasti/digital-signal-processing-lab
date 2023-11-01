@@ -387,3 +387,32 @@ grid on;
 % <https://www.mathworks.com/help/wavelet/ref/appcoef.html |appcoef|>
 % documentation.
 %
+%% |wdenoise| function
+% The |wdenoise| function is used to denoise a signal using DWT.
+%
+% The syntax of this function is:
+%
+% $$denoised_x = wdenoise(noisy_x, waveletLevels, waveletName)$$
+%
+% * |denoised_x|: The denoised signal
+% * |noisy_x|: The noisy signal
+% * |waveletLevels|: The number of levels of decomposition
+%
+denoised_x = wdenoise(noisy_x, N);
+figure('Name', 'Heavy Sine Signal with White Noise vs Denoised Heavy Sine Signal');
+subplot(211);
+plot(loc, noisy_x, 'LineWidth', 1.5);
+title('Heavy Sine Signal with White Noise');
+xlabel('Time');
+ylabel('Amplitude');
+grid on;
+subplot(212);
+plot(loc, denoised_x, 'LineWidth', 1.5);
+title('Denoised Heavy Sine Signal');
+xlabel('Time');
+ylabel('Amplitude');
+grid on;
+%%%
+% For more information about the |wdenoise| function, refer to the
+% <https://www.mathworks.com/help/wavelet/ref/wdenoise.html |wdenoise|>
+% documentation.
