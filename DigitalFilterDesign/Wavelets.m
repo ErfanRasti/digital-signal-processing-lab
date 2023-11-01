@@ -203,7 +203,7 @@ grid on;
 %
 % The schematic diagram of the Mallat pyramidal algorithm is shown below:
 figure('Name', 'Mallat Pyramidal Algorithm');
-imshow('./images/QMF_Algorithm.png');
+imshow('./images/DWT_QMF_Algorithm.png');
 %%%
 % The first step in transformation is filtering the signal once with the
 % low-pass filter $h(n)$ and once with the high-pass filter $g(n)$.
@@ -228,7 +228,7 @@ imshow('./images/QMF_Algorithm.png');
 % The function $\Phi(n)$ is called the scaling function.
 % The scaling function is a low-pass filter that is used to reconstruct the
 % signal from the wavelet coefficients.
-% The scaling function is also called the father wavelet.
+% The scaling function is also called the *father wavelet*.
 %
 % It can be shown that all popular wavelets are derived from the QMF algorithm.
 %
@@ -236,4 +236,20 @@ imshow('./images/QMF_Algorithm.png');
 % for a suitable transform?" An intuitive criterion to choose the level of the
 % decomposition would be continuing decomposition until the highest known
 % frequencies in the signal of interest are extracted and identified.
+%
+% Now we define inverse DWT algorithm. The inverse DWT algorithm is shown below:
+figure('Name', 'Inverse DWT Algorithm');
+imshow('./images/IDWT_QMF_Algorithm.png');
+%%%
+% The inverse DWT algorithm is the reverse of the forward DWT algorithm.
+%
+% The filters $h(n)$ and $g(n)$ are called the analysis filters.
+% The filters $h_1(n)$ and $g_1(n)$ are called the synthesis filters.
+% $h_1(n)$ and $g_1(n)$ can be derived from $h(n)$ and $g(n)$:
+%
+% $$h_1(n)=(-1)^(1-n)h(1-n)&&
+%
+% and
+%
+% $$g_1(n)=h(2N-1-n)$$
 
