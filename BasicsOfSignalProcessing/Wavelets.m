@@ -176,4 +176,22 @@ grid on;
 % This indicates the energy of the coefficients is exactly the same as the energy of the
 % signal.
 % This is a very important property of the wavelet transform.
+% The next important question to ask here is: "What are the properties of the
+% functions that allow the function sets to form a basis?" The most popular
+% basis sets are the orthogonal ones, i.e., the function
+% sets whose members are orthogonal to each other.
 %
+%% Discrete Wavelet Transform on Discrete Signals
+% We need to focus on calculating DWT from discrete signals. At this point,
+% we assume that the discrete signal, if sampled from a continuous
+% signal, has been sampled according to the Nyquist rate (or faster).
+% This guarantees that all information of the continuous signal is preserved in
+% the discrete signal.
+%
+% The question here is how to form such basis sets systematically. The method
+% described next, called Mallat pyramidal algorithm or quadrature mirror filter (QMF),
+% allows systematic creation of an unlimited number of orthogonal basis sets for DWT.
+%
+% The interesting feature of this method is the fact that the method relies
+% only on the choice of a digital low-pass filter $h(n)$, and once this filter
+% is chosen, the entire algorithm is rather mechanical and straightforward.
