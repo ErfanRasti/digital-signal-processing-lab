@@ -50,3 +50,26 @@ clc;
 % Using scale as a variable, the new transform, which will be based on
 % time-limited basis function, can be meaningfully applied to both
 % time-unlimited and time-limited signals.
+%
+%% One-dimensional Continuous Wavelet Transform
+% The one-dimensional continuous wavelet transform (CWT) of a signal $x(t)$
+% is defined as:
+%
+% $$W_{\Psi, X}(a,b)=\frac{1}{\sqrt{|a|}}\int_{-\infty}^{\infty}x(t)\Psi^*\left(\frac{t-b}{a}\right)dt,a\neq0$$
+%
+% where $a$ is the scale parameter, $b$ is the translation parameter, and
+% $\Psi^*(t)$ is the complex conjugate of the mother wavelet $\Psi(t)$.
+%
+% A closer look at the definition of the mother wavelet tells that this function
+% must be limited in duration and therefore looks like a decaying small wave.
+% This is why we call this transform the wavelet transform.
+%
+% The synthesis equation is:
+%
+% $$x(t)=\frac{C^{-1}_{\Psi}}{a^2}\int_{-\infty}^{\infty}\int_{-\infty}^{\infty}W_{\Psi, X}(a,b)\Psi\left(\frac{t-b}{a}\right)dadb$$
+%
+% where $C^{-1}_{\Psi}$ is a constant whose value depends on the exact choice
+% of the mother wavelet $\Psi(t)$.
+%
+% Every choice of the mother wavelet gives a particular CWT, and as a result, we
+% are dealing with infinite number of transformations under the same name CWT.
