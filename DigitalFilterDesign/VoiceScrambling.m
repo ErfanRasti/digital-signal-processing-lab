@@ -199,3 +199,20 @@ ylabel("Phase (rad)");
 title("Phase Response of the Low-Pass Filter");
 grid on;
 %%%
+% We filter the sampled signal using the low-pass filter.
+x_lowpassed = conv(x, lowpass_filter, 'same');
+FT_x_lowpassed = fftshift(fft(x_lowpassed, N_freq)) / fs;
+figure('Name', 'Low-Passed Signal');
+subplot(2, 1, 1);
+stem(n, x_lowpassed, 'LineWidth', 1.5);
+xlabel("Time (s)");
+ylabel("Amplitude");
+title("Low-Passed Signal in Time Domain");
+grid on;
+subplot(2, 1, 2);
+plot(f_axis, abs(FT_x_lowpassed), 'LineWidth', 1.5);
+xlabel("Frequency (Hz)");
+ylabel("Magnitude");
+title("Frequency Spectrum of the Low-Passed Signal");
+grid on;
+%%%
