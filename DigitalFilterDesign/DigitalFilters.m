@@ -231,7 +231,7 @@ imshow('./images/Bandpass_GeneralizedEquiripple_FIR_filter.png');
 % The following code loads the filter.
 %
 FIR_Filter_Coefficients = ...
-    load('./filters/Bandpass_GeneralizedEquiripple_FIR_filter.mat');
+    load('./filters/Bandpass_GeneralizedEquiripple_FIR_filter.mat').Num;
 %%%
 % The second argument of the |load| function is the name of the workspace variable
 % that we want to load from the MAT file.
