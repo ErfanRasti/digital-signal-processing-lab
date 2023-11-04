@@ -108,3 +108,16 @@ clc;
 %
 % |pause(length(x_t) / fs);|
 %%%
+%% Implementaion of the scrambling process
+% We assume the input signal is a shifted sinc function with scaling factor of
+% 0.1 and shift factor of 0.5. The sampling frequency is 100 Hz.
+% We know the Fourier transform of the this function in general form is:
+%
+% $$x(t) = sinc(\frac{t - t_0}{T}) \Rightarrow\mathcal{FT}:
+% X(f) = T \cdot \Pi(\frac{f}{T}) \cdot e^{-j 2 \pi f t_0}$$
+%
+% where $t_0$ is the shift factor and $T$ is the scaling factor.
+% The Discrete-Time Fourier Transform (DTFT) of the sampled signal is:
+%
+% $$x[n] = sinc(\frac{n - n_0}{N}) \Rightarrow\mathcal{DTFT}:
+% X(e^{j \omega}) = N \cdot \Pi(\frac{\omega}{N}) \cdot e^{-j \omega n_0}$$
