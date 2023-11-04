@@ -269,3 +269,22 @@ ylabel("Magnitude");
 title("Frequency Spectrum of the Low-Passed Scrambled Signal");
 grid on;
 %%%
+% After receiving the scrambled signal, we should descramble it.
+% We can add noise to the scrambled signal to simulate the noise in the
+% communication channel.
+y_noisy = y_lowpassed + 0.1 * randn(1, length(y_lowpassed));
+FT_y_noisy = fftshift(fft(y_noisy, N_freq)) / fs;
+figure('Name', 'Noisy Scrambled Signal');
+subplot(2, 1, 1);
+stem(n,y_lowpassed, 'LineWidth', 1.5);
+xlabel("Samples");
+ylabel("Amplitude");
+title("Scrambled Signal in Time Domain");
+grid on;
+subplot(2, 1, 2);
+stem(n, y_noisy, 'LineWidth', 1.5);
+xlabel("Samples");
+ylabel("Amplitude");
+title("Noisy Scrambled Signal in Time Domain");
+grid on;
+%%%
