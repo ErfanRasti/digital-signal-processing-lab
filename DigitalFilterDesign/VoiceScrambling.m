@@ -199,7 +199,8 @@ ylabel("Phase (rad)");
 title("Phase Response of the Low-Pass Filter");
 grid on;
 %%%
-% We filter the sampled signal using the low-pass filter.
+% We filter the sampled signal using the low-pass filter with  cutoff
+% frequency of 10 Hz.
 x_lowpassed = conv(x, lowpass_filter, 'same');
 FT_x_lowpassed = fftshift(fft(x_lowpassed, N_freq)) / fs;
 figure('Name', 'Low-Passed Signal');
@@ -276,7 +277,7 @@ y_noisy = y_lowpassed + 0.1 * randn(1, length(y_lowpassed));
 FT_y_noisy = fftshift(fft(y_noisy, N_freq)) / fs;
 figure('Name', 'Noisy Scrambled Signal');
 subplot(2, 1, 1);
-stem(n,y_lowpassed, 'LineWidth', 1.5);
+stem(n, y_lowpassed, 'LineWidth', 1.5);
 xlabel("Samples");
 ylabel("Amplitude");
 title("Scrambled Signal in Time Domain");
@@ -286,5 +287,53 @@ stem(n, y_noisy, 'LineWidth', 1.5);
 xlabel("Samples");
 ylabel("Amplitude");
 title("Noisy Scrambled Signal in Time Domain");
+grid on;
+%%%
+% We repeat the scrambling process to descramble the noisy scrambled signal.
+y_noisy_lowpassed = conv(y_noisy, lowpass_filter, 'same');
+FT_y_noisy_lowpassed = fftshift(fft(y_noisy_lowpassed, N_freq)) / fs;
+figure('Name', 'Low-Passed Noisy Scrambled Signal');
+subplot(2, 1, 1);
+stem(n, y_noisy_lowpassed, 'LineWidth', 1.5);
+xlabel("Samples");
+ylabel("Amplitude");
+title("Low-Passed Noisy Scrambled Signal in Time Domain");
+grid on;
+subplot(2, 1, 2);
+plot(f_axis, abs(FT_y_noisy_lowpassed), 'LineWidth', 1.5);
+xlabel("Frequency (Hz)");
+ylabel("Magnitude");
+title("Frequency Spectrum of the Low-Passed Noisy Scrambled Signal");
+grid on;
+%%%
+y_2 = y_noisy_lowpassed .* s;
+FT_y_2 = fftshift(fft(y_2, N_freq)) / fs;
+figure('Name', 'Descrambled Signal');
+subplot(2, 1, 1);
+stem(n, y_2, 'LineWidth', 1.5);
+xlabel("Samples");
+ylabel("Amplitude");
+title("Descrambled Signal in Time Domain");
+grid on;
+subplot(2, 1, 2);
+plot(f_axis, abs(FT_y_2), 'LineWidth', 1.5);
+xlabel("Frequency (Hz)");
+ylabel("Magnitude");
+title("Frequency Spectrum of the Descrambled Signal");
+grid on;
+%%%
+y_output = conv(y_2, lowpass_filter, 'same');
+figure('Name', 'Output Signal');
+subplot(2, 1, 1);
+stem(n, x, 'LineWidth', 1.5);
+xlabel("Samples");
+ylabel("Amplitude");
+title("Input Signal in Time Domain");
+grid on;
+subplot(2, 1, 2);
+stem(n, y_output, 'LineWidth', 1.5);
+xlabel("Samples");
+ylabel("Amplitude");
+title("Output Signal in Time Domain");
 grid on;
 %%%
