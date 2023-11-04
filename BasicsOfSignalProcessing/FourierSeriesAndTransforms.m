@@ -41,6 +41,11 @@ clc;
 % of the vector. In this case, the length of the vector is assumed to be the
 % length of the vector given as input.
 %
+% *Note:* In computing the |fft(x, N)| command, the length of the vector $x$ is
+% assumed to be $N$. If the length of the vector $x$ is less than $N$, the
+% vector is padded with zeros. If the length of the vector $x$ is greater
+% than $N$, the vector is truncated.
+%
 % Other Fourier operations in MATLAB should be implemented by using the DFT
 % and inverse DFT commands. The FFT algorithm is used to compute the DFT.
 % The FFT algorithm is a fast algorithm to compute the DFT.
@@ -127,7 +132,7 @@ grid on;
 N = 1e3;
 n = 0:N;
 a = 0.5;
-x = a.^n;
+x = a .^ n;
 figure('Name', 'Discrete Time Signal');
 stem(n, x, 'LineWidth', 1.5);
 xlabel('Time (s)');
@@ -137,7 +142,8 @@ grid on;
 xlim([-10, 10]);
 %%%
 % The DTFT of the of the signal is calculated as follows:
-w_axis = linspace(-pi, pi, 1e3);
+N_freq = 1e3;
+w_axis = linspace(-pi, pi, N_freq);
 DTFT_x = x * exp(-1j * n' * w_axis);
 figure('Name', 'DTFT of Discrete Time Signal');
 subplot(2, 1, 1);
@@ -158,6 +164,29 @@ xticks([-pi, -pi / 2, 0, pi / 2, pi]);
 xticklabels({'-\pi', '-\pi/2', '0', '\pi/2', '\pi'});
 title('Phase of DTFT');
 grid on;
+%%%
+% We can calculate the DTFT of a signal using the command |fft| as follows:
+DTFT_x = fftshift(fft(x, N_freq));
+figure('Name', 'DTFT of Discrete Time Signal');
+subplot(2, 1, 1);
+plot(w_axis, abs(DTFT_x), 'LineWidth', 1.5);
+xlabel('Frequency (rad/s)');
+ylabel('Amplitude');
+title('Absolute Value of DTFT');
+xlim([-pi pi]);
+xticks([-pi, -pi / 2, 0, pi / 2, pi]);
+xticklabels({'-\pi', '-\pi/2', '0', '\pi/2', '\pi'});
+grid on;
+subplot(2, 1, 2);
+plot(w_axis, angle(DTFT_x), 'LineWidth', 1.5);
+xlabel('Frequency (rad/s)');
+ylabel('Phase');
+xlim([-pi pi]);
+xticks([-pi, -pi / 2, 0, pi / 2, pi]);
+xticklabels({'-\pi', '-\pi/2', '0', '\pi/2', '\pi'});
+title('Phase of DTFT');
+grid on;
+%%%
 %% Fourier Transform of Continuous-time Signal
 % The Fourier transform of a continuous-time signal $x(t)$ is defined as
 %
@@ -193,7 +222,7 @@ fs = 1e3;
 t = -1:1 / fs:1;
 f0 = 10;
 x = cos(2 * pi * f0 * t);
-FT_x = fft(x)/fs;
+FT_x = fft(x) / fs;
 f_axis = linspace(-fs / 2, fs / 2, length(FT_x));
 figure('Name', 'Fourier Transform of Continuous Time Signal');
 plot(f_axis, abs(FT_x), 'LineWidth', 1.5);
@@ -249,11 +278,12 @@ grid on;
 %
 % There are some important points to be considered:
 %
-% # 1(Sec.) time interval $\rightarrow$ $f_s$ samples $\Rightarrow$ $T_0(Sec.)$ time interval $\rightarrow$ $f_s \times T_0$ samples
+% # 1(Sec.) time interval $\rightarrow$ $f_s$ samples $\Rightarrow$
+% $T_0(Sec.)$ time interval $\rightarrow$ $f_s \times T_0$ samples
 % # For more terms of Fourier series, we should increase the sampling frequency
 % to extend the terms of fft output.
-% #  To maximize the number of FS terms, we should take N equal with half of the number of fft terms.
-% # The ratio of Nyquist boundary is maximum at 1/2.
+% #  To maximize the number of FS terms, we should take N equal with half
+% of the number of fft terms. The ratio of Nyquist boundary is maximum at 1/2.
 fs = 1e4;
 T_eq = 1;
 t = -T_eq:1 / fs:T_eq;
@@ -265,7 +295,7 @@ FT_square_wave = fftshift(fft(square_wave(1:fs * T0))) / (fs * T0); % Consider o
 
 m0 = 1 + floor((fs * T0) / 2); % Center of the frequency spectrum
 ratio_Nyq_boundary = 1/2; % maximum ratio: 0.5
-N = floor(T0*fs*ratio_Nyq_boundary) - 1; % Number of Fourier series terms
+N = floor(T0 * fs * ratio_Nyq_boundary) - 1; % Number of Fourier series terms
 a_n = FT_square_wave(m0 - N:m0 + N); % Fourier series coefficients
 n = -N:N;
 figure('Name', 'Fourier Series of Square Wave');
@@ -285,7 +315,7 @@ xlim([-10 10]);
 grid on;
 %%%
 % *Reconstruction of the square wave from the Fourier series*
-t1 = -1:1/(2*fs):1; %why 2*fs
+t1 = -1:1 / (2 * fs):1; % Why 2*fs?
 kernel = exp(1j * 2 * pi * n' * t1 / T0);
 x = a_n * kernel;
 figure('Name', 'Reconstructed Square Wave');
