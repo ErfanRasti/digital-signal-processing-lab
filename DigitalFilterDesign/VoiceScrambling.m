@@ -216,9 +216,9 @@ ylabel("Magnitude");
 title("Frequency Spectrum of the Low-Passed Signal");
 grid on;
 %%%
-% Now, we define carrier signal with frequency of 20 Hz.
-f0 = 20;
-s = cos(2 * pi * (f0 / fs) * n);
+% Now, we define carrier signal with frequency of 10 Hz.
+f0 = 10;
+s = 2 * cos(2 * pi * (f0 / fs) * n);
 FT_s = fftshift(fft(s, N_freq)) / fs;
 figure('Name', 'Carrier Signal');
 subplot(2, 1, 1);
@@ -249,5 +249,23 @@ plot(f_axis, abs(FT_y), 'LineWidth', 1.5);
 xlabel("Frequency (Hz)");
 ylabel("Magnitude");
 title("Frequency Spectrum of the Scrambled Signal");
+grid on;
+%%%
+% According to the scrambling process, we should use the low-pass filter
+% again.
+y_lowpassed = conv(y, lowpass_filter, 'same');
+FT_y_lowpassed = fftshift(fft(y_lowpassed, N_freq)) / fs;
+figure('Name', 'Low-Passed Scrambled Signal');
+subplot(2, 1, 1);
+stem(n, y_lowpassed, 'LineWidth', 1.5);
+xlabel("Time (s)");
+ylabel("Amplitude");
+title("Low-Passed Scrambled Signal in Time Domain");
+grid on;
+subplot(2, 1, 2);
+plot(f_axis, abs(FT_y_lowpassed), 'LineWidth', 1.5);
+xlabel("Frequency (Hz)");
+ylabel("Magnitude");
+title("Frequency Spectrum of the Low-Passed Scrambled Signal");
 grid on;
 %%%
