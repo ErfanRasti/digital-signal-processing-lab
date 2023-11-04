@@ -121,3 +121,50 @@ clc;
 %
 % $$x[n] = sinc(\frac{n - n_0}{N}) \Rightarrow\mathcal{DTFT}:
 % X(e^{j \omega}) = N \cdot \Pi(\frac{\omega}{N}) \cdot e^{-j \omega n_0}$$
+%
+% We can analyze a signal in two methods:
+%
+% *Analog Signal Processing*
+%
+fs = 100;
+t = 0:1 / fs:1;
+x = sinc((t - 0.5) / 0.1);
+f_axis = linspace(-fs / 2, fs / 2, 1e3);
+FT_x = fftshift(fft(x, 1e3)) / fs;
+
+figure("Name", "Sampled Signal");
+subplot(2, 1, 1);
+stem(t, x, 'LineWidth', 1.5);
+xlabel("Time (s)");
+ylabel("Amplitude");
+title("Sampled Signal in Time Domain");
+grid on;
+subplot(2, 1, 2);
+plot(f_axis, abs(FT_x), 'LineWidth', 1.5);
+xlabel("Frequency (Hz)");
+ylabel("Magnitude");
+title("Frequency Spectrum of the Sampled Signal");
+grid on;
+%%%
+% *Digital Signal Processing*
+% The sampled signal in the analog signal processing is the same as:
+%
+% |x = sinc((n / fs - 0.5) / 0.1);|
+%
+fs = 100;
+n = 0:length(t) - 1; % Discrete axis
+f_axis = linspace(-fs / 2, fs / 2, 1e3);
+FT_x = fftshift(fft(x, 1e3)) / fs;
+figure("Name", "Sampled Signal");
+subplot(2, 1, 1);
+stem(n, x, 'LineWidth', 1.5);
+xlabel("Time (s)");
+ylabel("Amplitude");
+title("Sampled Signal in Time Domain");
+grid on;
+subplot(2, 1, 2);
+plot(f_axis, abs(FT_x), 'LineWidth', 1.5);
+xlabel("Frequency (Hz)");
+ylabel("Magnitude");
+title("Frequency Spectrum of the Sampled Signal");
+grid on;
