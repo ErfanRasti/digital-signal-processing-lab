@@ -129,8 +129,9 @@ clc;
 fs = 100;
 t = 0:1 / fs:1;
 x = sinc((t - 0.5) / 0.1);
-f_axis = linspace(-fs / 2, fs / 2, 1e3);
-FT_x = fftshift(fft(x, 1e3)) / fs;
+N_freq = 1e4;
+f_axis = linspace(-fs / 2, fs / 2, N_freq);
+FT_x = fftshift(fft(x, N_freq)) / fs;
 
 figure("Name", "Sampled Signal");
 subplot(2, 1, 1);
@@ -153,8 +154,8 @@ grid on;
 %
 fs = 100;
 n = 0:length(t) - 1; % Discrete axis
-f_axis = linspace(-fs / 2, fs / 2, 1e3);
-FT_x = fftshift(fft(x, 1e3)) / fs;
+f_axis = linspace(-fs / 2, fs / 2, N_freq);
+FT_x = fftshift(fft(x, N_freq)) / fs;
 figure("Name", "Sampled Signal");
 subplot(2, 1, 1);
 stem(n, x, 'LineWidth', 1.5);
@@ -168,3 +169,33 @@ xlabel("Frequency (Hz)");
 ylabel("Magnitude");
 title("Frequency Spectrum of the Sampled Signal");
 grid on;
+%%%
+% We consider digital signal processing in the following.
+%
+% Now we define a low-pass filter with cutoff frequency of 10 Hz using
+% the filter designer tool.
+lowpass_filter = load('filters/VoiceScrambling_LP_FIR_filter.mat').Num;
+f_axis_pos = f_axis(floor(N_freq / 2) + 1:end);
+FT_lowpass_filter = fftshift(fft(lowpass_filter, N_freq));
+FT_lowpass_filter = FT_lowpass_filter(floor(N_freq / 2) + 1:end);
+figure('Name', 'Low-Pass Filter');
+subplot(3, 1, 1);
+stem(lowpass_filter, 'LineWidth', 1.5);
+xlabel("Samples");
+ylabel("Amplitude");
+title("Impulse Response of the Low-Pass Filter");
+grid on;
+subplot(3, 1, 2);
+plot(f_axis_pos, 20 * log10(abs(FT_lowpass_filter)), 'LineWidth', 1.5);
+xlabel("Frequency (Hz)");
+ylabel("Magnitude");
+title("Frequency Response of the Low-Pass Filter");
+ylim([-70 10]);
+grid on;
+subplot(3, 1, 3);
+plot(f_axis_pos, unwrap(angle(FT_lowpass_filter)), 'LineWidth', 1.5);
+xlabel("Frequency (Hz)");
+ylabel("Phase (rad)");
+title("Phase Response of the Low-Pass Filter");
+grid on;
+%%%
