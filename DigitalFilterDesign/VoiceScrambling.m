@@ -216,3 +216,21 @@ ylabel("Magnitude");
 title("Frequency Spectrum of the Low-Passed Signal");
 grid on;
 %%%
+% Now, we define carrier signal with frequency of 20 Hz.
+f0 = 20;
+s = cos(2 * pi * (f0 / fs) * n);
+FT_s = fftshift(fft(s, N_freq)) / fs;
+figure('Name', 'Carrier Signal');
+subplot(2, 1, 1);
+stem(n, s, 'LineWidth', 1.5);
+xlabel("Time (s)");
+ylabel("Amplitude");
+title("Carrier Signal in Time Domain");
+grid on;
+subplot(2, 1, 2);
+plot(f_axis, abs(FT_s), 'LineWidth', 1.5);
+xlabel("Frequency (Hz)");
+ylabel("Magnitude");
+title("Frequency Spectrum of the Carrier Signal");
+grid on;
+%%%
