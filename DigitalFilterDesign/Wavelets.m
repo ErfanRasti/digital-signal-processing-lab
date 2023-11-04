@@ -17,38 +17,41 @@ clc;
 % the spectrum of time limited signals to be unbounded in a wide range of
 % frequencies.
 %
-% This two drawbacks leads to the need of a new tool for analyzing
-% non-stationary signals. We should use different window lengths for
-% different parts of the signal. We should also use a time limited basis
-% function instead of the complex exponential. This is where the wavelet
-% transform comes in.
+% * These two drawbacks leads to the need of a new tool for analyzing
+% non-stationary signals.
+% * We should use different window lengths for different parts of the signal.
+% * We should also use a time limited basis function instead of the complex
+% exponential. This is where the wavelet transform comes in.
 %
 %% Replacement of frequency domain
-% According to the second drawback of STFT, we need to use a time limited
+%
+% * According to the second drawback of STFT, we need to use a time limited
 % basis function instead of the complex exponential. This means that the new
 % basis function is not periodic which means that we can't use the
 % frequency domain to analyze the signal(Because the frequency domain is
 % based on the complex exponential and periodicity).
-% We should analyze what interesting features are captured by the complex
+% * We should analyze what interesting features are captured by the complex
 % exponential. The complex exponential is a basis function for the
-% frequency domain. If thee signal is periodic with the frequency of
-% $f_0$, then the complex exponential will have a peak at $f_0$. the second
-% harmonic will have a peak at $2f_0$ and so on. The relations between
+% frequency domain. If the signal is periodic with the frequency of
+% * $f_0$, then the complex exponential will have a peak at $f_0$. the second
+% harmonic will have a peak at $2f_0$ and so on.
+% * The relations between
 % different harmonics is the concept that we should capture in the new
 % basis function.
 %
-% Warping the time axis is the key to capture the relations between
+% *Warping the time axis* is the key to capture the relations between
 % different harmonics. The new basis function should be a time limited
 % function that is warped in time. For example if we replace $t$ with
 % $2t$ in the original signal $x(t)$, then the second harmoinc will be
 % captured in the new signal.
 %
 % We claim that the main characteristic of harmonic frequencies can be drawn
-% from a more general concept that we call "scale". The interesting part is that
-% unlike frequency that is defined only for periodic signals, scale is equally
-% applicable to nonperiodic signals. This proves that we have found a new
-% concept, i.e., scale, to replace frequency.
-% Using scale as a variable, the new transform, which will be based on
+% from a more general concept that we call _*"scale"*_. The interesting part is
+% that unlike frequency that is defined only for periodic signals, scale is
+% equally applicable to non-periodic signals. This proves that we have found
+% a new concept, i.e., scale, to replace frequency.
+%
+% Using _scale_ as a variable, the new transform, which will be based on
 % time-limited basis function, can be meaningfully applied to both
 % time-unlimited and time-limited signals.
 %
@@ -79,7 +82,7 @@ clc;
 % the mexican hat wavelet is a good choice for the mother wavelet. It is
 % defined as:
 %
-% $$\Psi(t)=\frac{2}{\sqrt{3a}\pi^{1/4}}\left(1-\frac{t^2}{a^2}\right)e^{-t^2/2a^2}$$
+% $$\Psi(t)=\frac{2}{\sqrt{3a}\pi^{1/4}}\left(1-\frac{t^2}{a^2}\right)e^{\frac{-t^2}/{2a^2}}$$
 %
 % The mexican hat wavelet is also known as the Ricker wavelet.
 %
@@ -107,12 +110,13 @@ grid on;
 % # Mexican hat wavelet
 % # Shannon wavelet
 %
-% Daubechies wavelets are the most popular wavelets. They are orthogonal
-% wavelets. Orthogonal wavelets are used in image compression.
-% They are indicated by dbX, where X is the number of vanishing moments.
-% The number of vanishing moments is the number of derivatives of the
+% Daubechies wavelets are the most popular wavelets:
+%
+% * They are orthogonal wavelets. Orthogonal wavelets are used in image compression.
+% * They are indicated by dbX, where X is the number of vanishing moments.
+% * The number of vanishing moments is the number of derivatives of the
 % wavelet function that are zero at the origin.
-% The more complex the signal, the more vanishing moments are needed to
+% * The more complex the signal, the more vanishing moments are needed to
 % capture its features.
 %
 % To choose the best wavelet for a specific application, we should consider
@@ -129,11 +133,12 @@ grid on;
 % $$\int_{-\infty}^{\infty}\Psi(t)dt=0$$
 %
 %% One-dimensional Discrete Wavelet Transform
-% A closer look at the CWT revealsthat thistransformation requiresthe
+% * A closer look at the CWT reveals that this transformation requires the
 % calculations based on all continuous shifts and all continuous scales.
-% This obviously makes the computational complexity of the CWT and the ICWT
+% * This obviously makes the computational complexity of the CWT and the ICWT
 % unsuitable for many practically important applications.
-% This leads us to the discrete version of this transform.
+% * This leads us to the discrete version of this transform.
+%
 % We define sampled versions of the scale and translation parameters as:
 %
 % $$a_{jk}=a_0^j,k=0,1,...,M-1,j=0,1,...,N-1$$
@@ -161,10 +166,10 @@ grid on;
 % the continuous signal directly from a set of discrete coefficients.
 %
 %% Minimal set of basis functions
-% A relevant question at this point is how to choose the number of basis
-% functions for a given signal.
-% A frame is a set of basis functions that can be used to decompose a signal.
-% This set can be minimal or nonminimal, i.e., if the number of basis functions
+% * A relevant question at this point is: _"How to choose the number of basis
+% functions for a given signal?"_
+% * A frame is a set of basis functions that can be used to decompose a signal.
+% * This set can be minimal or nonminimal, i.e., if the number of basis functions
 % in the frame is minimal and any other frame would need the same
 % number or more basis functions, the frame is called a basis.
 %
@@ -178,6 +183,7 @@ grid on;
 %
 % This relation intuitively means that the energy of the wavelet coefficients for a frame
 % is bounded on both upper and lower sides by the true energy of the signal.
+%
 % In the case of a basis (i.e., a minimal frame), the values A and B in the
 % aforementioned inequality become the same, i.e., $A = B$.
 % This means that for a basis we have
@@ -187,23 +193,23 @@ grid on;
 % This indicates the energy of the coefficients is exactly the same as the energy of the
 % signal.
 % This is a very important property of the wavelet transform.
+%
 % The next important question to ask here is: "What are the properties of the
 % functions that allow the function sets to form a basis?" The most popular
 % basis sets are the orthogonal ones, i.e., the function
 % sets whose members are orthogonal to each other.
 %
 %% Discrete Wavelet Transform on Discrete Signals
-% We need to focus on calculating DWT from discrete signals. At this point,
+% # We need to focus on calculating DWT from discrete signals. At this point,
 % we assume that the discrete signal, if sampled from a continuous
 % signal, has been sampled according to the Nyquist rate (or faster).
 % This guarantees that all information of the continuous signal is preserved in
 % the discrete signal.
-%
-% The question here is how to form such basis sets systematically. The method
-% described next, called Mallat pyramidal algorithm or quadrature mirror filter (QMF),
-% allows systematic creation of an unlimited number of orthogonal basis sets for DWT.
-%
-% The interesting feature of this method is the fact that the method relies
+% # The question here is: _"How to form such basis sets systematically?"_
+% # The method described next, called Mallat pyramidal algorithm or quadrature
+% mirror filter (QMF), allows systematic creation of an unlimited number of
+% orthogonal basis sets for DWT.
+% # The interesting feature of this method is the fact that the method relies
 % only on the choice of a digital low-pass filter $h(n)$, and once this filter
 % is chosen, the entire algorithm is rather mechanical and straightforward.
 %
@@ -217,14 +223,14 @@ grid on;
 figure('Name', 'Mallat Pyramidal Algorithm');
 imshow('./images/DWT_QMF_Algorithm.png');
 %%%
-% The first step in transformation is filtering the signal once with the
+% # The first step in transformation is filtering the signal once with the
 % low-pass filter $h(n)$ and once with the high-pass filter $g(n)$.
-% Then the filtered versions of the signal are downsampled by a factor of 2.
+% # Then the filtered versions of the signal are downsampled by a factor of 2.
 % This means that every other samples of the signal are preserved and the
 % remaining samples are discarded.
 %
-% We can also ask another relevant question about downsampling: "How would
-% downsampling fit into the general ideas of the DWT?"
+% We can also ask another relevant question about downsampling: _"How would
+% downsampling fit into the general ideas of the DWT?"_
 % Without getting into the mathematical details of the process, one can see
 % that downsampling somehow creates the description of the signal at a
 % different scale and resolution.
@@ -237,15 +243,15 @@ imshow('./images/DWT_QMF_Algorithm.png');
 %
 % $$\Phi(n)=\sum_{k=0}^{2N-1}h(k)\Phi(2n-k)$$
 %
-% The function $\Phi(n)$ is called the scaling function.
-% The scaling function is a low-pass filter that is used to reconstruct the
+% * The function $\Phi(n)$ is called the scaling function.
+% * The scaling function is a low-pass filter that is used to reconstruct the
 % signal from the wavelet coefficients.
-% The scaling function is also called the *father wavelet*.
+% * The scaling function is also called the *father wavelet*.
 %
 % It can be shown that all popular wavelets are derived from the QMF algorithm.
 %
-% Now we should ask another question: "How many decomposition levels are needed
-% for a suitable transform?" An intuitive criterion to choose the level of the
+% Now we should ask another question: _"How many decomposition levels are needed
+% for a suitable transform?"_ An intuitive criterion to choose the level of the
 % decomposition would be continuing decomposition until the highest known
 % frequencies in the signal of interest are extracted and identified.
 %
@@ -265,15 +271,15 @@ imshow('./images/IDWT_QMF_Algorithm.png');
 %
 % $$g_1(n)=h(2N-1-n)$$
 %
-% An interesting feature of the DWT and IDWT is the possibility of
+% * An interesting feature of the DWT and IDWT is the possibility of
 % reconstructing the signal only based on a few of the levels (scales)
 % of decomposition.
-% For example, if we want to extract only the main trend
+% * For example, if we want to extract only the main trend
 % of the signal and ignore the medium and fast variations, we can easily
 % decompose the signal to several levels using DWT, but use only the first
 % (or first few) low-pass components to reconstruct the signal using IDWT.
 % This allows bypassing the medium- and high-frequency components.
-% Similarly, if the objective is to extract only the fast variations of signal,
+% * Similarly, if the objective is to extract only the fast variations of signal,
 % in the reconstruction phase, we can easily set the coefficients of the low
 % frequency (high scales) to zero while calculating the IDWT.
 %
@@ -281,7 +287,7 @@ imshow('./images/IDWT_QMF_Algorithm.png');
 % The |wnoise| function is used to add white noise to a signal.
 % The syntax of this function is:
 %
-% $$[x, noisy_x]=wnoise(fun, n, sqrtsnr, seed)$$
+% |[x, noisy_x] = wnoise(fun, n, sqrtsnr, seed)|
 %
 % * |x|: The original signal
 % * |noisy_x|: The noisy signal
@@ -318,7 +324,7 @@ grid on;
 %
 % The syntax of this function is:
 %
-% $$[waveletCoefficients, waveletLevels] = wavedec(x, numberOfLevels, waveletName)$$
+% |[waveletCoefficients, waveletLevels] = wavedec(x, numberOfLevels, waveletName)|
 %
 % * |waveletCoefficients|: The wavelet coefficients(1-D vector concatenated from all levels)
 % * |waveletLevels|: The number of levels of decomposition
@@ -348,7 +354,7 @@ grid on;
 %
 % The syntax of this function is:
 %
-% $$DetCoef = detcoef(waveletCoefficients, waveletLevels, levels_to_extract)$$
+% |DetCoef = detcoef(waveletCoefficients, waveletLevels, levels_to_extract)|
 %
 % * |DetCoef|: The wavelet coefficients of the specified level or levels
 % * |waveletCoefficients|: The wavelet coefficients(1-D vector concatenated from all levels)
@@ -379,7 +385,7 @@ grid on;
 %
 % The syntax of this function is:
 %
-% $$approx = appcoef(waveletCoefficients, waveletLevels, waveletName)$$
+% |approx = appcoef(waveletCoefficients, waveletLevels, waveletName)|
 %
 % * |approx|: The approximation coefficients
 % * |waveletCoefficients|: The wavelet coefficients(1-D vector concatenated from all levels)
@@ -403,7 +409,7 @@ grid on;
 %
 % The syntax of this function is:
 %
-% $$denoised_x = wdenoise(noisy_x, waveletLevels, waveletName)$$
+% |denoised_x = wdenoise(noisy_x, waveletLevels, waveletName)|
 %
 % * |denoised_x|: The denoised signal
 % * |noisy_x|: The noisy signal
