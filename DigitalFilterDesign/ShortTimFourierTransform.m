@@ -39,7 +39,7 @@ clc;
 % To implement the chirp signal, we use the |chirp| function. The |chirp|
 % function is defined as follows:
 %
-% $$y = \text{chirp}(t,f_0,t_1,f_1)$$
+% |y = chirp(t,f_0,t_1,f_1)|
 %
 % where
 %
@@ -91,7 +91,7 @@ clc;
 % The |stft| function computes the STFT of a discrete-time signal. The
 % |stft| function is defined as follows:
 %
-% $$[s, t, f] = \text{stft}(x, fs, Window, OverlapLength, FFTLength)$$
+% |[s, t, f] = stft(x, fs, Window, OverlapLength, FFTLength)|
 %
 % where
 %
@@ -154,7 +154,7 @@ title('STFT of a Chirp Signal');
 % To calculate the STFT of a signal, we can use the |spectrogram| function.
 % The |spectrogram| function is defined as follows:
 %
-% $$[s, f, t] = \text{spectrogram}(x, window, noverlap, nfft, fs, freqrange)$$
+% |[s, f, t] = spectrogram(x, window, noverlap, nfft, fs, freqrange)|
 %
 % where
 % * $x$ is the discrete-time signal.
