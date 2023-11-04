@@ -234,3 +234,20 @@ ylabel("Magnitude");
 title("Frequency Spectrum of the Carrier Signal");
 grid on;
 %%%
+% We modulate the carrier signal with the low-passed signal.
+y = x_lowpassed .* s;
+FT_y = fftshift(fft(y, N_freq)) / fs;
+figure('Name', 'Scrambled Signal');
+subplot(2, 1, 1);
+stem(n, y, 'LineWidth', 1.5);
+xlabel("Time (s)");
+ylabel("Amplitude");
+title("Scrambled Signal in Time Domain");
+grid on;
+subplot(2, 1, 2);
+plot(f_axis, abs(FT_y), 'LineWidth', 1.5);
+xlabel("Frequency (Hz)");
+ylabel("Magnitude");
+title("Frequency Spectrum of the Scrambled Signal");
+grid on;
+%%%
