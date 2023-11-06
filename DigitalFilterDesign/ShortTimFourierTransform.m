@@ -157,6 +157,7 @@ title('STFT of a Chirp Signal');
 % |[s, f, t] = spectrogram(x, window, noverlap, nfft, fs, freqrange)|
 %
 % where
+%
 % * $x$ is the discrete-time signal.
 % * $window$ is the window function.
 % * $noverlap$ is the overlap length.
