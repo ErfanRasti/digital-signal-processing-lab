@@ -364,6 +364,33 @@ grid on;
 % <https://www.mathworks.com/help/wavelet/ref/dwt.html |dwt|>
 % documentation.
 %
+%% |idwt| function
+% The |idwt| function is used to reconstruct a signal using DWT.
+% It implements Multilevel 1-D wavelet reconstruction.
+%
+% The syntax of this function is:
+%
+% |x = idwt(cA, cD, waveletName)|
+%
+% * |x|: The reconstructed signal
+% * |cA|: The approximation coefficients
+% * |cD|: The detail coefficients
+% * |waveletName|: The name of the wavelet
+%
+% The diagram of the IDWT is shown below:
+figure('Name', 'IDWT Diagram');
+imshow('./images/idwt_diagram.png');
+%%%
+% The following code uses the |idwt| function to reconstruct the noisy signal
+% using the approximation and detail coefficients using the db2 wavelet.
+reconstructed_x = idwt(cA, cD, 'db2');
+figure('Name', 'Reconstructed Heavy Sine Signal with White Noise');
+plot(loc, reconstructed_x, 'LineWidth', 1.5);
+title('Reconstructed Heavy Sine Signal with White Noise');
+xlabel('Time');
+ylabel('Amplitude');
+grid on;
+%%%
 
 %% |wavedec| function
 % The |wavedec| function is used to decompose a signal using DWT.
