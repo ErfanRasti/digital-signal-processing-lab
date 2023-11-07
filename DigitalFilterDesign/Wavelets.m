@@ -380,6 +380,8 @@ grid on;
 % The diagram of the IDWT is shown below:
 figure('Name', 'IDWT Diagram');
 imshow('./images/idwt_diagram.png');
+% |wkeep| block is used to keep the central part of the signal with
+% convenient length.
 %%%
 % The following code uses the |idwt| function to reconstruct the noisy signal
 % using the approximation and detail coefficients using the db2 wavelet.
@@ -443,8 +445,8 @@ grid on;
 % documentation.
 %
 %% |detcoef| function
-% The |detcoef| function is used to extract the wavelet coefficients of a
-% specific level or levels of decomposition. It returns $cDx$ which is the
+% The |detcoef| function is used to extract the detail wavelet coefficients
+% of a specific level or levels of decomposition. It returns $cDx$ which is the
 % detail coefficients of the specified level or levels of decomposition.
 %
 % The syntax of this function is:
@@ -496,6 +498,7 @@ title('Approximation Coefficients');
 xlabel('Time');
 ylabel('Amplitude');
 grid on;
+%% Regenerat Wa
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % %%%
 % % For more information about the |appcoef| function, refer to the
