@@ -344,17 +344,17 @@ figure('Name', 'DWT Diagram');
 imshow('./images/dwt_diagram.png');
 %%%
 % The following code uses the |dwt| function to decompose the noisy signal
-% to approximation and detail coefficients using the db2 wavelet.
-[cA, cD] = dwt(noisy_x, 'db2');
+% to approximation and detail coefficients using the db3 wavelet.
+[cA, cD] = dwt(noisy_x, 'db3');
 figure('Name', 'Approximation and Detail Coefficients');
 subplot(211);
-stem(cA, 'LineWidth', 1.5);
+plot(cA, 'LineWidth', 1.5);
 title('Approximation Coefficients');
 xlabel('Time');
 ylabel('Amplitude');
 grid on;
 subplot(212);
-stem(cD, 'LineWidth', 1.5);
+plot(cD, 'LineWidth', 1.5);
 title('Detail Coefficients');
 xlabel('Time');
 ylabel('Amplitude');
@@ -384,8 +384,8 @@ imshow('./images/idwt_diagram.png');
 % convenient length.
 %%%
 % The following code uses the |idwt| function to reconstruct the noisy signal
-% using the approximation and detail coefficients using the db2 wavelet.
-reconstructed_x = idwt(cA, cD, 'db2');
+% using the approximation and detail coefficients using the db3 wavelet.
+reconstructed_x = idwt(cA, cD, 'db3');
 figure('Name', 'Reconstructed Heavy Sine Signal with White Noise');
 plot(loc, reconstructed_x, 'LineWidth', 1.5);
 title('Reconstructed Heavy Sine Signal with White Noise');
@@ -426,9 +426,9 @@ figure('Name', 'Wavelet Decomposition Stage Diagram');
 imshow('./images/wavedec_stage_diagram.png');
 %%%
 % The following code uses the |wavedec| function to decompose the noisy
-% signal to 5 levels of decomposition using the db2 wavelet.
+% signal to 5 levels of decomposition using the db3 wavelet.
 numberOfLevels = 5;
-[waveletCoefficients, waveletLevels] = wavedec(noisy_x, 5, 'db2');
+[waveletCoefficients, waveletLevels] = wavedec(noisy_x, 5, 'db3');
 figure('Name', 'Wavelet Coefficients');
 stem(waveletCoefficients, 'LineWidth', 1.5);
 title('Wavelet Coefficients');
@@ -491,7 +491,7 @@ end
 % * |waveletName|: The name of the wavelet
 % * |levels_to_reconstruct|: The levels to reconstruct(0 for the original signal)
 %
-approx_coeff = appcoef(waveletCoefficients, waveletLevels, 'db2', 2);
+approx_coeff = appcoef(waveletCoefficients, waveletLevels, 'db3', 2);
 figure('Name', 'Approximation Coefficients');
 plot(approx_coeff, 'LineWidth', 1.5);
 title('Approximation Coefficients');
@@ -512,22 +512,16 @@ grid on;
 approx_coeff_deepest_ayer = appcoef( ...
     waveletCoefficients, ...
     waveletLevels, ...
-    'db2', ...
+    'db3', ...
     numberOfLevels ...
 );
 %%%
 % Then we should extract the detail coefficients of different layers and
 % concatenate them. Finally we should concatenate the approximation
 % coefficients of the last layer to the detail coefficients.
-wavelet_coefficients_regenerated = [];
-
-for level = 1:numberOfLevels
-    wavelet_coefficients_regenerated = ...
-        [detailed_coeff{level}, wavelet_coefficients_regenerated]; %#ok<AGROW>
-end
 
 wavelet_coefficients_regenerated = ...
-    [approx_coeff_deepest_ayer, wavelet_coefficients_regenerated];
+    [approx_coeff_deepest_ayer, detailed_coeff{numberOfLevels:-1:1}];
 %%%
 % Now we should compare the regenerated wavelet coefficients with the
 % original wavelet coefficients.
@@ -565,8 +559,8 @@ axis tight;
 % * |waveletName|: The name of the wavelet
 %
 % The following code uses the |waverec| function to reconstruct the noisy
-% signal using the wavelet coefficients and the db2 wavelet.
-reconstructed_x = waverec(waveletCoefficients, waveletLevels, 'db2');
+% signal using the wavelet coefficients and the db3 wavelet.
+reconstructed_x = waverec(waveletCoefficients, waveletLevels, 'db3');
 figure('Name', 'Reconstructed Heavy Sine Signal with White Noise');
 plot(loc, reconstructed_x, 'LineWidth', 1.5);
 title('Reconstructed Heavy Sine Signal with White Noise');
@@ -595,8 +589,8 @@ grid on;
 %
 % The following code uses the |wrcoef| function to reconstruct the noisy
 % signal using the approximation and detail coefficients of the last level
-% of decomposition and the db2 wavelet.
-reconstructed_x = wrcoef('a', waveletCoefficients, waveletLevels, 'db2', 0);
+% of decomposition and the db3 wavelet.
+reconstructed_x = wrcoef('a', waveletCoefficients, waveletLevels, 'db3', 0);
 figure('Name', 'Reconstructed Heavy Sine Signal with White Noise');
 plot(loc, reconstructed_x, 'LineWidth', 1.5);
 title('Reconstructed Heavy Sine Signal with White Noise');
@@ -647,32 +641,100 @@ fprintf("\nNoise energy of the wavelet coefficients: %d\n", noise_energy);
 % <https://www.mathworks.com/help/wavelet/ref/wnoisest.html |wnoisest|>
 % documentation.
 %
-% %% |wdenoise| function
-% % The |wdenoise| function is used to denoise a signal using DWT.
-% %
-% % The syntax of this function is:
-% %
-% % |denoised_x = wdenoise(noisy_x, waveletLevels, waveletName)|
-% %
-% % * |denoised_x|: The denoised signal
-% % * |noisy_x|: The noisy signal
-% % * |waveletLevels|: The number of levels of decomposition
-% %
-% denoised_x = wdenoise(noisy_x, N);
-% figure('Name', 'Heavy Sine Signal with White Noise vs Denoised Heavy Sine Signal');
-% subplot(211);
-% plot(loc, noisy_x, 'LineWidth', 1.5);
-% title('Heavy Sine Signal with White Noise');
-% xlabel('Time');
-% ylabel('Amplitude');
-% grid on;
-% subplot(212);
-% plot(loc, denoised_x, 'LineWidth', 1.5);
-% title('Denoised Heavy Sine Signal');
-% xlabel('Time');
-% ylabel('Amplitude');
-% grid on;
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Noise filtering using wavelet coefficients
+% To filter the noise from the signal, we should set the wavelet coefficients
+% of the noisy signal to zero and then reconstruct the signal using the
+% |waverec| function.
+%
+% We should continue this process until the energy of the wavelet
+% coefficients is less than the noise energy.
+%
+% Intuitively, we should contiue decomposition until the shape of the
+% approximation coefficients is similar to the shape of the original signal.
+%
+% The following code filters the noise from the noisy signal using the
+% wavelet coefficients.
+%
+% First we should calculate the energy of the wavelet coefficients.
+energy = wenergy(waveletCoefficients, waveletLevels);
+%%%
+% Then we should calculate the noise energy of the wavelet coefficients.
+noise_energy = wnoisest(waveletCoefficients, waveletLevels, 1:numberOfLevels);
+%%%
+% Then we should set the wavelet coefficients of the noisy signal to zero
+% and reconstruct the signal using the |waverec| function.
+
+figure('Name', 'Approximation Coefficients of Different Levels');
+
+for level = 1:numberOfLevels
+    subplot(numberOfLevels, 1, level);
+    set(gcf, 'Position', [100, 100, 1000, 1000]);
+    approx = appcoef(waveletCoefficients, waveletLevels, 'db3', level);
+    plot(approx, 'LineWidth', 1.5);
+    title(['Approximation Coefficients of Level ', num2str(level)]);
+    xlabel('Samples');
+    ylabel('Amplitude');
+    grid on;
+end
+
+%%%
+% We can see that the shape of the approximation coefficients of the layer 3
+% and so on is similar to the shape of the original signal.
+% So we should replace the detail coefficients of layers one, two and three
+% with zeros and reconstruct the signal using the |waverec| function.
+for level = 1:3
+    detailed_coeff{level} = zeros(size(detailed_coeff{level}));
+end
+
+wavelet_coefficients_denoised = ...
+    [approx_coeff_deepest_ayer, detailed_coeff{numberOfLevels:-1:1}];
+
+x_denoised = waverec(wavelet_coefficients_denoised, waveletLevels, 'db3');
+figure('Name', 'Denoised Heavy Sine Signal');
+title('Denoised Heavy Sine Signal');
+xlabel('Time');
+ylabel('Amplitude');
+plot(loc, x, 'LineWidth', 1.5);
+hold on;
+grid on;
+plot(loc, x_denoised, 'LineWidth', 1.5);
+legend('Original Signal', 'Denoised Signal');
+%%%
+% We can see that the denoised signal is very similar to the original signal.
+%
+% There are other methods to filter the noise from the signal using the
+% wavelet coefficients. This method is not the best method.
+
+%% |wdenoise| function
+% The |wdenoise| function is used to denoise a signal using DWT.
+%
+% The syntax of this function is:
+%
+% |denoised_x = wdenoise(noisy_x, waveletLevels, waveletName)|
+%
+% * |denoised_x|: The denoised signal
+% * |noisy_x|: The noisy signal
+% * |waveletLevels|: The number of levels of decomposition
+% * |Wavelet|: The name of the wavelet
+%
+denoised_x = wdenoise(noisy_x, 8, Wavelet = 'db3');
+figure('Name', 'Heavy Sine Signal with White Noise vs Denoised Heavy Sine Signal');
+subplot(211);
+plot(loc, noisy_x, 'LineWidth', 1.5);
+title('Heavy Sine Signal with White Noise');
+xlabel('Time');
+ylabel('Amplitude');
+grid on;
+
+subplot(212);
+title('Denoised Heavy Sine Signal');
+xlabel('Time');
+ylabel('Amplitude');
+plot(loc, x, 'LineWidth', 1.5);
+grid on;
+hold on;
+plot(loc, denoised_x, 'LineWidth', 1.5);
+legend('Original Signal', 'Denoised Signal');
 %%%
 % For more information about the |wdenoise| function, refer to the
 % <https://www.mathworks.com/help/wavelet/ref/wdenoise.html |wdenoise|>
