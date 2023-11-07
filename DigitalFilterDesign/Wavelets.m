@@ -550,7 +550,8 @@ grid on;
 axis tight;
 %%%
 %% |waverec| function
-% The |waverec| function is used to reconstruct a signal using DWT.
+% The |waverec| function is used to reconstruct a signal using approximation
+% and detail coefficients. It returns $x$ which is the reconstructed signal.
 % It implements Multilevel 1-D wavelet reconstruction. It acts as the inverse
 % of the |wavedec| function.
 %
@@ -575,6 +576,36 @@ grid on;
 %%%
 % For more information about the |waverec| function, refer to the
 % <https://www.mathworks.com/help/wavelet/ref/waverec.html |waverec|>
+% documentation.
+%
+%% |wrcoef| function
+% The |wrcoef| function is used to reconstruct a single branch of the
+% wavelet decomposition tree. It returns $x$ which is the reconstructed signal.
+%
+% The syntax of this function is:
+%
+% |x = wrcoef(type, waveletCoefficients, waveletLevels, waveletName, levels_to_reconstruct)|
+%
+% * |x|: The reconstructed signal
+% * |type|: The type of the branch to reconstruct
+% * |waveletCoefficients|: The wavelet coefficients(1-D vector concatenated from all levels)
+% * |waveletLevels|: The number of levels of decomposition
+% * |waveletName|: The name of the wavelet
+% * |levels_to_reconstruct|: The levels to reconstruct(0 for the original signal)
+%
+% The following code uses the |wrcoef| function to reconstruct the noisy
+% signal using the approximation and detail coefficients of the last level
+% of decomposition and the db2 wavelet.
+reconstructed_x = wrcoef('a', waveletCoefficients, waveletLevels, 'db2', 0);
+figure('Name', 'Reconstructed Heavy Sine Signal with White Noise');
+plot(loc, reconstructed_x, 'LineWidth', 1.5);
+title('Reconstructed Heavy Sine Signal with White Noise');
+xlabel('Time');
+ylabel('Amplitude');
+grid on;
+%%%
+% For more information about the |wrcoef| function, refer to the
+% <https://www.mathworks.com/help/wavelet/ref/wrcoef.html |wrcoef|>
 % documentation.
 %
 
