@@ -627,7 +627,26 @@ fprintf("\nEnergy of the wavelet coefficients: %d\n", energy);
 % <https://www.mathworks.com/help/wavelet/ref/wenergy.html |wenergy|>
 % documentation.
 %
-
+%% |wnoisest| function
+% The |wnoisest| function is used to estimate the noise energy of the
+% wavelet coefficients.
+%
+% The syntax of this function is:
+%
+% |noise_energy = wnoisest(waveletCoefficients, waveletLevels, level_to_estimate)|
+%
+% * |noise_energy|: The noise energy of the wavelet coefficients
+% * |waveletCoefficients|: The wavelet coefficients(1-D vector concatenated from all levels)
+% * |waveletLevels|: The number of levels of decomposition
+% * |level_to_estimate|: The level to estimate
+%
+noise_energy = wnoisest(waveletCoefficients, waveletLevels, 1:numberOfLevels);
+fprintf("\nNoise energy of the wavelet coefficients: %d\n", noise_energy);
+%%%
+% For more information about the |wnoisest| function, refer to the
+% <https://www.mathworks.com/help/wavelet/ref/wnoisest.html |wnoisest|>
+% documentation.
+%
 % %% |wdenoise| function
 % % The |wdenoise| function is used to denoise a signal using DWT.
 % %
