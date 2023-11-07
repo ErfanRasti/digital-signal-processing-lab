@@ -378,7 +378,8 @@ grid on;
 %
 %% |detcoef| function
 % The |detcoef| function is used to extract the wavelet coefficients of a
-% specific level or levels of decomposition.
+% specific level or levels of decomposition. It returns $cDx$ which is the
+% detail coefficients of the specified level or levels of decomposition.
 %
 % The syntax of this function is:
 %
@@ -463,6 +464,7 @@ grid on;
 % For more information about the |wdenoise| function, refer to the
 % <https://www.mathworks.com/help/wavelet/ref/wdenoise.html |wdenoise|>
 % documentation.
+%
 %% Functions
 % We used the following function to plot differnt plots with an arbitrary title:
 function plot_dft_amp(x, fs, title_name)
