@@ -313,6 +313,7 @@ title('Heavy Sine Signal with White Noise');
 xlabel('Time');
 ylabel('Amplitude');
 grid on;
+
 %%%
 % For more information about the |wnoise| function, refer to the
 % <https://www.mathworks.com/help/wavelet/ref/wnoise.html |wnoise|>
@@ -332,7 +333,8 @@ grid on;
 % * |numberOfLevels|: The number of levels of decomposition
 % * |waveletName|: The name of the wavelet
 %
-[waveletCoefficients, waveletLevels] = wavedec(x, 2, 'db2');
+numberOfLevels = 5;
+[waveletCoefficients, waveletLevels] = wavedec(x, 5, 'db2');
 figure('Name', 'Wavelet Coefficients');
 stem(waveletCoefficients, 'LineWidth', 1.5);
 title('Wavelet Coefficients');
@@ -361,7 +363,7 @@ grid on;
 % * |waveletLevels|: The number of levels of decomposition
 % * |levels_to_extract|: The levels to extract
 %
-DetCoef = detcoef(waveletCoefficients, waveletLevels, [1 2]);
+DetCoef = detcoef(waveletCoefficients, waveletLevels, 1:numberOfLevels);
 figure('Name', 'Wavelet Coefficients of Level 1 and 2');
 subplot(211);
 stem(DetCoef{1}, 'LineWidth', 1.5);
@@ -385,14 +387,15 @@ grid on;
 %
 % The syntax of this function is:
 %
-% |approx = appcoef(waveletCoefficients, waveletLevels, waveletName)|
+% |approx = appcoef(waveletCoefficients, waveletLevels, waveletName, levels_to_extract)|
 %
 % * |approx|: The approximation coefficients
 % * |waveletCoefficients|: The wavelet coefficients(1-D vector concatenated from all levels)
 % * |waveletLevels|: The number of levels of decomposition
 % * |waveletName|: The name of the wavelet
+% * |levels_to_extract|: The levels to extract
 %
-approx = appcoef(waveletCoefficients, waveletLevels, 'db2');
+approx = appcoef(waveletCoefficients, waveletLevels, 'db2', 1);
 figure('Name', 'Approximation Coefficients');
 plot(approx, 'LineWidth', 1.5);
 title('Approximation Coefficients');
