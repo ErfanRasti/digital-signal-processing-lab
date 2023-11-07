@@ -549,8 +549,34 @@ ylabel('Amplitude');
 grid on;
 axis tight;
 %%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% %%%
+%% |waverec| function
+% The |waverec| function is used to reconstruct a signal using DWT.
+% It implements Multilevel 1-D wavelet reconstruction. It acts as the inverse
+% of the |wavedec| function.
+%
+% The syntax of this function is:
+%
+% |x = waverec(waveletCoefficients, waveletLevels, waveletName)|
+%
+% * |x|: The reconstructed signal
+% * |waveletCoefficients|: The wavelet coefficients(1-D vector concatenated from all levels)
+% * |waveletLevels|: The number of levels of decomposition
+% * |waveletName|: The name of the wavelet
+%
+% The following code uses the |waverec| function to reconstruct the noisy
+% signal using the wavelet coefficients and the db2 wavelet.
+reconstructed_x = waverec(waveletCoefficients, waveletLevels, 'db2');
+figure('Name', 'Reconstructed Heavy Sine Signal with White Noise');
+plot(loc, reconstructed_x, 'LineWidth', 1.5);
+title('Reconstructed Heavy Sine Signal with White Noise');
+xlabel('Time');
+ylabel('Amplitude');
+grid on;
+%%%
+% For more information about the |waverec| function, refer to the
+% <https://www.mathworks.com/help/wavelet/ref/waverec.html |waverec|>
+% documentation.
+%
 
 % %% |wdenoise| function
 % % The |wdenoise| function is used to denoise a signal using DWT.
