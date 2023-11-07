@@ -608,6 +608,25 @@ grid on;
 % <https://www.mathworks.com/help/wavelet/ref/wrcoef.html |wrcoef|>
 % documentation.
 %
+%% |wenergy| function
+% The |wenergy| function is used to calculate the energy of the wavelet
+% coefficients.
+%
+% The syntax of this function is:
+%
+% |energy = wenergy(waveletCoefficients, waveletLevels)|
+%
+% * |energy|: The energy of the wavelet coefficients
+% * |waveletCoefficients|: The wavelet coefficients(1-D vector concatenated from all levels)
+% * |waveletLevels|: The number of levels of decomposition
+%
+energy = wenergy(waveletCoefficients, waveletLevels);
+fprintf("\nEnergy of the wavelet coefficients: %d\n", energy);
+%%%
+% For more information about the |wenergy| function, refer to the
+% <https://www.mathworks.com/help/wavelet/ref/wenergy.html |wenergy|>
+% documentation.
+%
 
 % %% |wdenoise| function
 % % The |wdenoise| function is used to denoise a signal using DWT.
