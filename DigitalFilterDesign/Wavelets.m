@@ -353,12 +353,14 @@ title('Approximation Coefficients');
 xlabel('Time');
 ylabel('Amplitude');
 grid on;
+axis tight;
 subplot(212);
 plot(cD, 'LineWidth', 1.5);
 title('Detail Coefficients');
 xlabel('Time');
 ylabel('Amplitude');
 grid on;
+axis tight;
 %%%
 % For more information about the |dwt| function, refer to the
 % <https://www.mathworks.com/help/wavelet/ref/dwt.html |dwt|>
@@ -380,6 +382,7 @@ grid on;
 % The diagram of the IDWT is shown below:
 figure('Name', 'IDWT Diagram');
 imshow('./images/idwt_diagram.png');
+%%%
 % |wkeep| block is used to keep the central part of the signal with
 % convenient length.
 %%%
