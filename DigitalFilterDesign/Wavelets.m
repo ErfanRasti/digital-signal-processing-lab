@@ -451,20 +451,20 @@ grid on;
 %
 % The syntax of this function is:
 %
-% |DetCoef = detcoef(waveletCoefficients, waveletLevels, levels_to_extract)|
+% |detailed_coeff = detcoef(waveletCoefficients, waveletLevels, levels_to_extract)|
 %
-% * |DetCoef|: The wavelet coefficients of the specified level or levels
+% * |detailed_coeff|: The wavelet coefficients of the specified level or levels
 % * |waveletCoefficients|: The wavelet coefficients(1-D vector concatenated from all levels)
 % * |waveletLevels|: The number of levels of decomposition
 % * |levels_to_extract|: The levels to extract
 %
-DetCoef = detcoef(waveletCoefficients, waveletLevels, 1:numberOfLevels);
+detailed_coeff = detcoef(waveletCoefficients, waveletLevels, 1:numberOfLevels);
 figure('Name', 'Wavelet Coefficients of Different Levels');
 set(gcf, 'Position', [100, 100, 1000, 1000]);
 
 for i = 1:numberOfLevels
     subplot(numberOfLevels, 1, i);
-    stem(DetCoef{i}, 'LineWidth', 1.5);
+    stem(detailed_coeff{i}, 'LineWidth', 1.5);
     title(['Wavelet Coefficients of Level ', num2str(i)]);
     xlabel('Time');
     ylabel('Amplitude');
@@ -483,28 +483,75 @@ end
 %
 % The syntax of this function is:
 %
-% |approx = appcoef(waveletCoefficients, waveletLevels, waveletName, levels_to_extract)|
+% |approx_coeff = appcoef(waveletCoefficients, waveletLevels, waveletName, levels_to_extract)|
 %
-% * |approx|: The approximation coefficients
+% * |approx_coeff|: The approximation coefficients
 % * |waveletCoefficients|: The wavelet coefficients(1-D vector concatenated from all levels)
 % * |waveletLevels|: The number of levels of decomposition
 % * |waveletName|: The name of the wavelet
 % * |levels_to_reconstruct|: The levels to reconstruct(0 for the original signal)
 %
-approx = appcoef(waveletCoefficients, waveletLevels, 'db2', 2);
+approx_coeff = appcoef(waveletCoefficients, waveletLevels, 'db2', 2);
 figure('Name', 'Approximation Coefficients');
-plot(approx, 'LineWidth', 1.5);
+plot(approx_coeff, 'LineWidth', 1.5);
 title('Approximation Coefficients');
 xlabel('Time');
 ylabel('Amplitude');
 grid on;
-%% Regenerat Wa
+%%%
+% For more information about the |appcoef| function, refer to the
+% <https://www.mathworks.com/help/wavelet/ref/appcoef.html |appcoef|>
+% documentation.
+%
+%% Regenerat Wavelet Coefficients from Approximation and Detail Coefficients
+% The following code regenerates the wavelet coefficients from the
+% approximation and detail coefficients.
+%
+% First we should extract the approximation coefficients of the last level
+% of decomposition.
+approx_coeff_deepest_ayer = appcoef( ...
+    waveletCoefficients, ...
+    waveletLevels, ...
+    'db2', ...
+    numberOfLevels ...
+);
+%%%
+% Then we should extract the detail coefficients of different layers and
+% concatenate them. Finally we should concatenate the approximation
+% coefficients of the last layer to the detail coefficients.
+wavelet_coefficients_regenerated = [];
+
+for level = 1:numberOfLevels
+    wavelet_coefficients_regenerated = ...
+        [detailed_coeff{level}, wavelet_coefficients_regenerated]; %#ok<AGROW>
+end
+
+wavelet_coefficients_regenerated = ...
+    [approx_coeff_deepest_ayer, wavelet_coefficients_regenerated];
+%%%
+% Now we should compare the regenerated wavelet coefficients with the
+% original wavelet coefficients.
+fprintf("\nError: %d\n", ...
+    sum(abs(wavelet_coefficients_regenerated - waveletCoefficients)));
+figure('Name', 'Wavelet Coefficients vs Regenerated Wavelet Coefficients');
+subplot(211);
+stem(waveletCoefficients, 'LineWidth', 1.5);
+title('Wavelet Coefficients');
+xlabel('Time');
+ylabel('Amplitude');
+grid on;
+axis tight;
+subplot(212);
+stem(wavelet_coefficients_regenerated, 'LineWidth', 1.5);
+title('Regenerated Wavelet Coefficients');
+xlabel('Time');
+ylabel('Amplitude');
+grid on;
+axis tight;
+%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % %%%
-% % For more information about the |appcoef| function, refer to the
-% % <https://www.mathworks.com/help/wavelet/ref/appcoef.html |appcoef|>
-% % documentation.
-% %
+
 % %% |wdenoise| function
 % % The |wdenoise| function is used to denoise a signal using DWT.
 % %
