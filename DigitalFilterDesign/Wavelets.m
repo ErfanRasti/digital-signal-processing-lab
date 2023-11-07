@@ -298,6 +298,8 @@ imshow('./images/IDWT_QMF_Algorithm.png');
 %
 N = 8;
 loc = linspace(0, 1, 2 ^ N);
+Ts = loc(2) - loc(1);
+fs = 1 / Ts;
 sqrtsnr = 10;
 [x, noisy_x] = wnoise('heavy sine', N, sqrtsnr);
 figure('Name', 'Heavy Sine Signal vs Heavy Sine Signal with White Noise');
@@ -313,7 +315,12 @@ title('Heavy Sine Signal with White Noise');
 xlabel('Time');
 ylabel('Amplitude');
 grid on;
-
+%%%
+figure('Name', 'Spectrum of Heavy Sine Signal With and Without White Noise');
+subplot(211);
+plot_dft_amp(x, fs, 'Frequency Spectrum of input signal without noise');
+subplot(212);
+plot_dft_amp(noisy_x, fs, 'Frequency Spectrum of input signal with noise');
 %%%
 % For more information about the |wnoise| function, refer to the
 % <https://www.mathworks.com/help/wavelet/ref/wnoise.html |wnoise|>
@@ -333,8 +340,21 @@ grid on;
 % * |numberOfLevels|: The number of levels of decomposition
 % * |waveletName|: The name of the wavelet
 %
+% The graph of the wavelet coefficients is shown below:
+figure('Name', 'Wavelet Coefficients Graph');
+imshow('./images/wavedec_graph.png');
+%%%
+% In each level of decomposition, the signal is decomposed to approximation
+% coefficients and detail coefficients. The approximation coefficients are
+% the low frequency components of the signal and the detail coefficients are
+% the high frequency components of the signal.
+%
+% Approximation coefficients then are decomposed to approximation and detail
+% coefficients in the next level of decomposition. This process continues
+% until the specified number of levels is reached.
+
 numberOfLevels = 5;
-[waveletCoefficients, waveletLevels] = wavedec(x, 5, 'db2');
+[waveletCoefficients, waveletLevels] = wavedec(noisy_x, 5, 'db2');
 figure('Name', 'Wavelet Coefficients');
 stem(waveletCoefficients, 'LineWidth', 1.5);
 title('Wavelet Coefficients');
@@ -364,26 +384,27 @@ grid on;
 % * |levels_to_extract|: The levels to extract
 %
 DetCoef = detcoef(waveletCoefficients, waveletLevels, 1:numberOfLevels);
-figure('Name', 'Wavelet Coefficients of Level 1 and 2');
-subplot(211);
-stem(DetCoef{1}, 'LineWidth', 1.5);
-title('Wavelet Coefficients of Level 1 and 2');
-xlabel('Time');
-ylabel('Amplitude');
-grid on;
-subplot(212);
-stem(DetCoef{2}, 'LineWidth', 1.5);
-title('Wavelet Coefficients of Level 1 and 2');
-xlabel('Time');
-ylabel('Amplitude');
-grid on;
+figure('Name', 'Wavelet Coefficients of Different Levels');
+set(gcf, 'Position', [100, 100, 1000, 1000]);
+
+for i = 1:numberOfLevels
+    subplot(numberOfLevels, 1, i);
+    stem(DetCoef{i}, 'LineWidth', 1.5);
+    title(['Wavelet Coefficients of Level ', num2str(i)]);
+    xlabel('Time');
+    ylabel('Amplitude');
+    grid on;
+end
+
 %%%
 % For more information about the |detcoef| function, refer to the
 % <https://www.mathworks.com/help/wavelet/ref/detcoef.html |detcoef|>
 % documentation.
+%
 %% |appcoef| function
 % The |appcoef| function is used to extract the approximation coefficients
-% from the wavelet coefficients.
+% from the wavelet coefficients. It returns $cAx$ which is the approximation
+% coefficients of the specified level or levels of decomposition.
 %
 % The syntax of this function is:
 %
@@ -393,9 +414,9 @@ grid on;
 % * |waveletCoefficients|: The wavelet coefficients(1-D vector concatenated from all levels)
 % * |waveletLevels|: The number of levels of decomposition
 % * |waveletName|: The name of the wavelet
-% * |levels_to_extract|: The levels to extract
+% * |levels_to_reconstruct|: The levels to reconstruct(0 for the original signal)
 %
-approx = appcoef(waveletCoefficients, waveletLevels, 'db2', 1);
+approx = appcoef(waveletCoefficients, waveletLevels, 'db2', 2);
 figure('Name', 'Approximation Coefficients');
 plot(approx, 'LineWidth', 1.5);
 title('Approximation Coefficients');
