@@ -436,3 +436,22 @@ grid on;
 % For more information about the |wdenoise| function, refer to the
 % <https://www.mathworks.com/help/wavelet/ref/wdenoise.html |wdenoise|>
 % documentation.
+%% Functions
+% We used the following function to plot differnt plots with an arbitrary title:
+function plot_dft_amp(x, fs, title_name)
+    % Plots the amplitude spectrum of the signal x with sampling frequency fs
+    % and title title_name.
+    f_axis = linspace(-fs / 2, fs / 2, length(x));
+    FT_x = fftshift(fft(x)) / fs;
+    plot( ...
+        f_axis, ...
+        abs(FT_x), ...
+        'LineWidth', ...
+        1.5 ...
+    );
+    xlabel('Frequency(Hz)');
+    title(title_name);
+    ylabel('Amplitude');
+    axis tight;
+    grid on;
+end
