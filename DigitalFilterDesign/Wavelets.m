@@ -326,6 +326,45 @@ plot_dft_amp(noisy_x, fs, 'Frequency Spectrum of input signal with noise');
 % <https://www.mathworks.com/help/wavelet/ref/wnoise.html |wnoise|>
 % documentation.
 %
+%% |dwt| function
+% The |dwt| function is used to decompose a signal using DWT in one level.
+% It implements Multilevel 1-D wavelet decomposition.
+%
+% The syntax of this function is:
+%
+% |[cA, cD] = dwt(x, waveletName)|
+%
+% * |cA|: The approximation coefficients
+% * |cD|: The detail coefficients
+% * |x|: The original signal
+% * |waveletName|: The name of the wavelet
+%
+% The diagram of the DWT is shown below:
+figure('Name', 'DWT Diagram');
+imshow('./images/dwt_diagram.png');
+%%%
+% The following code uses the |dwt| function to decompose the noisy signal
+% to approximation and detail coefficients using the db2 wavelet.
+[cA, cD] = dwt(noisy_x, 'db2');
+figure('Name', 'Approximation and Detail Coefficients');
+subplot(211);
+stem(cA, 'LineWidth', 1.5);
+title('Approximation Coefficients');
+xlabel('Time');
+ylabel('Amplitude');
+grid on;
+subplot(212);
+stem(cD, 'LineWidth', 1.5);
+title('Detail Coefficients');
+xlabel('Time');
+ylabel('Amplitude');
+grid on;
+%%%
+% For more information about the |dwt| function, refer to the
+% <https://www.mathworks.com/help/wavelet/ref/dwt.html |dwt|>
+% documentation.
+%
+
 %% |wavedec| function
 % The |wavedec| function is used to decompose a signal using DWT.
 % It implements Multilevel 1-D wavelet transform.
@@ -430,36 +469,38 @@ title('Approximation Coefficients');
 xlabel('Time');
 ylabel('Amplitude');
 grid on;
-%%%
-% For more information about the |appcoef| function, refer to the
-% <https://www.mathworks.com/help/wavelet/ref/appcoef.html |appcoef|>
-% documentation.
-%
-%% |wdenoise| function
-% The |wdenoise| function is used to denoise a signal using DWT.
-%
-% The syntax of this function is:
-%
-% |denoised_x = wdenoise(noisy_x, waveletLevels, waveletName)|
-%
-% * |denoised_x|: The denoised signal
-% * |noisy_x|: The noisy signal
-% * |waveletLevels|: The number of levels of decomposition
-%
-denoised_x = wdenoise(noisy_x, N);
-figure('Name', 'Heavy Sine Signal with White Noise vs Denoised Heavy Sine Signal');
-subplot(211);
-plot(loc, noisy_x, 'LineWidth', 1.5);
-title('Heavy Sine Signal with White Noise');
-xlabel('Time');
-ylabel('Amplitude');
-grid on;
-subplot(212);
-plot(loc, denoised_x, 'LineWidth', 1.5);
-title('Denoised Heavy Sine Signal');
-xlabel('Time');
-ylabel('Amplitude');
-grid on;
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% %%%
+% % For more information about the |appcoef| function, refer to the
+% % <https://www.mathworks.com/help/wavelet/ref/appcoef.html |appcoef|>
+% % documentation.
+% %
+% %% |wdenoise| function
+% % The |wdenoise| function is used to denoise a signal using DWT.
+% %
+% % The syntax of this function is:
+% %
+% % |denoised_x = wdenoise(noisy_x, waveletLevels, waveletName)|
+% %
+% % * |denoised_x|: The denoised signal
+% % * |noisy_x|: The noisy signal
+% % * |waveletLevels|: The number of levels of decomposition
+% %
+% denoised_x = wdenoise(noisy_x, N);
+% figure('Name', 'Heavy Sine Signal with White Noise vs Denoised Heavy Sine Signal');
+% subplot(211);
+% plot(loc, noisy_x, 'LineWidth', 1.5);
+% title('Heavy Sine Signal with White Noise');
+% xlabel('Time');
+% ylabel('Amplitude');
+% grid on;
+% subplot(212);
+% plot(loc, denoised_x, 'LineWidth', 1.5);
+% title('Denoised Heavy Sine Signal');
+% xlabel('Time');
+% ylabel('Amplitude');
+% grid on;
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%
 % For more information about the |wdenoise| function, refer to the
 % <https://www.mathworks.com/help/wavelet/ref/wdenoise.html |wdenoise|>
