@@ -352,7 +352,13 @@ imshow('./images/wavedec_graph.png');
 % Approximation coefficients then are decomposed to approximation and detail
 % coefficients in the next level of decomposition. This process continues
 % until the specified number of levels is reached.
-
+%
+% The stage diagram of the wavelet decomposition in each level is shown below:
+figure('Name', 'Wavelet Decomposition Stage Diagram');
+imshow('./images/wavedec_stage_diagram.png');
+%%%
+% The following code uses the |wavedec| function to decompose the noisy
+% signal to 5 levels of decomposition using the db2 wavelet.
 numberOfLevels = 5;
 [waveletCoefficients, waveletLevels] = wavedec(noisy_x, 5, 'db2');
 figure('Name', 'Wavelet Coefficients');
