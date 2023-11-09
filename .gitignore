@@ -1,3 +1,6 @@
 # Files
 *.pdf
 *.html
+
+# Folders
+models/
