@@ -200,11 +200,8 @@ spectrogram( ...
 view(-45, 50);
 colormap bone;
 %%%
-% For more information check the
-% <https://www.mathworks.com/help/signal/ref/spectrogram.html
-% spectrogram function documentation>.
-%%%
-% SHOULD BE SOLVED
+% This is the spectrogram of a signal that the frequency content of the
+% signal diverges with time(Why?).
 N = 2 ^ 14;
 t = linspace(0, 5, N);
 Ts = t(2) - t(1);
@@ -220,3 +217,8 @@ spectrogram( ...
     "centered", ...
     "yaxis" ...
 );
+
+%%%
+% For more information check the
+% <https://www.mathworks.com/help/signal/ref/spectrogram.html
+% spectrogram function documentation>.
