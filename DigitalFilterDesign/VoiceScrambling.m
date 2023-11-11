@@ -119,8 +119,8 @@ clc;
 % where $t_0$ is the shift factor and $T$ is the scaling factor.
 % The Discrete-Time Fourier Transform (DTFT) of the sampled signal is:
 %
-% $$x[n] = sinc(2w_c(n - n_0)) \Rightarrow\mathcal{DTFT}:
-% X(e^{j \omega}) = 2w_c \cdot \Pi(\frac{\omega}{2w_c}) \cdot e^{-j \omega n_0}$$
+% $$x[n] = sinc(2\omega_c(n - n_0)) \Rightarrow\mathcal{DTFT}:
+% X(e^{j \omega}) = 2\omega_c \cdot \Pi(\frac{\omega}{2\omega_c}) \cdot e^{-j \omega n_0}$$
 %
 % We can analyze a signal in two methods:
 %
@@ -148,6 +148,7 @@ title("Frequency Spectrum of the Sampled Signal");
 grid on;
 %%%
 % *Digital Signal Processing*
+%
 % The sampled signal in the analog signal processing is the same as:
 %
 % |x = sinc((n / fs - 0.5) / 0.1);|
