@@ -113,14 +113,14 @@ clc;
 % 0.1 and shift factor of 0.5. The sampling frequency is 100 Hz.
 % We know the Fourier transform of the this function in general form is:
 %
-% $$x(t) = sinc(\frac{t - t_0}{T}) \Rightarrow\mathcal{FT}:
-% X(f) = T \cdot \Pi(\frac{f}{T}) \cdot e^{-j 2 \pi f t_0}$$
+% $$x(t) = sinc(2f_c(t - t_0)) \Rightarrow\mathcal{FT}:
+% X(f) = 2f_c \cdot \Pi(\frac{f}{2f_c}) \cdot e^{-j 2 \pi f t_0}$$
 %
 % where $t_0$ is the shift factor and $T$ is the scaling factor.
 % The Discrete-Time Fourier Transform (DTFT) of the sampled signal is:
 %
-% $$x[n] = sinc(\frac{n - n_0}{N}) \Rightarrow\mathcal{DTFT}:
-% X(e^{j \omega}) = N \cdot \Pi(\frac{\omega}{N}) \cdot e^{-j \omega n_0}$$
+% $$x[n] = sinc(2w_c(n - n_0)) \Rightarrow\mathcal{DTFT}:
+% X(e^{j \omega}) = 2w_c \cdot \Pi(\frac{\omega}{2w_c}) \cdot e^{-j \omega n_0}$$
 %
 % We can analyze a signal in two methods:
 %
