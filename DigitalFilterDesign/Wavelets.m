@@ -465,7 +465,7 @@ detailed_coeff = detcoef(waveletCoefficients, waveletLevels, 1:numberOfLevels);
 figure('Name', 'Wavelet Coefficients of Different Levels');
 set(gcf, 'Position', [100, 100, 1000, 1000]);
 
-for i = 1:3
+for i = 1:numberOfLevels
     subplot(numberOfLevels, 1, i);
     stem(detailed_coeff{i}, 'LineWidth', 1.5);
     title(['Wavelet Coefficients of Level ', num2str(i)]);
@@ -726,7 +726,9 @@ for i = 1:numberOfLevels
 end
 
 %%%
-
+% Here we can see that the detail coefficients of the first three layers
+% are zero.
+%
 %% |wdenoise| function
 % The |wdenoise| function is used to denoise a signal using DWT.
 %
