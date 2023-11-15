@@ -53,6 +53,7 @@ clc;
 % where $f_0$ is the frequency of the signal and $f_s$ is the sampling
 % frequency.
 % We add AWGN to the signal. The signal is given by:
+%
 % $$x(n) = s(n) + v(n)$$
 %
 % where $v(n)$ is the AWGN.
@@ -104,7 +105,7 @@ clc;
 % of the resonator is real. The impulse response of the resonator is given
 % by:
 %
-% $$h(n) = \frac{G}{\sin(\omega_0)}\dotR^n\dotsin(\omega_0n+\omega_0), n=0,1,2,\dots$$
+% $$h(n) = \frac{G}{\sin(\omega_0)}\dot R^n\dot sin(\omega_0n+\omega_0), n=0,1,2,\dots$$
 %
 % The resonator can be expressed as a difference equation as:
 %
@@ -155,26 +156,24 @@ clc;
 % $$\mathbb{E}[y(n)] = \mathbb{E}[h(n)*v(n)] = h(n)*\mathbb{E}[v(n)] =
 % h(n)*\mathbb{E}[v(n)] = 0$$
 %
-% $$% \sigma_{y_v}^2 = \mathbb{E}[y^2(n)]-
-% \underbrace{\mathbb{E}[y(n)]^2}_{$  =  0$}$$
+% $$\sigma_{y_v}^2 = \mathbb{E}[y^2(n)]-
+% \underbrace{\mathbb{E}[y(n)]^2}$$
 %
-% $$\sigma_{y_v}^2 = \mathbb{E}[(h(n)*v(n))^2]$$
+% $$ \Rightarrow \sigma_{y_v}^2 = \mathbb{E}[(h(n)*v(n))^2]$$
 %
-% $$\sigma_{y_v}^2 = \mathbb{E}[\sum_{k=0}^{N-1}h(k)v(n-k)\sum_{l=0}^{N-1}h(l)v(n-l)]$$
+% $$ \Rightarrow \sigma_{y_v}^2 = \mathbb{E}[\sum_{k=0}^{N-1}h(k)v(n-k)\sum_{l=0}^{N-1}h(l)v(n-l)]$$
 %
-% $$\sigma_{y_v}^2 = \mathbb{E}[\sum_{k=0}^{N-1}\sum_{l=0}^{N-1}h(k)h(l)v(n-k)xv(n-l)]$$
+% $$ \Rightarrow \sigma_{y_v}^2 = \mathbb{E}[\sum_{k=0}^{N-1}\sum_{l=0}^{N-1}h(k)h(l)v(n-k)xv(n-l)]$$
 %
-% $$\sigma_{y_v}^2 = \sum_{k=0}^{N-1}\sum_{l=0}^{N-1}h(k)h(l)\mathbb{E}[v(n-k)v(n-l)]$$
+% $$ \Rightarrow \sigma_{y_v}^2 = \sum_{k=0}^{N-1}\sum_{l=0}^{N-1}h(k)h(l)\mathbb{E}[v(n-k)v(n-l)]$$
 %
-% $$\sigma_{y_v}^2 = \sum_{k=0}^{N-1}\sum_{l=0}^{N-1}h(k)h(l)\sigma_v^2\delta(k-l)$$
+% $$ \Rightarrow \sigma_{y_v}^2 = \sum_{k=0}^{N-1}\sum_{l=0}^{N-1}h(k)h(l)\sigma_v^2\delta(k-l)$$
 %
-% $$\sigma_{y_v}^2 = \sigma_v^2\sum_{k=0}^{N-1}h(k)\sum_{l=0}^{N-1}h(l)\delta(k-l)$$
+% $$ \Rightarrow \sigma_{y_v}^2 = \sigma_v^2\sum_{k=0}^{N-1}h(k)\sum_{l=0}^{N-1}h(l)\delta(k-l)$$
 %
-% $$\sigma_{y_v}^2 = \sigma_v^2\sum_{k=0}^{N-1}h(k)^2$$
-%
-% $$\sigma_{y_v}^2 = \sigma_v^2NRR$$
+% $$ \Rightarrow \sigma_{y_v}^2 = \sigma_v^2\sum_{k=0}^{N-1}h(k)^2$$
 %
 % $$NRR = \frac{\sigma_{y_v}^2}{\sigma_v^2}$$
 %
-% $$NRR = \sum_{k=0}^{N-1}h(k)^2$$
+% $$ \Rightarrow NRR = \sum_{k=0}^{N-1}h(k)^2$$
 %

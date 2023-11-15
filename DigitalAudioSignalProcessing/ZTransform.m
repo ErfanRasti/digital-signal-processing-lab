@@ -1,6 +1,6 @@
-%% * Z-Trnasform *
+%% *Z-Trnasform*
 %% Clear the workspace
-close al;
+close all;
 clear;
 clc;
 %% Why Z-transform?
@@ -78,7 +78,7 @@ clc;
 % Another benefit of generating functions is that they can be used to
 % convert a recurrence relation into a differential equation.
 %
-% # The Z-transform is a generating function of a one-sided sequence.
+% * The Z-transform is a generating function of a one-sided sequence.
 % The formula of the Z-transform can be expressed based on the ordinary
 % generating function as
 %
@@ -86,7 +86,8 @@ clc;
 %
 % where $G(x[n];z^{-1})$ is the ordinary generating function of the
 % sequence $x[n]$.
-% # The Z-transform is a generating function of a two-sided sequence.
+% * The Z-transform is a generating function of a two-sided sequence.
+%
 % The formula of the Z-transform of a two-sided sequence can be expressed
 % as the sum of two generating functions as
 %
@@ -145,7 +146,7 @@ clc;
 %
 % *Syntax:*
 %
-%   |H=freqz(b,a,w)|
+%   H = freqz(b,a,w)
 %
 % *Input arguments:*
 %
@@ -164,7 +165,7 @@ clc;
 %
 % *Syntax:*
 %
-%   |zplane(b,a)|
+%   zplane(b, a)
 %
 % *Input arguments:*
 %
@@ -177,7 +178,7 @@ clc;
 %
 % *Syntax:*
 %
-%   |h=impz(b,a,n)|
+%   h = impz(b, a, n)
 %
 % *Input arguments:*
 %
@@ -195,7 +196,7 @@ clc;
 %
 % *Syntax:*
 %
-%   |X=ztrans(x, transVar)|
+%   X=ztrans(x, transVar)
 %
 % *Input arguments:*
 %
@@ -212,7 +213,7 @@ clc;
 %
 % *Syntax:*
 %
-%   |x=iztrans(X, transVar)|
+%   x=iztrans(X, transVar)
 %
 % *Input arguments:*
 %
@@ -229,7 +230,7 @@ clc;
 %
 % *Syntax:*
 %
-%   |[r,p,k]=residuez(b,a)|
+%   [r,p,k]=residuez(b,a)
 %
 % *Input arguments:*
 %
