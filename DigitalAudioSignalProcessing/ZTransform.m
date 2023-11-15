@@ -158,3 +158,16 @@ clc;
 %
 % * |H| is the frequency response of the system.
 %
+%% |zplane| function
+% The |zplane| function is used to plot the poles and zeros of a
+% discrete-time system in MATLAB.
+%
+% *Syntax:*
+%
+%   |zplane(b,a)|
+%
+% *Input arguments:*
+%
+% * |b| is the numerator polynomial of the system.
+% * |a| is the denominator polynomial of the system.
+%
