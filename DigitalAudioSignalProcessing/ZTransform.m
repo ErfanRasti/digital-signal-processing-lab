@@ -107,7 +107,7 @@ clc;
 % * Holomorphic function is a complex-valued function of one or more complex
 % variables that is complex differentiable in a neighborhood of every point
 % in its domain.
-% * Mermoorphic function is a function that is holomorphic in all of the
+% * Meromorphic function is a function that is holomorphic in all of the
 % complex plane except for a set of isolated points (the poles).
 % * Riemann Zeta  function defines a meromorphic function that is holomorphic
 % in the half-plane $\Re(s)>1$ and has a simple pole at $s=1$, with residue 1.
@@ -118,4 +118,13 @@ clc;
 % numbers.
 % * The Riemann zeta funnction is an index for calculating the convergence
 % of infinite series.
+%
+%% Euler's product formula
+% Euler's product formula is a product representation for the Riemann zeta
+% function, which is valid for all complex numbers $s$ that have real part
+% greater than $1$.
+%
+% $$\zeta(s)=\sum_{n=1}^{\infty}\frac{1}{n^s}=\prod_{p\in P}\frac{1}{1-p^{-s}}$$
+%
+% where $P$ is the set of all prime numbers.
 %
