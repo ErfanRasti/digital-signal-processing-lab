@@ -139,4 +139,22 @@ clc;
 % # The inverse Z-transform is a function of the complex variable $z$.
 % # The inverse Z-transform decomposes a Z-transform into its constituent
 % complex exponentials.
-
+%% |freqz| function
+% The |freqz| function is used to calculate the frequency response of a
+% discrete-time system and plot the magnitude and phase responses in MATLAB.
+%
+% *Syntax:*
+%
+%   |H=freqz(b,a,w)|
+%
+% *Input arguments:*
+%
+% * |b| is the numerator polynomial of the system.
+% * |a| is the denominator polynomial of the system.
+% * |w| is the vector of frequencies at which the frequency response is
+% calculated.
+%
+% *Output arguments:*
+%
+% * |H| is the frequency response of the system.
+%
