@@ -189,3 +189,56 @@ clc;
 %
 % * |h| is the impulse response of the system.
 %
+%% |ztrans| function
+% The |ztrans| function is used to calculate the Z-transform of a
+% discrete-time signal in MATLAB.
+%
+% *Syntax:*
+%
+%   |X=ztrans(x, transVar)|
+%
+% *Input arguments:*
+%
+% * |x| is the discrete-time signal.
+% * |transVar| is the transformation variable.
+%
+% *Output arguments:*
+%
+% * |X| is the Z-transform of the discrete-time signal.
+%
+%% |iztrans| function
+% The |iztrans| function is used to calculate the inverse Z-transform of a
+% discrete-time signal in MATLAB.
+%
+% *Syntax:*
+%
+%   |x=iztrans(X, transVar)|
+%
+% *Input arguments:*
+%
+% * |X| is the Z-transform of the discrete-time signal.
+% * |transVar| is the transformation variable.
+%
+% *Output arguments:*
+%
+% * |x| is the discrete-time signal.
+%
+%% |residuez| function
+% The |residuez| function is used to calculate the residues, poles, and
+% direct terms of a discrete-time system in MATLAB.
+%
+% *Syntax:*
+%
+%   |[r,p,k]=residuez(b,a)|
+%
+% *Input arguments:*
+%
+% * |b| is the numerator polynomial of the system.
+% * |a| is the denominator polynomial of the system.
+%
+% *Output arguments:*
+%
+% * |r| is the vector of residues.
+% * |p| is the vector of poles.
+% * |k| is the vector of direct terms.
+%
