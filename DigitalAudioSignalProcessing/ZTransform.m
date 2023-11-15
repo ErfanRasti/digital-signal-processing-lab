@@ -171,3 +171,21 @@ clc;
 % * |b| is the numerator polynomial of the system.
 % * |a| is the denominator polynomial of the system.
 %
+%% |impz| function
+% The |impz| function is used to calculate the impulse response of a
+% discrete-time system and plot the impulse response in MATLAB.
+%
+% *Syntax:*
+%
+%   |h=impz(b,a,n)|
+%
+% *Input arguments:*
+%
+% * |b| is the numerator polynomial of the system.
+% * |a| is the denominator polynomial of the system.
+% * |n| is the number of samples of the impulse response.
+%
+% *Output arguments:*
+%
+% * |h| is the impulse response of the system.
+%
