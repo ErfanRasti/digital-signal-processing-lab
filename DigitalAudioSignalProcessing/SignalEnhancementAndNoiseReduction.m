@@ -1,4 +1,4 @@
-%% * Signal Enhancement And Noise Reduction *
+%% *Signal Enhancement And Noise Reduction*
 %% Clear the workspace
 close all;
 clear;
@@ -124,4 +124,57 @@ clc;
 % first register and shift the previous outputs to the next registers.)
 % # Repeat the process for the next input element.
 %
+%
+%% Noise Reduction Ratio(NRR)
+% * The noise reduction ratio is a ratio that shows the reduction in the
+% noise power after passing through the filter.
+% * The noise reduction ratio is calculated by the power of the digital filter.
+% Because the power of the filter is equal to the noise power after passing
+% through the filter.
+% * NRR also can be calculated by the ratio of the noise variance before
+% and after passing through the filter.
+%
+% NRR is defined as:
+%
+% $$NRR = \frac{\sigma_{y_v}^2}{\sigma_v^2}$$
+%
+% where $\sigma_{y_v}^2$ is the noise variance after passing through the
+% filter and $\sigma_v^2$ is the noise variance before passing through the
+% filter.
+%
+% It also can be written as:
+%
+% $$NRR = \sum_{k=0}^{N-1}h(k)^2$$
+%
+% where $h(k)$ is the impulse response of the filter.
+%
+% *Proof*
+% According to the properties of AWGN, the noise variance:
+%
+% $$\mu_v = 0$$
+% $$\mathbb{E}[y(n)] = \mathbb{E}[h(n)*v(n)] = h(n)*\mathbb{E}[v(n)] =
+% h(n)*\mathbb{E}[v(n)] = 0$$
+%
+% $$% \sigma_{y_v}^2 = \mathbb{E}[y^2(n)]-
+% \underbrace{\mathbb{E}[y(n)]^2}_{$  =  0$}$$
+%
+% $$\sigma_{y_v}^2 = \mathbb{E}[(h(n)*v(n))^2]$$
+%
+% $$\sigma_{y_v}^2 = \mathbb{E}[\sum_{k=0}^{N-1}h(k)v(n-k)\sum_{l=0}^{N-1}h(l)v(n-l)]$$
+%
+% $$\sigma_{y_v}^2 = \mathbb{E}[\sum_{k=0}^{N-1}\sum_{l=0}^{N-1}h(k)h(l)v(n-k)xv(n-l)]$$
+%
+% $$\sigma_{y_v}^2 = \sum_{k=0}^{N-1}\sum_{l=0}^{N-1}h(k)h(l)\mathbb{E}[v(n-k)v(n-l)]$$
+%
+% $$\sigma_{y_v}^2 = \sum_{k=0}^{N-1}\sum_{l=0}^{N-1}h(k)h(l)\sigma_v^2\delta(k-l)$$
+%
+% $$\sigma_{y_v}^2 = \sigma_v^2\sum_{k=0}^{N-1}h(k)\sum_{l=0}^{N-1}h(l)\delta(k-l)$$
+%
+% $$\sigma_{y_v}^2 = \sigma_v^2\sum_{k=0}^{N-1}h(k)^2$$
+%
+% $$\sigma_{y_v}^2 = \sigma_v^2NRR$$
+%
+% $$NRR = \frac{\sigma_{y_v}^2}{\sigma_v^2}$$
+%
+% $$NRR = \sum_{k=0}^{N-1}h(k)^2$$
 %
