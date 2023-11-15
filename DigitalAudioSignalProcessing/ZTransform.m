@@ -128,3 +128,15 @@ clc;
 %
 % where $P$ is the set of all prime numbers.
 %
+%% Inverse Z-Transform
+% The inverse Z-transform is defined as
+%
+% $$x[n]=\frac{1}{2\pi j}\oint X(z)z^{n-1}dz$$
+%
+% where the integration is performed over a closed path encircling the
+% origin in the $z$-plane.
+%
+% # The inverse Z-transform is a function of the complex variable $z$.
+% # The inverse Z-transform decomposes a Z-transform into its constituent
+% complex exponentials.
+
