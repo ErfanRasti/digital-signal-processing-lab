@@ -18,7 +18,9 @@ clc;
 %
 %% Definition of Z-transform
 % The Z-transform of a discrete-time signal $x[n]$ is defined as
+%
 % $$X(z)=\sum_{n=-\infty}^{\infty}x[n]z^{-n}$$
+%
 % where $z$ is a complex variable.
 %
 % # The Z-transform is a function of the complex variable $z$.
@@ -61,30 +63,59 @@ clc;
 % listed below with their formulas, where $a_n$ denotes the $n$th term of
 % the sequence.
 %
-% *Ordinary generating function:* $G(a_n;x)=\sum_{n=0}^{\infty}a_nx^n$
+% *Ordinary generating function:*
+%
+% $$G(a_n;x)=\sum_{n=0}^{\infty}a_nx^n$$
 %
 % *Probability generating function:* If $a_n$ is the probability mass
 % function of a discrete random variable $X$, then  its ordinary generating
 % function is called the probability generating function of $X$.
 %
 % *Exponential generating function:*
-% $G(a_n;x)=\sum_{n=0}^{\infty}a_n\frac{x^n}{n!}$
+%
+% $$G(a_n;x)=\sum_{n=0}^{\infty}a_n\frac{x^n}{n!}$$
+%
 % Another benefit of generating functions is that they can be used to
 % convert a recurrence relation into a differential equation.
 %
 % # The Z-transform is a generating function of a one-sided sequence.
 % The formula of the Z-transform can be expressed based on the ordinary
 % generating function as
+%
 % $$X(z)=\sum_{n=0}^{\infty}x[n]z^{-n}=G(x[n];z^{-1})$$
+%
 % where $G(x[n];z^{-1})$ is the ordinary generating function of the
 % sequence $x[n]$.
 % # The Z-transform is a generating function of a two-sided sequence.
 % The formula of the Z-transform of a two-sided sequence can be expressed
 % as the sum of two generating functions as
+%
 % $$X(z)=\sum_{n=-\infty}^{\infty}x[n]z^{-n}=G(x[n];z^{-1})+G(x[-n-1];z)$$
+%
 % where $G(x[n];z^{-1})$ and $G(x[-n-1];z)$ are the ordinary generating
 % functions of the sequences $x[n]$ and $x[-n-1]$, respectively.
 %
 % Generating functions are so powerful in analyzing number sequences and
 % can be used to solve many problems in number theory.
+%
+%% Riemann Zeta Function
+% The Riemann zeta function is a function of a complex variable $s$ that
+% analytically continues the sum of the Dirichlet series
+%
+% $$\zeta(s)=\sum_{n=1}^{\infty}\frac{1}{n^s}$$
+%
+% * Holomorphic function is a complex-valued function of one or more complex
+% variables that is complex differentiable in a neighborhood of every point
+% in its domain.
+% * Mermoorphic function is a function that is holomorphic in all of the
+% complex plane except for a set of isolated points (the poles).
+% * Riemann Zeta  function defines a meromorphic function that is holomorphic
+% in the half-plane $\Re(s)>1$ and has a simple pole at $s=1$, with residue 1.
+% * The Riemann zeta function plays a pivotal role in analytic number theory
+% and has applications in physics, probability theory, and applied
+% statistics.
+% * The Riemann zeta function is a measure of the distribution of prime
+% numbers.
+% * The Riemann zeta funnction is an index for calculating the convergence
+% of infinite series.
 %
