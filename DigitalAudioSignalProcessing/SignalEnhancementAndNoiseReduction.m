@@ -74,3 +74,54 @@ clc;
 % the input signal($f_0$).
 % # The resonator should have a gain of 1 at the center frequency.
 % # The resonator should have a gain of 0 at the stopband.
+%
+%% Resonator Design
+% We will design a resonator for a single tone signal. Resonator should
+% two poles and two zeros. The resonator is given by:
+%
+% $$H(z) = \frac{G}{(1-Re^{j\omega_0}z^{-1})(1-Re^{-j\omega_0}z^{-1})}$$
+%
+% where $G$ is the gain of the resonator and $R$ is the radius of the
+% resonator. The radius of the resonator should be less than 1; otherwise
+% the resonator will be unstable.
+%
+% The resonator should have a gain of 1 at the center frequency
+% ($H(e^{j\omega_0})=1$)). The gain of the resonator is given by:
+%
+% $$G = (1-R)\dot(1-2Rcos(\omega_0)+R^2)^{0.5}$$
+%
+% We can write the Z-transform of the resonator as:
+%
+% $$H(z) = \frac{G}{1+\alpha_1z^{-1}+\alpha_2z^{-2}}$$
+%
+% which
+%
+% $$\alpha_1 = -2Rcos(\omega_0)$$
+%
+% $$\alpha_2 = R^2$$
+%
+% According to this fact the set of alpha values is real, the impulse response
+% of the resonator is real. The impulse response of the resonator is given
+% by:
+%
+% $$h(n) = \frac{G}{\sin(\omega_0)}\dotR^n\dotsin(\omega_0n+\omega_0), n=0,1,2,\dots$$
+%
+% The resonator can be expressed as a difference equation as:
+%
+% $$y(n) = Gx(n) + \alpha_1y(n-1) + \alpha_2y(n-2)$$
+%
+% # The resonator is a second order filter.
+% # The resonator has two poles and two zeros.
+% #The resonator is a recursive filter. The resonator is a IIR filter.
+%
+% So, we can compute the output of the resonator by using the input and
+% previous two outputs. To implement a difference equation using recursive
+% formula, we act as follows:
+% # Store the previous outputs in registers.
+% # Multiply the input with the gain of the resonator and add the previous
+% outputs.
+% #Update the registers with the new outputs.(Save the new output in the
+% first register and shift the previous outputs to the next registers.)
+% # Repeat the process for the next input element.
+%
+%
