@@ -75,13 +75,8 @@ f0 = 1000;
 deltaF = 100;
 deltaW = 2 * pi * deltaF / fs;
 beta = tan(deltaW / 2);
-a1 =- (1 - beta) / (1 + beta);
-a2 = (1 - beta) / (1 + beta);
-b0 = 1 / (1 + beta);
-b1 = -2 * cos(2 * pi * f0 / fs) / (1 + beta);
-b2 = 1 / (1 + beta);
-a = [a1 a2];
-b = [b0 b1 b2];
+a = [-1.99 0.95];
+b = [0.99 -1.95 0.99];
 %%%
 % Linear buffers are used to store the previous values of the input and
 % output signals. The length of the buffers are equal to the order of the
@@ -120,3 +115,57 @@ xlabel("n");
 ylabel("Amplitude");
 xlim([0 50]);
 grid on;
+
+%% Settling Time
+% To find the settling time of the filter we should find the last value that
+% the difference between the current value and the last value is less than
+% the percent of settling time value.
+%
+% If the settled value of the filtered signal is $y_{settled}$, which is the
+% of the unit response of the filter, the settling time is:
+%
+% $$ n_{settling} = \max\{n: |y(n) - y_{settled}| > \epsilon\} + 1$$
+%
+% where $\epsilon$ is the percent of settling time value.
+%
+% * Lower bandwidths result in longer settling times.
+% * Higher sampling frequencies result in shorter settling times.
+% We can use the following code to find the settling time of the filter:
+%
+N = 1e3;
+n = 0:N - 1;
+x_step = ones(1, N);
+y_step = zeros(1, N);
+w1 = 0;
+w2 = 0;
+x1 = 0;
+x2 = 0;
+
+for i = 1:N
+    y_step(i) = -a(1) * w1 -a(2) * w2 + b(1) * x_step(i) + ...
+        b(2) * x1 + b(3) * x2;
+    w2 = w1;
+    w1 = y_step(i);
+    x2 = x1;
+    x1 = x_step(i);
+end
+
+settling_time_percent = 0.01;
+settling_time_value = find(abs(y_step - y_step(end)) >= 0.01, 1, 'last') + 1;
+
+figure('Name', 'Step Responses of the Two Notch Filters');
+stem(n, y_step, "LineWidth", 1.5);
+title("Step Response of Filter H1 in Time Domain (\Deltaf = 4Hz)");
+xlabel("n");
+ylabel("Amplitude");
+xlim([0 200]);
+ylim([1 - 0.1, 1 + 0.1]);
+grid on;
+hold on;
+stem(settling_time_value - 1, ...
+    y_step(settling_time_value), ...
+    "LineWidth", 1.5, "Marker", "o");
+text(settling_time_value - 1, ...
+    y_step(settling_time_value), ...
+    "Settling Time = sample " + (settling_time_value -1), 'position', ...
+    [settling_time_value - 1, y_step(settling_time_value) + 0.04]);
