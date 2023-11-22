@@ -69,17 +69,25 @@ imshow('.\images\NotchFilterH1_directFormII.png');
 % To integrate the simulink model into MATLAB, we should define the coefficients
 % of the filter. We can use the following code to define the coefficients:
 %
-% * The sampling frequency is 8kHz.
-% * The notch frequency is 1kHz.
-% * The bandwidth is 100Hz.
 %
-fs = 8000;
-f0 = 1000;
-deltaF = 100;
-deltaW = 2 * pi * deltaF / fs;
-beta = tan(deltaW / 2);
-a = [-1.99 0.95];
-b = [0.99 -1.95 0.99];
+N = 200;
+n = 0:N;
+f0 = 100;
+fs = 2000;
+w0 = 2 * pi * f0 / fs;
+delta_f = 10;
+delta_w = 2 * pi * delta_f / fs;
+beta = tan(delta_w / 2);
+x_delta = zeros(1, N + 1);
+x_delta(1) = 1;
+b1 = [1 -2 * cos(w0) 1] / (beta + 1);
+a1 = [-2 * cos(w0) / (1 + beta) (1 - beta) / (1 + beta)];
+w2 = 0;
+w1 = 0;
+x2 = 0;
+x1 = 0;
+y_delta = zeros(1, N + 1);
+
 %%%
 % Linear buffers are used to store the previous values of the input and
 % output signals. The length of the buffers are equal to the order of the
@@ -88,19 +96,8 @@ b = [0.99 -1.95 0.99];
 % we use $z^{-1}$ and $z^{-2}$ to represent the delay of one and two samples.
 %
 % The difference equation of the filter can be computed as below:
-N = 10000;
-n = 0:N - 1;
-x_delta = zeros(1, N);
-x_delta(1) = 1;
-y_delta = zeros(1, N);
-w2 = 0;
-w1 = 0;
-x1 = 0;
-x2 = 0;
-
-for i = 1:N
-    y_delta(i) = -a(1) * w1 -a(2) * w2 + b(1) * x_delta(i) + ...
-        b(2) * x1 + b(3) * x2;
+for i = 1:N + 1
+    y_delta(i) = -a1(1) * w1 -a1(2) * w2 + b1(1) * x_delta(i) + b1(2) * x1 + b1(3) * x2;
     w2 = w1;
     w1 = y_delta(i);
     x2 = x1;
@@ -135,27 +132,25 @@ grid on;
 % * Higher sampling frequencies result in shorter settling times.
 % We can use the following code to find the settling time of the filter:
 %
-N = 1e3;
-n = 0:N - 1;
-x_step = ones(1, N);
-y_step = zeros(1, N);
-w1 = 0;
+N = 1e4;
+n = 0:N;
+x_step = ones(1, N + 1);
+b1 = [0.969531 -1.923772 0.969531];
+a1 = [-1.9233772 0.939063];
 w2 = 0;
-x1 = 0;
+w1 = 0;
 x2 = 0;
+x1 = 0;
+y_step = zeros(1, N + 1);
 
-for i = 1:N
-    y_step(i) = -a(1) * w1 -a(2) * w2 + b(1) * x_step(i) + ...
-        b(2) * x1 + b(3) * x2;
+for i = 1:N + 1
+    y_step(i) = -a1(1) * w1 -a1(2) * w2 + b1(1) * x_step(i) + b1(2) * x1 + b1(3) * x2;
     w2 = w1;
     w1 = y_step(i);
     x2 = x1;
     x1 = x_step(i);
 end
-
-settling_time_percent = 0.01;
 settling_time_value = find(abs(y_step - y_step(end)) >= 0.01, 1, 'last') + 1;
-
 figure('Name', 'Step Responses of the Two Notch Filters');
 stem(n, y_step, "LineWidth", 1.5);
 title("Step Response of Filter H1 in Time Domain (\Deltaf = 4Hz)");
