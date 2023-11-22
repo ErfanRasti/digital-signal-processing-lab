@@ -26,3 +26,23 @@ clc;
 % where $P_1$ and $P_2$ are the poles of the transfer function, $B_1$ and
 % $B_2$ are the constants that are determined by the initial conditions.
 %
+%% Notch Filter(Band-Reject Filter)
+% We can design a notch filter by placing the zeros of the transfer function
+% at the desired frequency. The transfer function of a notch filter is given
+% by:
+%
+% $$H(z) = \frac{1}{1+\beta}
+% \frac{1 - 2\cos(\omega_0)z^{-1} + z^{-2}}
+% {1-\frac{2\cos(\omega_0)}{1+\beta}z^{-1} + \frac{1-\beta}{1+\beta}z^{-2}}$$
+%
+% where $\beta$ is the bandwidth parameter. The poles of the transfer
+% function are given by:
+%
+% $$P_{1,2} = \frac{1-\beta \pm \sqrt{(1-\beta)^2 - 4\beta\cos^2(\omega_0)}}{2(1+\beta)}$$
+%
+% The notch frequency and the bandwidth of the notch is given by:
+%
+% $$\omega_0 = \frac{2\pi f_0}{f_s}$$
+% $$ \Delta \omega = \frac{2\pi \Delta f}{f_s}$$
+% $$ \beta = \tan(\frac{\Delta \omega}{2})$$
+%
