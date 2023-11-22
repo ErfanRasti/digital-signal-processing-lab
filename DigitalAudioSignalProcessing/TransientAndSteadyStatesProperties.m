@@ -43,6 +43,80 @@ clc;
 % The notch frequency and the bandwidth of the notch is given by:
 %
 % $$\omega_0 = \frac{2\pi f_0}{f_s}$$
+%
 % $$ \Delta \omega = \frac{2\pi \Delta f}{f_s}$$
+%
 % $$ \beta = \tan(\frac{\Delta \omega}{2})$$
 %
+%% Direct Form II(Canonical Form) of Notch Filter
+% To implement the notch filter, we can use the direct form II structure.
+% Direct form II is concluded of two parts: feedforward part and feedback
+% We can define it as a difference equation:
+%
+% $$y(n) = b_0x(n) + b_1x(n-1) + b_2x(n-2) - a_1y(n-1) - a_2y(n-2)$$
+%
+% where $b_0$, $b_1$, $b_2$, $a_1$ and $a_2$ are the filter coefficients.
+%
+% We use MATLAb simulink to design the canonical form of the notch filter.
+% The simulink model is shown below:
+%
+figure('Name', 'Simulink Model of Notch Filter');
+imshow('.\images\NotchFilterH1_directFormII.png');
+%%%
+% To integrate the simulink model into MATLAB, we should define the coefficients
+% of the filter. We can use the following code to define the coefficients:
+%
+% * The sampling frequency is 8kHz.
+% * The notch frequency is 1kHz.
+% * The bandwidth is 100Hz.
+%
+fs = 8000;
+f0 = 1000;
+deltaF = 100;
+deltaW = 2 * pi * deltaF / fs;
+beta = tan(deltaW / 2);
+a1 =- (1 - beta) / (1 + beta);
+a2 = (1 - beta) / (1 + beta);
+b0 = 1 / (1 + beta);
+b1 = -2 * cos(2 * pi * f0 / fs) / (1 + beta);
+b2 = 1 / (1 + beta);
+a = [a1 a2];
+b = [b0 b1 b2];
+%%%
+% Linear buffers are used to store the previous values of the input and
+% output signals. The length of the buffers are equal to the order of the
+% filter. The initial values of the buffers are zero.
+%
+% we use $z^{-1}$ and $z^{-2}$ to represent the delay of one and two samples.
+%
+% The difference equation of the filter can be computed as below:
+N = 10000;
+n = 0:N - 1;
+x_delta = zeros(1, N);
+x_delta(1) = 1;
+y_delta = zeros(1, N);
+w2 = 0;
+w1 = 0;
+x1 = 0;
+x2 = 0;
+
+for i = 1:N
+    y_delta(i) = -a(1) * w1 -a(2) * w2 + b(1) * x_delta(i) + ...
+        b(2) * x1 + b(3) * x2;
+    w2 = w1;
+    w1 = y_delta(i);
+    x2 = x1;
+    x1 = x_delta(i);
+end
+
+%%%
+% We can use the following code to plot the frequency response of the
+% filter:
+%
+figure('Name', 'Impulse Responses of the Two Notch Filters');
+stem(n, y_delta, "LineWidth", 1.5);
+title("Impuulse response of Filter H1 in Time Domain (\Deltaf = 4Hz)");
+xlabel("n");
+ylabel("Amplitude");
+xlim([0 50]);
+grid on;
