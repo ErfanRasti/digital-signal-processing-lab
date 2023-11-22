@@ -48,6 +48,9 @@ clc;
 %
 % $$ \beta = \tan(\frac{\Delta \omega}{2})$$
 %
+% where $f_0$ is the notch frequency, $\Delta f$ is the 3dB bandwidth and
+% $f_s$ is the sampling frequency.
+%
 %% Direct Form II(Canonical Form) of Notch Filter
 % To implement the notch filter, we can use the direct form II structure.
 % Direct form II is concluded of two parts: feedforward part and feedback
@@ -124,7 +127,7 @@ grid on;
 % If the settled value of the filtered signal is $y_{settled}$, which is the
 % of the unit response of the filter, the settling time is:
 %
-% $$ n_{settling} = \max\{n: |y(n) - y_{settled}| > \epsilon\} + 1$$
+% $$ n_{settling} = \max\{n: |y(n) - y_{settled}| >= \epsilon\} + 1$$
 %
 % where $\epsilon$ is the percent of settling time value.
 %
@@ -169,3 +172,24 @@ text(settling_time_value - 1, ...
     y_step(settling_time_value), ...
     "Settling Time = sample " + (settling_time_value -1), 'position', ...
     [settling_time_value - 1, y_step(settling_time_value) + 0.04]);
+
+%%%
+%% Peak Filter(Band-Pass Filter)
+% We can design a peak filter by placing the poles of the transfer function
+% at the desired frequency. The transfer function of a peak filter is given
+% by:
+%
+% $$H(z) = \frac{\beta}{1+\beta}\dot\frac{1 - z^{-2}}
+% {1 - 2\frac{\cos(\omega_0)}{1+\beta}z^{-1} + \frac{1-\beta}{1+\beta}z^{-2}}$$
+%
+% where
+%
+% $$\omega_0 = \frac{2\pi f_0}{f_s}$$
+%
+% $$ \Delta \omega = \frac{2\pi \Delta f}{f_s}$$
+%
+% $$\beta = \tan(\frac{\Delta \omega}{2})$$.
+%
+%
+% where $f_0$ is the notch frequency, $\Delta f$ is the 3dB bandwidth and
+% $f_s$ is the sampling frequency.
