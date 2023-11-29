@@ -73,5 +73,31 @@ imshow('./images/DynamicProcessor.png');
 % gain processor does not change the gain of the signal. If the value of
 % is infinity, the gain processor does not let the signal pass.
 
+%% Compressors and Limiters
+% Compressor is used to reduce the dynamic range of the signal.
+% It won't let the signal pass if the level of the signal is higher than
+% the threshold. If the level of the signal is higher than the threshold,
+% it will reduce the gain of the signal according to the ratio.
+%
+% The related equations are as below:
+%
+% $$ G(n) = \begin{cases} (\frac{c_n}{c_0})^{\rho-1} & \text{if } c_n > c_0 \\
+% 1 & \text{if } c_n \leq c_0 \end{cases} $$
+%
+% which $c_n$ is the level of the signal and $c_0$ is the threshold. $\rho$
+% is the ratio. $G(n)$ is the gain processor which is multiplied by the
+% input signal.
+%
+% If the ratio is 1, the gain processor does not change the gain of the
+% signal. If the ratio is 0, the gain processor does not let the signal
+% pass.
+%
+% If $\rho$ is very close to zero the gain processor is called limiter.
+% Limiter is used to limit the level of the signal.
+%
+% The difference between compressor and limiter is shown in the following
+% figure:
+imshow('./images/CompressorLimiter.png');
+
 %% movmean
 %% expander compressor limitter and ...
