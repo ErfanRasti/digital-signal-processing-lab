@@ -172,6 +172,30 @@ xlim([0 600]);
 ylim([0 1.2]);
 grid on;
 
+L = 7;
+cn_smoothed = movmean(cn, [L - 1 0]);
+gn_smoothed = ones(1, length(cn_smoothed));
+gn_smoothed(cn_smoothed <= c0) = (cn_smoothed(cn_smoothed <= c0) / c0) .^ (rho - 1);
+yn_smoothed = gn_smoothed .* x;
+
+figure('Name', 'Smoothed Contol Signal vs Smoothed Gain Signal');
+subplot(1, 2, 1);
+plot(n, cn_smoothed, 'LineWidth', 1.5);
+title('Smoothed Control Signal');
+xlabel('n');
+ylabel('amplitude');
+xlim([0 600]);
+ylim([0 5]);
+grid on;
+subplot(1, 2, 2);
+plot(n, gn_smoothed, 'LineWidth', 1.5);
+title('Smoothed Gain Signal');
+xlabel('n');
+ylabel('amplitude');
+xlim([0 600]);
+ylim([0 1.2]);
+grid on;
+
 % %% Expanders and Noise Gates
 % % Expander is used to increase the dynamic range of the signal.
 % % It won't let the signal pass if the level of the signal is lower than
