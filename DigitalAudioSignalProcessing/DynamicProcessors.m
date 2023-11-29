@@ -18,3 +18,19 @@ clc;
 % the gain of the signal.
 % * The compressor is used to reduce the dynamic range of the signal and the
 % expander is used to increase the dynamic range of the signal.
+imshow('./images/DynamicProcessor.png');
+%% Level Detector
+% The level detector measures the level of the input signal.
+% The level detector have 3 different types:
+% # Peak detector
+% # Envelope detector
+% # RMS detector
+%
+% The related equations are as below:
+%
+% $$Peak Detector: y(n) = |x(n)|$$
+%
+% $$Envelope Detector: y(n) = \lambda y(n-1) + (1-\lambda)|x(n)|$$
+%
+% $$RMS Detector: y(n) = \lambda y(n-1) + (1-\lambda)|x(n)|^2$$
+%
