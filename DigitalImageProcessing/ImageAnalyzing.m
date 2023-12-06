@@ -24,3 +24,19 @@ imshow(img);
 % the data to the range [0, 1]. If the input image is of class double, the
 % output image is identical to it.
 img = im2double(img);
+
+%% Histogram of the image
+% The |imhist| function computes and displays the histogram of the image
+% data. The histogram is a graphical representation of the tonal
+% distribution in an image. It plots the number of pixels for each tonal
+% value. The horizontal axis shows the tonal values and the vertical axis
+% shows the number of pixels for each tonal value.
+% It also returns the histogram counts in |counts| and the bin locations in
+% |binLocations|.
+[counts, binLocations] = imhist(img);
+figure('Name', 'Histogram of the Image');
+bar(binLocations, counts);
+title('Histogram of the Image');
+ylabel('Number of Pixels');
+xlabel('Gray Level');
+grid on;
