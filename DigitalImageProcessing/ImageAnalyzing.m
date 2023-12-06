@@ -18,3 +18,9 @@ img = imread('coins.png');
 % scaled to fit the screen if its size is larger than the screen.
 figure('Name', 'Original Image');
 imshow(img);
+
+%% Convert the image to scaled double precision
+% The |im2double| function converts the image to double precision, scaling
+% the data to the range [0, 1]. If the input image is of class double, the
+% output image is identical to it.
+img = im2double(img);
