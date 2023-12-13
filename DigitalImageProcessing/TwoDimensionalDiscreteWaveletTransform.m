@@ -63,4 +63,19 @@ imshow('images/2d_dwt_algorithm.png');
 % LH subband can be used to reconstruct the horizontal edges of the image.
 % HL subband can be used to reconstruct the vertical edges of the image.
 %
+% The above explanations contain one level of decomposition. The 2-D DWT
+% can be applied recursively to the LL subband to obtain more levels of
+% decomposition.
+%
+%% |dwt2| function
+% The |dwt2| function in MATLAB is used to perform the 2-D DWT. The
+% |dwt2| function is used as follows:
+%
+% |[cA,cH,cV,cD] = dwt2(X,wname)|
+%
+% where |X| is the input image, |wname| is the wavelet name, |cA| is the
+% approximation coefficients, |cH| is the horizontal detail coefficients,
+% |cV| is the vertical detail coefficients, and |cD| is the diagonal detail
+% coefficients.
+%
 
