@@ -44,7 +44,7 @@ clc;
 % # In calculating the ROC, the summation in the formula for the Z-transform is
 % assumed to converge absolutely. So, the ROC is the set of values of $z$
 % for which the series converges absolutely.
-% # The Z-transform is assumed to be a rationa function of $z$.
+% # The Z-transform is assumed to be a rational function of $z$.
 % # The ROC is bounded by poles of the Z-transform.
 %
 %% Generating function of a sequence
@@ -52,7 +52,7 @@ clc;
 % problems.
 %
 % In mathematics, a generating function is a way of encoding an infinite
-% sequence of numbers (an) by treating them as the coefficients of a
+% sequence of numbers ($a_n$) by treating them as the coefficients of a
 % formal power series.
 %
 % The generating function of a sequence is a power series whose coefficients
@@ -60,7 +60,7 @@ clc;
 %
 % There are many different generating functions, depending on what
 % information one wants to encode. Some of the most common functions are
-% listed below with their formulas, where $a_n$ denotes the $n$th term of
+% listed below with their formulas, where $a_n$ denotes the $n$ th term of
 % the sequence.
 %
 % *Ordinary generating function:*
@@ -79,6 +79,7 @@ clc;
 % convert a recurrence relation into a differential equation.
 %
 % * The Z-transform is a generating function of a one-sided sequence.
+%
 % The formula of the Z-transform can be expressed based on the ordinary
 % generating function as
 %

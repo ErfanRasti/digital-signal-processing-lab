@@ -64,7 +64,7 @@ clc;
 % The simulink model is shown below:
 %
 figure('Name', 'Simulink Model of Notch Filter');
-imshow('.\images\NotchFilterH1_directFormII.png');
+imshow('./images/NotchFilterH1_directFormII.png');
 %%%
 % To integrate the simulink model into MATLAB, we should define the coefficients
 % of the filter. We can use the following code to define the coefficients:
@@ -110,7 +110,7 @@ end
 %
 figure('Name', 'Impulse Responses of the Two Notch Filters');
 stem(n, y_delta, "LineWidth", 1.5);
-title("Impuulse response of Filter H1 in Time Domain (\Deltaf = 4Hz)");
+title("Impulse response of Filter H1 in Time Domain (\Deltaf = 4Hz)");
 xlabel("n");
 ylabel("Amplitude");
 xlim([0 50]);
