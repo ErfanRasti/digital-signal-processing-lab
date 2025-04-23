@@ -1,4 +1,4 @@
-%% *Multi Rate Filter Bank*
+%% *Multirate Filter Bank*
 %% Clear the workspace
 close all;
 clear;
@@ -50,12 +50,13 @@ clc;
 % filter coefficients.
 %
 % In the following code, we plot the spectrum of the filters.
+%
 % # First we read the filter coefficients from the excel file.
 % # Second we take the DTFT of the filter coefficients.
 % # Third we plot the magnitude and phase of the DTFTs.
 analysis_filters = readmatrix('./data/filters.xls', 'Sheet', 1);
 synthesis_filters = readmatrix('./data/filters.xls', 'Sheet', 2);
-figure('Name', "Amplitiude of frequency response of digital filters");
+figure('Name', "Amplitiude of frequency response of digital filters", 'Units', 'inches', 'Position', [1, 1, 10, 8]);
 
 for i = 1:4
     n = 0:32 - 1;
@@ -81,7 +82,7 @@ for i = 1:4
 end
 
 %%%
-figure('Name', "Phase of frequency response of digital filters");
+figure('Name', "Phase of frequency response of digital filters", 'Units', 'inches', 'Position', [1, 1, 10, 8]);
 
 for i = 1:4
     n = 0:32 - 1;
@@ -111,6 +112,7 @@ end
 %% |freqz| function
 % We could also use the |freqz| function to plot the frequency response of
 % the filters. The |freqz| function takes three input arguments.
+%
 % # The first input argument is the numerator coefficients of the filter.
 % # The second input argument is the denominator coefficients of the filter.
 % # The third input argument is the number of points in the frequency axis.
@@ -118,7 +120,7 @@ end
 % The |freqz| function returns the frequency response and the frequency
 % axis as output arguments. The frequency response is a complex vector.
 % The frequency axis is a vector of frequencies between 0 and pi.
-figure('Name', "Amplitiude of frequency response of digital filters");
+figure('Name', "Amplitiude of frequency response of digital filters", 'Units', 'inches', 'Position', [1, 1, 10, 8]);
 
 for i = 1:4
     n = 0:32 - 1;
@@ -142,7 +144,7 @@ for i = 1:4
 end
 
 %%%
-figure('Name', "Phase of frequency response of digital filters");
+figure('Name', "Phase of frequency response of digital filters", 'Units', 'inches', 'Position', [1, 1, 10, 8]);
 
 for i = 1:4
     [H, w_axis] = freqz(analysis_filters(i, :), 1, 1024);
