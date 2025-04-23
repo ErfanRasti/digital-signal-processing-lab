@@ -20,9 +20,9 @@ clc;
 % convolution of the two vectors. The length of the output vector is equal
 % to the sum of the lengths of the input vectors minus one.
 %% Implementation
-% # According to the formula of the convlution, we should flip one of the vectors.
+% # According to the formula of the convolution, we should flip one of the vectors.
 % # To flip the vector in MATLAB, we use the |fliplr| function.
-% # According to the final lengtyh of the output vector, we should pad two vectors
+% # According to the final length of the output vector, we should pad two vectors
 % with zeros to reach the same length of the output vector.
 % # To shift the reversed vector, we use the |circshift| function.
 % This function shifts the elements in the vector by a specified number of
@@ -36,11 +36,11 @@ clc;
 % Then it starts iterating over the elements of the array and goes forward to
 % reach the length of the input array.
 %
-% # The convolution operator can also be implemented using the toeplitz
+% # The convolution operator can also be implemented using the |toeplitz|
 % matrix.
 % # The toeplitz matrix is a matrix with constant values along its
 % diagonals.
-% # The first row of the toeplitz matrix is the impulse response
+% # The first row of the |toeplitz| matrix is the impulse response
 % vector.
 % # The first column of the toeplitz matrix is the input signal
 % vector padded with zeros.
@@ -49,25 +49,26 @@ clc;
 %
 % The following code illustrates the behavior of the toeplitz matrix.
 x = [1 2 3 4 5];
-h = [1 2 3];
 toeplitz(x)
 
 %%%
 % We can replace the reversed circular vector with an arbitrary vector(second vector);
-% but the first element of the second vector should be the same as thhe first element
+% but the first element of the second vector should be the same as the first element
 % of the first vector.
 c = [1 0 0];
 toeplitz(c, x)
 
 %%%
 % We can use the property of toeplitz matrix to implement the convolution operator.
+h = [1 2 3];
 size_x = length(x);
 size_h = length(h);
 h_pad = [h zeros(1, size_x - 1)];
 c = [h(1) zeros(1, size_x - 1)];
 H = toeplitz(c, h_pad); % H represents the toeplitz matrix
+disp(H);
 y = x * H;
-disp(y)
+disp(y);
 %%%
 % The result of the convolution is the same as the result of the |conv| function.
 disp(conv(x, h))
