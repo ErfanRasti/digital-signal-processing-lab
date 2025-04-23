@@ -18,7 +18,7 @@ II. [Digital Filter Design](https://github.com/ErfanRasti/digital-signal-process
    3. [VoiceScrambling.m](https://github.com/ErfanRasti/digital-signal-processing-lab/blob/main/2_DigitalFilterDesign/S3_VoiceScrambling.m)
    4. [ShortTimFourierTransform.m](https://github.com/ErfanRasti/digital-signal-processing-lab/blob/main/2_DigitalFilterDesign/S4_ShortTimFourierTransform.m)
    5. [Wavelets.m](https://github.com/ErfanRasti/digital-signal-processing-lab/blob/main/2_DigitalFilterDesign/S5_Wavelets.m)
-   6. [DigitalFilterDesingUsingDeepLearning.ipynb](https://github.com/ErfanRasti/digital-signal-processing-lab/blob/main/2_DigitalFilterDesign/S6_DigitalFilterDesingUsingDeepLearning.ipynb)
+   6. [DigitalFilterDesignUsingDeepLearning.ipynb](https://github.com/ErfanRasti/digital-signal-processing-lab/blob/main/2_DigitalFilterDesign/S6_DigitalFilterDesingUsingDeepLearning.ipynb)
 
 III. [Digital Audio Signal Processing](https://github.com/ErfanRasti/digital-signal-processing-lab/tree/main/3_DigitalAudioSignalProcessing)
    1. [ZTransform.m](https://github.com/ErfanRasti/digital-signal-processing-lab/blob/main/3_DigitalAudioSignalProcessing/S1_ZTransform.m)

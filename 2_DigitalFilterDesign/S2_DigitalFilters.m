@@ -5,7 +5,7 @@ clear;
 clc;
 
 %% Design FIR filters in the time domain
-% # We can define differnet filters in time domain with finite impulse response (FIR).
+% # We can define different filters in time domain with finite impulse response (FIR).
 % # The filter coefficients are the impulse response of the filter.
 % # We cannot design IIR filters in time domain; because the impulse response of IIR filters are infinite.
 
@@ -19,11 +19,11 @@ clc;
 %
 % where the sample index $n$ goes from $0$ to $N-1$.
 
-%% Bandpass FIR filter
-% The bandpass filter passes a band of frequencies between a lower cutoff
+%% Band-pass FIR filter
+% The band-pass filter passes a band of frequencies between a lower cutoff
 % frequency, $f_l$, and an upper cutoff frequency, $f_h$.
 %
-% In the following example, we design an ideal bandpass filter with the lower
+% In the following example, we design an ideal band-pass filter with the lower
 % cutoff frequency of 0.15 and the upper cutoff frequency of 0.25.
 %
 % *Ideal band-pass FIR filter in time domain*
@@ -35,7 +35,7 @@ n1 = 0:M;
 h1 = ((wb / pi) * sinc(wb / pi * (n1 - M / 2)) - ...
     (wa / pi) * sinc(wa / pi * (n1 - M / 2)));
 
-figure('name', 'Impulse Response of Ideal FIR bandpass filter');
+figure('name', 'Impulse Response of Ideal FIR band-pass filter');
 stem(n1, h1, 'linewidth', 1.5);
 xlabel('n');
 ylabel('h1(n)');
@@ -67,13 +67,13 @@ xticklabels({'-\pi', '-\pi/2', '-\pi/5', '0', '\pi/5', '\pi/2', '\pi'});
 title('Phase Response');
 grid on;
 %%
-% We can see that the ideal bandpass filter has a very sharp transition
-% between the passband and the stopband. This is not practical for
-% implementation. We need to smooth the transition between the passband and
-% the stopband. We can do this by using a window function.
+% We can see that the ideal band-pass filter has a very sharp transition
+% between the pass-band and the stop-band. This is not practical for
+% implementation. We need to smooth the transition between the pass-band and
+% the stop-band. We can do this by using a window function.
 %
 % In the following example, we use the Hamming window to smooth the
-% transition between the passband and the stopband.
+% transition between the pass-band and the stop-band.
 %
 % *Hamming window in time domain*
 hamming_window = 0.54 - 0.46 * sin(2 * pi * n1 / M);
@@ -150,37 +150,37 @@ grid on;
 % # We can export the filter coefficients to the workspace.
 % # We can also export the filter coefficients to a file.
 % # filterDesigner is a graphical user interface (GUI) tool.
-% # We can use filterDesigner to design lowpass, highpass, bandpass, and bandstop filters.
+% # We can use filterDesigner to design low-pass, high-pass, band-pass, and band-stop filters.
 % # We can also use filterDesigner to design FIR filters.
 %
-% *Design a passband filter using filterDesigner*
+% *Design a pass-band filter using filterDesigner*
 %
 % # Open filterDesigner.
 % # Select IIR filter.
-% # Select the filter type(passband, lowpass, highpass, bandpass, or bandstop).
+% # Select the filter type(pass-band, low-pass, high-pass, band-pass, or band-stop).
 % # Select the filter design method(butterworth, chebyshev I, chebyshev II, elliptic, or bessel).
 % # Enter the filter order or minimum order.
-% # Enter the match exactly on passband or stopband.
+% # Enter the match exactly on pass-band or stop-band.
 % # Enter the frequency specifications. For example, if we use normalized
 % frequency, we should specify the angular frequency in the range of $[0, \pi]$.
-% We should specify it for stopband and passbands.
+% We should specify it for stop-band and pass-bands.
 % # Enter magnitude specifications. It has different units. We should specify
-% it for stopbands and passbands.
+% it for stop-bands and pass-bands.
 %
 % *Design a IIR filter using filterDesigner*
 %
 % According to the filterDesigner, we can design a IIR filter with the
 % following specifications:
 %
-% # Filter type: Bandpass
+% # Filter type: band-pass
 % # Design method: Elliptic
-% # Normalized frequency of stopband 1: $0.45 \pi$
-% # Normalized frequency of passband 1: $0.48 \pi$
-% # Normalized frequency of passband 2: $0.52 \pi$
-% # Normalized frequency of stopband 2: $0.55 \pi$
-% # Magnitude of stopband 1: $-40$ dB
-% # Magnitude of passband: $-1$ dB
-% # Magnitude of stopband 2: $-40$ dB
+% # Normalized frequency of stop-band 1: $0.45 \pi$
+% # Normalized frequency of pass-band 1: $0.48 \pi$
+% # Normalized frequency of pass-band 2: $0.52 \pi$
+% # Normalized frequency of stop-band 2: $0.55 \pi$
+% # Magnitude of stop-band 1: $-40$ dB
+% # Magnitude of pass-band: $-1$ dB
+% # Magnitude of stop-band 2: $-40$ dB
 %
 % The following figure shows the setup of the filterDesigner and the magnitude
 % frequency response of the designed filter.
@@ -193,17 +193,17 @@ imshow('./images/Bandpass_Elliptic_IIR_filter.png');
 % According to the filterDesigner, we can design a FIR filter with the
 % following specifications:
 %
-% # Filter type: Bandpass
+% # Filter type: band-pass
 % # Design method: Generalized Equiripple
 % # Density factor: 20
 % # PHase: Linear
-% # Normalized frequency of stopband 1: $0.45 \pi$
-% # Normalized frequency of passband 1: $0.48 \pi$
-% # Normalized frequency of passband 2: $0.52 \pi$
-% # Normalized frequency of stopband 2: $0.55 \pi$
-% # Magnitude of stopband 1: $-40$ dB
-% # Magnitude of passband: $-1$ dB
-% # Magnitude of stopband 2: $-40$ dB
+% # Normalized frequency of stop-band 1: $0.45 \pi$
+% # Normalized frequency of pass-band 1: $0.48 \pi$
+% # Normalized frequency of pass-band 2: $0.52 \pi$
+% # Normalized frequency of stop-band 2: $0.55 \pi$
+% # Magnitude of stop-band 1: $-40$ dB
+% # Magnitude of pass-band: $-1$ dB
+% # Magnitude of stop-band 2: $-40$ dB
 %
 % The following figure shows the setup of the filterDesigner and the magnitude
 % frequency response of the designed filter.
