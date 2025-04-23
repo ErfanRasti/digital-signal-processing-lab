@@ -85,7 +85,7 @@ clc;
 % * $m$ is the index of the window.
 % * $\omega$ is the frequency.
 %
-% * Note:* The STFT is a Fourier-related transform, not a Fourier transform.
+% *Note:* The STFT is a Fourier-related transform, not a Fourier transform.
 %
 %% |stft| function
 % The |stft| function computes the STFT of a discrete-time signal. The
@@ -148,7 +148,6 @@ title('STFT of a Chirp Signal');
 % For more information check the
 % <https://www.mathworks.com/help/signal/ref/stft.html
 % stft function documentation>.
-
 %% Spectrogram
 %
 % To calculate the STFT of a signal, we can use the |spectrogram| function.
