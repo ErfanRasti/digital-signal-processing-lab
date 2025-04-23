@@ -39,7 +39,7 @@ clc;
 % different harmonics is the concept that we should capture in the new
 % basis function.
 %
-% *Warping the time axis* is the key to capture the relations between
+% * Warping the time axis* is the key to capture the relations between
 % different harmonics. The new basis function should be a time limited
 % function that is warped in time. For example if we replace $t$ with
 % $2t$ in the original signal $x(t)$, then the second harmoinc will be
@@ -115,9 +115,20 @@ grid on;
 % * They are orthogonal wavelets. Orthogonal wavelets are used in image compression.
 % * They are indicated by dbX, where X is the number of vanishing moments.
 % * The number of vanishing moments is the number of derivatives of the
-% wavelet function that are zero at the origin.
+% Fourier transform of wavelet function that are zero at the origin.
 % * The more complex the signal, the more vanishing moments are needed to
 % capture its features.
+%
+%% Moment Definition
+% A wavelet $\psi(t)$ has $N$ _*vanishing moments*_ if:
+%
+% $$\int_{-\infty}^{\infty} t^k \psi(t) \, dt = 0 \quad \text{for } k = 0, 1, \dots, N-1. $$
+%
+% This means the wavelet is orthogonal to all polynomials of degree less than $N$.
+%
+% Taking the Fourier transform $\hat{\psi}(\omega)$ of the wavelet  $\psi(t)$, _*vanishing moments*_ correspond to _*derivatives of the Fourier transform being zero at the origin*_:
+%
+% $$\frac{d^k}{d\omega^k} \hat{\psi}(\omega)|_{\omega = 0} = 0 \quad \text{for } k = 0, 1, \dots, N-1.$$
 %
 % To choose the best wavelet for a specific application, we should consider
 % the following factors:
@@ -265,7 +276,7 @@ imshow('./images/IDWT_QMF_Algorithm.png');
 % The filters $h_1(n)$ and $g_1(n)$ are called the synthesis filters.
 % $h_1(n)$ and $g_1(n)$ can be derived from $h(n)$ and $g(n)$:
 %
-% $$h_1(n)=(-1)^(1-n)h(1-n)$$
+% $$h_1(n)=(-1)^{(1-n)}h(1-n)$$
 %
 % and
 %
@@ -292,7 +303,7 @@ imshow('./images/IDWT_QMF_Algorithm.png');
 % * |x|: The original signal
 % * |noisy_x|: The noisy signal
 % * |fun|: The function that generates the signal
-% * |n|: The nummber of iterations(power of 2 $log_2(numberOfSamples)$)
+% * |n|: The number of iterations(power of the base 2 $log_2(numberOfSamples)$)
 % * |sqrtsnr|: The square root of the signal to noise ratio
 % * |seed|: The seed of the random number generator
 %
@@ -439,9 +450,29 @@ xlabel('Time');
 ylabel('Amplitude');
 grid on;
 
-%%%
+%%% |wavedec| modes
 % The |wavedec| function returns the wavelet coefficients of the signal
 % decomposed to the specified number of levels using the specified wavelet.
+%
+% |wavedec| had different modes to treat the effect of filter convolutions:
+%
+% *sym*: Symmetric extension
+%
+% This mode is used to extend the signal symmetrically. This means that
+% the signal is extended by mirroring the signal at the edges. This mode
+% is used to avoid discontinuities at the edges of the signal.
+%
+% *per*: Periodic extension
+%
+% The signal is treated as periodic (circular). At each level, the number of
+% coefficients is halved (due to downsampling).
+%
+% *zpd*: Zero padding
+%
+% The signal is extended by adding zeros at the edges. This mode is used to
+% avoid discontinuities at the edges of the signal
+%
+% What we proceeded in theory is referred as *per* mode.
 %
 % For more information about the |wavedec| function, refer to the
 % <https://www.mathworks.com/help/wavelet/ref/wavedec.html |wavedec|>
