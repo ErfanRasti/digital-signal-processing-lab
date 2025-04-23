@@ -275,7 +275,8 @@ stem(n, sin(0.5 * pi * n), 'linewidth', 1.5);
 legend('Output of FIR Filter', 'Output of IIR Filter', 'Desired Signal');
 %%%
 %
-% *Frequency response of the designed filters*؛
+% *Frequency response of the designed filters*:
+%
 % We can plot the frequency response of the designed filters.
 % We should pass the filter function to the freqz function.
 % The following code plots the frequency response of the designed filters.
