@@ -153,8 +153,8 @@ xlabel('Amplitude');
 ylabel('Probability');
 grid on;
 
-%% Exponential Stochastic Signalsq
-%% Lognormal Stochastic Signals
+%% Exponential Stochastic Signals
+%% Log-normal Stochastic Signals
 %% Rayleigh Stochastic Signals
 %% Rician Stochastic Signals\
 %% Weibull Stochastic Signals
