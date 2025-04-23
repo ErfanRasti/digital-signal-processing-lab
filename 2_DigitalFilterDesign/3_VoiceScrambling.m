@@ -32,13 +32,13 @@ clc;
 % the voice signal. The scrambling sinusoid is generated using the
 % following equation:
 %
-% $$s(t) = A \cos(\frac{2 \pi f_0 t}{f_s})$$
+% $$s(t) = A \cos(\frac{2 \pi f_0 n}{f_s})$$
 %
 % where |A| is the amplitude of the scrambling sinusoid and |f_s| is its
 % frequency. The scrambling sinusoid is modulated with the voice signal
 % using the following equation:
 %
-% $$y(t) = x_{low-passed}(t) \cos(\frac{2 \pi f_0 t}{f_s})$$
+% $$y(t) = x_{low-passed}(t) \cos(\frac{2 \pi f_0 n}{f_s})$$
 %
 % where |x(t)| is the voice signal. The scrambling sinusoid is modulated
 % with the voice signal using the |.*| operator. The scrambled voice signal
@@ -50,7 +50,7 @@ clc;
 % The descrambling process is the inverse of the scrambling process. The
 % descrambling process is implemented using the following equation:
 %
-% $$y_2(t) = y(t) \cos(\frac{2 \pi f_0 t}{f_s})$$
+% $$y_2(t) = y(t) \cos(\frac{2 \pi f_0 n}{f_s})$$
 %
 % The descrambling process is implemented using the |.*| operator. The
 % descrambled voice signal is stored in the variable |y_2|. The following
@@ -80,7 +80,7 @@ clc;
 % # We can specify the start and end points of the audio file to be read
 % using the |audioread| function. It takes the start and end points as
 % a vector in the form |[start end]|. The second argument is the samples range.
-%  # |y| is an column vector of size |N x 1|, where |N| is the number of samples.
+% # |y| is an column vector of size $N x 1$, where |N| is the number of samples.
 % So, we should use the transpose operator |'| to convert it to a row vector.
 % # To define the time axis, we use the |linspace| function. It takes the
 % start and end points as well as the number of points to be generated.
@@ -107,8 +107,10 @@ clc;
 % |sound(x_t, fs);|
 %
 % |pause(length(x_t) / fs);|
+%
+% The sample rate |fs| should be a standard audio rate (common rates are 8000, 11025, 22050, 44100, or 48000 Hz).
 %%%
-%% Implementaion of the scrambling process
+%% Implementation of the scrambling process
 % We assume the input signal is a shifted sinc function with scaling factor of
 % 0.1 and shift factor of 0.5. The sampling frequency is 100 Hz.
 % We know the Fourier transform of the this function in general form is:
@@ -128,7 +130,7 @@ clc;
 %
 fs = 100;
 t = 0:1 / fs:1;
-x = sinc((t - 0.5) / 0.1);
+x = sinc((t - 0.5) * 2 * 10);
 N_freq = 1e4;
 f_axis = linspace(-fs / 2, fs / 2, N_freq);
 FT_x = fftshift(fft(x, N_freq)) / fs;
@@ -155,8 +157,8 @@ grid on;
 %
 fs = 100;
 n = 0:length(t) - 1; % Discrete axis
-f_axis = linspace(-fs / 2, fs / 2, N_freq);
-FT_x = fftshift(fft(x, N_freq)) / fs;
+w_axis = linspace(-pi, pi, N_freq);
+DTFT_x = fftshift(fft(x, N_freq)) / fs;
 figure("Name", "Sampled Signal");
 subplot(2, 1, 1);
 stem(n, x, 'LineWidth', 1.5);
@@ -165,9 +167,12 @@ ylabel("Amplitude");
 title("Sampled Signal in Time Domain");
 grid on;
 subplot(2, 1, 2);
-plot(f_axis, abs(FT_x), 'LineWidth', 1.5);
-xlabel("Frequency (Hz)");
-ylabel("Magnitude");
+plot(w_axis, abs(DTFT_x), 'LineWidth', 1.5);
+xlabel('Normalized angular frequency (rad/sample)');
+ylabel('Amplitude');
+xticks([-pi, -pi / 2, 0, pi / 2, pi]);
+xticklabels({'-\pi', '-\pi/2', '0', '\pi/2', '\pi'});
+xlim([-pi pi]);
 title("Frequency Spectrum of the Sampled Signal");
 grid on;
 %%%
@@ -176,7 +181,7 @@ grid on;
 % Now we define a low-pass filter with cutoff frequency of 10 Hz using
 % the filter designer tool.
 lowpass_filter = load('filters/VoiceScrambling_LP_FIR_filter.mat').Num;
-f_axis_pos = f_axis(floor(N_freq / 2) + 1:end);
+w_axis_pos = w_axis(floor(N_freq / 2) + 1:end);
 FT_lowpass_filter = fftshift(fft(lowpass_filter, N_freq));
 FT_lowpass_filter = FT_lowpass_filter(floor(N_freq / 2) + 1:end);
 figure('Name', 'Low-Pass Filter');
@@ -187,16 +192,23 @@ ylabel("Amplitude");
 title("Impulse Response of the Low-Pass Filter");
 grid on;
 subplot(3, 1, 2);
-plot(f_axis_pos, 20 * log10(abs(FT_lowpass_filter)), 'LineWidth', 1.5);
-xlabel("Frequency (Hz)");
-ylabel("Magnitude");
+plot(w_axis_pos, 20 * log10(abs(FT_lowpass_filter)), 'LineWidth', 1.5);
+xlabel('Normalized angular frequency (rad/sample)');
+ylabel('Amplitude');
 title("Frequency Response of the Low-Pass Filter");
 ylim([-70 10]);
+xlim([0 pi]);
+xticks([0, pi / 2, pi]);
+xticklabels({'0', '\pi/2', '\pi'});
 grid on;
 subplot(3, 1, 3);
-plot(f_axis_pos, unwrap(angle(FT_lowpass_filter)), 'LineWidth', 1.5);
+plot(w_axis_pos, unwrap(angle(FT_lowpass_filter)), 'LineWidth', 1.5);
 xlabel("Frequency (Hz)");
 ylabel("Phase (rad)");
+xlim([0 pi]);
+xticks([0, pi / 2, pi]);
+xticklabels({'0', '\pi/2', '\pi'});
+
 title("Phase Response of the Low-Pass Filter");
 grid on;
 %%%
@@ -212,9 +224,12 @@ ylabel("Amplitude");
 title("Low-Passed Signal in Time Domain");
 grid on;
 subplot(2, 1, 2);
-plot(f_axis, abs(FT_x_lowpassed), 'LineWidth', 1.5);
-xlabel("Frequency (Hz)");
-ylabel("Magnitude");
+plot(w_axis, abs(FT_x_lowpassed), 'LineWidth', 1.5);
+xlabel('Normalized angular frequency (rad/sample)');
+ylabel('Amplitude');
+xticks([-pi, -pi / 2, 0, pi / 2, pi]);
+xticklabels({'-\pi', '-\pi/2', '0', '\pi/2', '\pi'});
+xlim([-pi pi]);
 title("Frequency Spectrum of the Low-Passed Signal");
 grid on;
 %%%
@@ -230,9 +245,12 @@ ylabel("Amplitude");
 title("Carrier Signal in Time Domain");
 grid on;
 subplot(2, 1, 2);
-plot(f_axis, abs(FT_s), 'LineWidth', 1.5);
-xlabel("Frequency (Hz)");
-ylabel("Magnitude");
+plot(w_axis, abs(FT_s), 'LineWidth', 1.5);
+xlabel('Normalized angular frequency (rad/sample)');
+ylabel('Amplitude');
+xticks([-pi, -pi / 2, 0, pi / 2, pi]);
+xticklabels({'-\pi', '-\pi/2', '0', '\pi/2', '\pi'});
+xlim([-pi pi]);
 title("Frequency Spectrum of the Carrier Signal");
 grid on;
 %%%
@@ -247,9 +265,12 @@ ylabel("Amplitude");
 title("Scrambled Signal in Time Domain");
 grid on;
 subplot(2, 1, 2);
-plot(f_axis, abs(FT_y), 'LineWidth', 1.5);
-xlabel("Frequency (Hz)");
-ylabel("Magnitude");
+plot(w_axis, abs(FT_y), 'LineWidth', 1.5);
+xlabel('Normalized angular frequency (rad/sample)');
+ylabel('Amplitude');
+xticks([-pi, -pi / 2, 0, pi / 2, pi]);
+xticklabels({'-\pi', '-\pi/2', '0', '\pi/2', '\pi'});
+xlim([-pi pi]);
 title("Frequency Spectrum of the Scrambled Signal");
 grid on;
 %%%
@@ -265,9 +286,12 @@ ylabel("Amplitude");
 title("Low-Passed Scrambled Signal in Time Domain");
 grid on;
 subplot(2, 1, 2);
-plot(f_axis, abs(FT_y_lowpassed), 'LineWidth', 1.5);
-xlabel("Frequency (Hz)");
-ylabel("Magnitude");
+plot(w_axis, abs(FT_y_lowpassed), 'LineWidth', 1.5);
+xlabel('Normalized angular frequency (rad/sample)');
+ylabel('Amplitude');
+xticks([-pi, -pi / 2, 0, pi / 2, pi]);
+xticklabels({'-\pi', '-\pi/2', '0', '\pi/2', '\pi'});
+xlim([-pi pi]);
 title("Frequency Spectrum of the Low-Passed Scrambled Signal");
 grid on;
 %%%
@@ -301,9 +325,12 @@ ylabel("Amplitude");
 title("Low-Passed Noisy Scrambled Signal in Time Domain");
 grid on;
 subplot(2, 1, 2);
-plot(f_axis, abs(FT_y_noisy_lowpassed), 'LineWidth', 1.5);
-xlabel("Frequency (Hz)");
-ylabel("Magnitude");
+plot(w_axis, abs(FT_y_noisy_lowpassed), 'LineWidth', 1.5);
+xlabel('Normalized angular frequency (rad/sample)');
+ylabel('Amplitude');
+xticks([-pi, -pi / 2, 0, pi / 2, pi]);
+xticklabels({'-\pi', '-\pi/2', '0', '\pi/2', '\pi'});
+xlim([-pi pi]);
 title("Frequency Spectrum of the Low-Passed Noisy Scrambled Signal");
 grid on;
 %%%
@@ -317,9 +344,12 @@ ylabel("Amplitude");
 title("Descrambled Signal in Time Domain");
 grid on;
 subplot(2, 1, 2);
-plot(f_axis, abs(FT_y_2), 'LineWidth', 1.5);
-xlabel("Frequency (Hz)");
-ylabel("Magnitude");
+plot(w_axis, abs(FT_y_2), 'LineWidth', 1.5);
+xlabel('Normalized angular frequency (rad/sample)');
+ylabel('Amplitude');
+xticks([-pi, -pi / 2, 0, pi / 2, pi]);
+xticklabels({'-\pi', '-\pi/2', '0', '\pi/2', '\pi'});
+xlim([-pi pi]);
 title("Frequency Spectrum of the Descrambled Signal");
 grid on;
 %%%
