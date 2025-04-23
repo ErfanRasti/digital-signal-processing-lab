@@ -9,24 +9,24 @@ clc;
 % higher than $B$ Hz, it is completely determined by giving its ordinates at a
 % series of points spaced $1/(2B)$ seconds apart.
 %
-% *Proof:* Let $x(t)$ be a bandlimited function with Fourier transform $X(f)$.
+% *Proof:* Let $x(t)$ be a band-limited function with Fourier transform $X(f)$.
 % Then $X(f)$ is zero for $|f| > B$. $x_s(t) = x(t) \cdot s(t)$ is the sampled
 % version of $x(t)$, where $s(t)$ is a train of impulses spaced $T_s$ seconds
 % apart. The Fourier transform of $x_s(t)$ is $X_s(f) = X(f) * S(f)$, where $S(f)$
 % is the Fourier transform of $s(t)$. $S(f)$ is a train of impulses spaced
-% $1/T_s Hz$ apart. As log as the $X(f)$ is zero for $|f| > B$, $X_s(f)$ is
-% a train of $X(f)$ spaced $1/T_s$ Hz apart. If $T_s = 1/(2B)$, then the $X(f)$s in
-% $X_s(f)$ are spaced $1/(2B)$ Hz apart, and $X_s(f)$ contains all the information
+% $1/T_s Hz$ apart. As long as the $X(f)$ is zero for $|f| > B$, $X_s(f)$ is
+% a train of $X(f)$ spaced $1/T_s$ Hz apart. If $T_s = 1/(2B)$, then the $X(f)$ s in
+% $X_s(f)$ are spaced $fs (Hz)$  apart, and $X_s(f)$ contains all the information
 % in $X(f)$. Therefore, $x_s(t)$ contains all the information in $x(t)$.
 %
-% *Aliasing:* If $x(t)$ is not bandlimited, then $X(f)$ is not zero for $|f| > B$ or
+% *Aliasing:* If $x(t)$ is not band-limited, then $X(f)$ is not zero for $|f| > B$ or
 % $T_s > 1/(2B)$. In this case, $X_s(f)$ is not a train of $X(f)$ spaced $1/T_s$
 % Hz apart. The $X(f)s$ in $X_s(f)$ overlap, and $X_s(f)$ does not contain all
 % the information in $X(f)$. Therefore, $x_s(t)$ does not contain all the
 % information in $x(t)$. This is called aliasing.
 %
-% *Reconstruction:* If $x(t)$ is bandlimited, then $x(t)$ can be reconstructed
-% from $x_s(t)$ by passing $x_s(t)$ through a lowpass filter with cutoff
+% *Reconstruction:* If $x(t)$ is band-limited, then $x(t)$ can be reconstructed
+% from $x_s(t)$ by passing $x_s(t)$ through a low-pass filter with cutoff
 % frequency $B$ Hz. This is called reconstruction.
 %
 % The filter only filters one period of the sampled signal in the frequency
@@ -50,13 +50,13 @@ clc;
 % $1/f_s = 1$ seconds apart.
 
 fs = 100;
-t = 0:1/fs:2;
+t = 0:1 / fs:2;
 f0 = 0.5;
-x_original = cos(2*pi*f0*t);
+x_original = cos(2 * pi * f0 * t);
 
 fs_low = 0.5;
-t_sampled = 0:1/fs_low:2;
-x_sampled = cos(2*pi*f0*t_sampled);
+t_sampled = 0:1 / fs_low:2;
+x_sampled = cos(2 * pi * f0 * t_sampled);
 
 figure('Name', 'Aliasing in the time domain');
 plot(t, x_original, 'LineWidth', 2);
@@ -65,7 +65,7 @@ ylabel('Amplitude');
 title('Original signal');
 grid on;
 hold on;
-plot(t_sampled, x_sampled, 'o','LineWidth', 2);
+plot(t_sampled, x_sampled, 'o', 'LineWidth', 2);
 legend('Original signal', 'Sampled signal');
 %%%
 % To reconstruct the signal with higher resolution, we need to add more samples.
@@ -103,12 +103,12 @@ Ts = 1/500;
 
 t = -1:Ts:1;
 f0 = 20;
-x = cos(2*pi*f0*t);
+x = cos(2 * pi * f0 * t);
 N = length(x);
 sampling_frq = 100;
 
 f_axis = linspace(-fs / 2, fs / 2, N);
-FT_x = fftshift(fft(x))/fs;
+FT_x = fftshift(fft(x)) / fs;
 sampled_signal = zeros(1, N);
 sampled_signal(1:fs / sampling_frq:end) = x(1:fs / sampling_frq:end);
 FT_sampled_signal = 1 / sampling_frq * fftshift(fft(sampled_signal));
